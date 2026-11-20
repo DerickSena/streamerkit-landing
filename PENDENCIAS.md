@@ -63,7 +63,7 @@ O dono respondeu uma vez. O formulário saiu do ar no mesmo dia.
 O dono mandou vídeos e o Dérick apontou a tradução ao vivo como a maior inovação. Entrou a seção "Você fala. O chat lê na língua dele.", com um trecho de live real do JonVlogs e um painel de teste (idioma da audiência, posição e tamanho da legenda).
 - [ ] As falas do vídeo vieram de transcrição automática e a tradução foi feita por IA. Alguém precisa ouvir o clipe com som e conferir, em português principalmente.
 - [ ] A legenda da página é desenhada pelo site (não é a saída do StreamerKit); há uma linha avisando isso embaixo do vídeo. Confirmar com o dono se está bom assim.
-- [ ] A camisa do JonVlogs mostra Superbet (casa de aposta) e Cimed. Confirmar se pode aparecer.
+- [x] Superbet (casa de aposta) e Cimed (nos dois ombros) foram tiradas da camisa do JonVlogs no vídeo, quadro a quadro (2026-11-20). BDJ, Kick e o escudo continuam aparecendo.
 - [ ] Idiomas da audiência: o painel real mostra a lista de idiomas falados (português, inglês, espanhol, francês, árabe). A lista de idiomas de legenda não foi confirmada; a página oferece português, inglês, espanhol, francês e o idioma da própria página.
 - [ ] O clipe é um reel de 720 px com upscale por IA para 1080p. Se o dono tiver o arquivo original da live, a qualidade melhora de verdade.
 - Depois do simulador de bonding entrou a tabela "Conexões", interativa e ligada ao simulador (o vídeo gravado do painel saiu, o Dérick não gostou).

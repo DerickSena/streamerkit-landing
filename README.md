@@ -41,6 +41,7 @@ Dez páginas: `/` (português), `/en/`, `/es/` (Espanha), `/es-419/` (América L
 - Vídeos: `public/media/` (créditos em `CREDITOS-MIDIA.md`).
 - Tradução ao vivo: `src/lib/captions.ts` tem as falas e os tempos do vídeo, em cada idioma da legenda.
 - Clipes de vídeo: `ferramentas/upscale_clipes.py` recorta o clipe e faz o upscale com Real-ESRGAN.
+- Logos na camisa (precisa de Python com `opencv-python`): `ferramentas/tira_logo_camisa.py` tira o letreiro vermelho do peito; depois `ferramentas/tira_texto_ombro_zona.py` (usa o `tira_texto_ombro.py`) tira o letreiro escuro dos dois ombros, rastreando a posição pelo escudo amarelo.
 - Lanterna: `ferramentas/lanterna_bake.py` gera o vídeo com e sem flash (precisa de Python com `opencv-python` e `rembg`).
 
 ## O que falta confirmar
