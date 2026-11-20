@@ -12,7 +12,7 @@ Com isso, entra uma faixa de prova logo abaixo do topo e um bloco antes dos plan
 - [ ] "Cobrança em real: cartão ou Pix Automático" (tirado da nota de rodapé dos planos do site atual).
 - [ ] "Também conhecido como Servidor do Marco" no rodapé (está nos dados do site atual; confirmar se quer mostrar).
 - [ ] Rótulos dos planos: "Para começar" (Básico) e "PC desligado" (Avançado).
-- [ ] Gírias do chat da simulação ("caiu?", "F", "travou", "lagou aqui"): validar com quem faz live.
+- [x] Gírias do chat da simulação: o Dérick conferiu e disse que parecem reais (2026-11-19).
 - [ ] Rótulo "Só aqui" no controle remoto e no canvas: vem da frase do site atual ("o que você só encontra aqui"). Concorrentes têm controle remoto e overlay parecidos (Moblin, IRLhosting), então confirmar se a frase se sustenta ou trocar por "Diferencial".
 - [ ] "Seus moderadores podem editar junto com você" (canvas): também vem do site atual.
 - [ ] Existe teste grátis, garantia ou reembolso? Se existir, vira a frase embaixo do botão (reduz o risco de quem está em dúvida).
@@ -46,7 +46,7 @@ Português, inglês, espanhol (Espanha e América Latina), alemão, francês, it
 - [ ] Política de Privacidade, Termos e Suporte apontam para as páginas em português em todos os idiomas.
 - [ ] A imagem de compartilhamento é a mesma (em português) em todos os idiomas.
 - [ ] Japonês, coreano e chinês usam a fonte do aparelho (a fonte da marca não tem esses caracteres), então o título muda um pouco de aparelho para aparelho.
-- [ ] Idioma automático: só age na página raiz, na primeira visita, pelo idioma do navegador. Idioma sem tradução cai no inglês. A escolha do seletor fica guardada e vence. Robôs do Google não são redirecionados.
+- [x] Idioma automático (decidido pelo Dérick em 2026-11-19: fica pelo idioma do navegador): só age na página raiz, na primeira visita. Idioma sem tradução cai no inglês. A escolha do seletor fica guardada e vence. Robôs do Google não são redirecionados.
 
 ## Formulário para o dono responder (2026-11-19)
 - Página: `/briefing/` (arquivo `public/briefing/index.html`, HTML simples, fora do React). Não aparece no menu nem no Google.
