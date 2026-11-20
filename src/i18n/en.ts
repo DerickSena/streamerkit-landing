@@ -177,6 +177,41 @@ export const en: Dict = {
         text: 'The bitrate comes down to fit the signal that is left, but the stream stays live and SRT resends lost packets.',
       },
     },
+    real: {
+      label: 'The real StreamerKit dashboard',
+      text: 'Wi-Fi and 5G active at the same time. The dashboard shows how much of the stream goes through each connection.',
+    },
+  },
+
+  translate: {
+    kicker: 'Only here · Live translation',
+    title: ['You talk. Chat reads it', 'in their own language.'],
+    lede: 'You speak your language and the captions show up on your stream, translated for whoever is watching. Stream from Tokyo to Brazil, or from Brazil to the world.',
+    videoLabel: 'JonVlogs talking in English on a live stream, inside a motorhome',
+    audio: 'Audio: English',
+    soundOn: 'Hear the original',
+    soundOff: 'Mute',
+    capOff: 'Captions off',
+    capIn: 'Captions: {l}',
+    note: 'Clip from a real JonVlogs stream. Here the captions are drawn by this page so you can try it. On your stream, StreamerKit generates them.',
+    tryIt: 'Try it here',
+    tryText: 'Change the audience language and watch the video captions switch.',
+    after: 'In the StreamerKit dashboard you also pick the languages you speak on stream (Portuguese, English, Spanish, French or Arabic). The fewer languages you pick, the more accurate the translation.',
+    langs: {
+      pt: 'Portuguese (BR)',
+      en: 'English (US)',
+      es: 'Spanish',
+      fr: 'French',
+    },
+    panel: {
+      title: 'Live Translation',
+      enable: 'Enable translation',
+      audience: 'Audience language (captions)',
+      position: 'Position',
+      bottom: 'Bottom',
+      top: 'Top',
+      size: 'Font size',
+    },
   },
 
   remote: {

@@ -175,6 +175,41 @@ export const it: Dict = {
         text: 'Il bitrate scende per stare nel segnale che resta, ma la live rimane in onda e SRT rimanda i pacchetti persi.',
       },
     },
+    real: {
+      label: 'Il vero pannello di StreamerKit',
+      text: 'Wi-Fi e 5G attivi nello stesso momento. Il pannello mostra quanta parte della live passa da ogni connessione.',
+    },
+  },
+
+  translate: {
+    kicker: 'Solo qui · Traduzione live',
+    title: ['Tu parli. La chat legge', 'nella sua lingua.'],
+    lede: 'Parli nella tua lingua e i sottotitoli compaiono sullo schermo della live, tradotti per chi guarda. Puoi trasmettere da Tokyo al Brasile, o dal Brasile al mondo.',
+    videoLabel: 'JonVlogs che parla in inglese durante una live, dentro un camper',
+    audio: 'Audio: inglese',
+    soundOn: "Ascolta l'originale",
+    soundOff: 'Togli il suono',
+    capOff: 'Sottotitoli disattivati',
+    capIn: 'Sottotitoli: {l}',
+    note: 'Spezzone di una vera live di JonVlogs. Qui i sottotitoli li disegna la pagina, così puoi provare. In live, li genera StreamerKit.',
+    tryIt: 'Prova qui',
+    tryText: 'Cambia la lingua del pubblico e guarda i sottotitoli del video cambiare.',
+    after: 'Nel pannello di StreamerKit scegli anche le lingue che parli in live (portoghese, inglese, spagnolo, francese o arabo). Meno lingue selezioni, più precisa è la traduzione.',
+    langs: {
+      pt: 'Portoghese (BR)',
+      en: 'Inglese (USA)',
+      es: 'Spagnolo',
+      fr: 'Francese',
+    },
+    panel: {
+      title: 'Traduzione live',
+      enable: 'Attiva traduzione',
+      audience: 'Lingua del pubblico (sottotitoli)',
+      position: 'Posizione',
+      bottom: 'In basso',
+      top: 'In alto',
+      size: 'Dimensione carattere',
+    },
   },
 
   remote: {

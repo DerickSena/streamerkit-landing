@@ -177,6 +177,41 @@ export const es419: Dict = {
         text: 'El bitrate baja para caber en la señal que queda, pero el stream sigue al aire y SRT reenvía los paquetes perdidos.',
       },
     },
+    real: {
+      label: 'Panel real de StreamerKit',
+      text: 'Wi-Fi y 5G activos al mismo tiempo. El panel muestra cuánto de la transmisión pasa por cada conexión.',
+    },
+  },
+
+  translate: {
+    kicker: 'Solo aquí · Traducción en vivo',
+    title: ['Tú hablas. El chat lee', 'en su propio idioma.'],
+    lede: 'Hablas en tu idioma y el subtítulo aparece en la pantalla de tu transmisión, traducido para quien te ve. Puedes transmitir de Tokio a Brasil, o de Brasil para el mundo.',
+    videoLabel: 'JonVlogs hablando en inglés en una transmisión en vivo, dentro de una casa rodante',
+    audio: 'Audio: inglés',
+    soundOn: 'Escuchar el original',
+    soundOff: 'Quitar el sonido',
+    capOff: 'Subtítulos desactivados',
+    capIn: 'Subtítulos: {l}',
+    note: 'Fragmento de una transmisión real de JonVlogs. Aquí el subtítulo lo dibuja la página, para que lo pruebes. En tu transmisión, lo genera StreamerKit.',
+    tryIt: 'Pruébalo aquí',
+    tryText: 'Cambia el idioma de la audiencia y mira cómo cambia el subtítulo del video.',
+    after: 'En el panel de StreamerKit también marcas los idiomas que hablas en la transmisión (portugués, inglés, español, francés o árabe). Mientras menos idiomas marques, más precisa es la traducción.',
+    langs: {
+      pt: 'Portugués (BR)',
+      en: 'Inglés (EE. UU.)',
+      es: 'Español',
+      fr: 'Francés',
+    },
+    panel: {
+      title: 'Traducción en vivo',
+      enable: 'Activar traducción',
+      audience: 'Idioma de la audiencia (subtítulos)',
+      position: 'Posición',
+      bottom: 'Inferior',
+      top: 'Superior',
+      size: 'Tamaño de fuente',
+    },
   },
 
   remote: {

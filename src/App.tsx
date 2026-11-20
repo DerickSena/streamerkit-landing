@@ -5,6 +5,7 @@ import { Hero } from './sections/Hero'
 import { Proof } from './sections/Proof'
 import { Pains } from './sections/Pains'
 import { Bonding } from './sections/Bonding'
+import { BondingReal, Translate } from './sections/Translate'
 import { Remote } from './sections/Remote'
 import { CanvasDemo } from './sections/CanvasDemo'
 import { Bento } from './sections/Bento'
@@ -26,6 +27,8 @@ export default function App({ locale, dict }: { locale: Locale; dict: Dict }) {
           <Proof />
           <Pains />
           <Bonding />
+          <BondingReal />
+          <Translate />
           <Remote />
           <CanvasDemo />
           <Bento />

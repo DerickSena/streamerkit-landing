@@ -175,6 +175,41 @@ export const zh: Dict = {
         text: '码率会降到剩下信号能承受的水平，但直播依然在线，SRT 会重传丢失的数据包。',
       },
     },
+    real: {
+      label: 'StreamerKit 真实面板',
+      text: 'Wi-Fi 和 5G 同时在线。面板会显示每条连接分担了多少直播流量。',
+    },
+  },
+
+  translate: {
+    kicker: '独家功能 · 实时翻译',
+    title: ['你用母语说，', '观众用自己的语言看。'],
+    lede: '你用自己的语言说话，字幕就会出现在直播画面上，翻译成观众的语言。可以从东京直播到巴西，也可以从巴西直播到全世界。',
+    videoLabel: 'JonVlogs 在房车里用英语直播',
+    audio: '音频：英语',
+    soundOn: '听原声',
+    soundOff: '静音',
+    capOff: '字幕已关闭',
+    capIn: '字幕：{l}',
+    note: '这是 JonVlogs 真实直播的片段。为了让你体验，这里的字幕由页面绘制。正式直播时，字幕由 StreamerKit 生成。',
+    tryIt: '在这里试试',
+    tryText: '切换观众语言，看看视频字幕怎么变。',
+    after: '在 StreamerKit 面板里，你还可以勾选直播时说的语言（葡萄牙语、英语、西班牙语、法语或阿拉伯语）。勾选的语言越少，翻译越准确。',
+    langs: {
+      pt: '葡萄牙语（巴西）',
+      en: '英语（美国）',
+      es: '西班牙语',
+      fr: '法语',
+    },
+    panel: {
+      title: '实时翻译',
+      enable: '开启翻译',
+      audience: '观众语言（字幕）',
+      position: '位置',
+      bottom: '底部',
+      top: '顶部',
+      size: '字体大小',
+    },
   },
 
   remote: {

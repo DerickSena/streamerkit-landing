@@ -175,6 +175,41 @@ export const de: Dict = {
         text: 'Die Bitrate passt sich an das verbleibende Signal an, aber der Stream bleibt live und SRT schickt verlorene Pakete neu.',
       },
     },
+    real: {
+      label: 'Das echte StreamerKit-Dashboard',
+      text: 'Wi-Fi und 5G gleichzeitig aktiv. Das Dashboard zeigt, wie viel vom Stream über jede Verbindung läuft.',
+    },
+  },
+
+  translate: {
+    kicker: 'Nur hier · Live-Übersetzung',
+    title: ['Du redest. Der Chat liest', 'in seiner Sprache.'],
+    lede: 'Du sprichst deine Sprache und die Untertitel erscheinen direkt im Stream, übersetzt für alle, die zuschauen. So streamst du von Tokio nach Brasilien oder von Brasilien in die ganze Welt.',
+    videoLabel: 'JonVlogs spricht in einem Livestream Englisch, in einem Wohnmobil',
+    audio: 'Audio: Englisch',
+    soundOn: 'Original anhören',
+    soundOff: 'Ton aus',
+    capOff: 'Untertitel aus',
+    capIn: 'Untertitel: {l}',
+    note: 'Ausschnitt aus einem echten Stream von JonVlogs. Hier zeichnet die Seite die Untertitel, damit du es testen kannst. Im Stream erzeugt sie StreamerKit.',
+    tryIt: 'Teste es hier',
+    tryText: 'Ändere die Zuschauersprache und sieh zu, wie die Untertitel im Video wechseln.',
+    after: 'Im StreamerKit-Dashboard wählst du auch die Sprachen aus, die du im Stream sprichst (Portugiesisch, Englisch, Spanisch, Französisch oder Arabisch). Je weniger Sprachen du auswählst, desto genauer die Übersetzung.',
+    langs: {
+      pt: 'Portugiesisch (BR)',
+      en: 'Englisch (USA)',
+      es: 'Spanisch',
+      fr: 'Französisch',
+    },
+    panel: {
+      title: 'Live-Übersetzung',
+      enable: 'Übersetzung aktivieren',
+      audience: 'Zuschauersprache (Untertitel)',
+      position: 'Position',
+      bottom: 'Unten',
+      top: 'Oben',
+      size: 'Schriftgröße',
+    },
   },
 
   remote: {

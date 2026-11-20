@@ -62,6 +62,17 @@ export const es: Dict = {
         : item,
     ),
   },
+  bonding: {
+    ...base.bonding,
+    real: { ...base.bonding.real, text: 'Wi-Fi y 5G activos a la vez. El panel muestra cuánto del directo pasa por cada conexión.' },
+  },
+  translate: {
+    ...base.translate,
+    lede: 'Hablas en tu idioma y el subtítulo sale en la pantalla de tu directo, traducido para quien te ve. Puedes emitir de Tokio a Brasil, o de Brasil al mundo.',
+    videoLabel: 'JonVlogs hablando en inglés en un directo, dentro de una autocaravana',
+    note: 'Fragmento de un directo real de JonVlogs. Aquí el subtítulo lo dibuja la página, para que lo pruebes. En tu directo, lo genera StreamerKit.',
+    after: 'En el panel de StreamerKit también marcas los idiomas que hablas en directo (portugués, inglés, español, francés o árabe). Cuantos menos idiomas marques, más precisa será la traducción.',
+  },
   proof: {
     title: 'Ya emiten con StreamerKit',
     stats: [

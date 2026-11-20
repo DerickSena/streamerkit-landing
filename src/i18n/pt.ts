@@ -180,6 +180,47 @@ export const pt = {
         text: 'O bitrate desce para caber no sinal que sobrou, mas a live segue no ar e o SRT reenvia os pacotes perdidos.',
       },
     },
+    // faixa logo depois do simulador: vídeo da tabela de conexões do painel real
+    real: {
+      label: 'Painel real do StreamerKit',
+      text: 'Wi-Fi e 5G ativos ao mesmo tempo. O painel mostra quanto da live passa por cada conexão.',
+    },
+  },
+
+  // Tradução ao vivo: vídeo com legenda desenhada pela página e painel que troca idioma, posição e tamanho.
+  translate: {
+    kicker: 'Só aqui · Tradução ao vivo',
+    // título em 2 pedaços: normal e destaque em vermelho
+    title: ['Você fala. O chat lê', 'na língua dele.'],
+    lede: 'Você fala no seu idioma e a legenda sai na tela da live, traduzida para quem assiste. Dá para transmitir de Tóquio para o Brasil, ou do Brasil para o mundo.',
+    videoLabel: 'JonVlogs falando em inglês numa live, dentro de um motorhome',
+    audio: 'Áudio: inglês',
+    soundOn: 'Ouvir o original',
+    soundOff: 'Tirar o som',
+    capOff: 'Legenda desligada',
+    // selo embaixo do vídeo; {l} vira o nome do idioma da legenda
+    capIn: 'Legenda: {l}',
+    note: 'Trecho de live real do JonVlogs. Aqui a legenda é desenhada pela página, para você testar. Na live, quem gera é o StreamerKit.',
+    tryIt: 'Teste aqui',
+    tryText: 'Mude o idioma da audiência e veja a legenda do vídeo trocar.',
+    after: 'No painel do StreamerKit você também marca os idiomas que fala na live (português, inglês, espanhol, francês ou árabe). Quanto menos idiomas marcados, mais precisa a tradução.',
+    // botões do idioma da audiência; nas páginas de, it, ja, ko e zh entra antes o idioma da própria página
+    langs: {
+      pt: 'Português (BR)',
+      en: 'Inglês (EUA)',
+      es: 'Espanhol',
+      fr: 'Francês',
+    },
+    // cópia da tela "Tradução ao Vivo" do painel real: rótulos curtos de interface
+    panel: {
+      title: 'Tradução ao Vivo',
+      enable: 'Ativar tradução',
+      audience: 'Idioma da audiência (legenda)',
+      position: 'Posição',
+      bottom: 'Inferior',
+      top: 'Superior',
+      size: 'Tamanho da fonte',
+    },
   },
 
   remote: {

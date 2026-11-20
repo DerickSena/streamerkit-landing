@@ -561,6 +561,155 @@
   line-height: 1.2;
   opacity: 0.66;
 }
+
+/* Tradução ao vivo: legenda por cima do vídeo e cópia do painel real. */
+.cap-stage {
+  container-type: inline-size;
+}
+.cap {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 92%;
+  /* depois das latinas, fontes do sistema com japonês, coreano e chinês */
+  font-family:
+    "Noto Sans", "Segoe UI", system-ui, -apple-system, Roboto, Arial, "Noto Sans JP", "Noto Sans KR", "Noto Sans SC",
+    "Hiragino Sans", "Yu Gothic", "Malgun Gothic", "Apple SD Gothic Neo", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-weight: 600;
+  /* o número do painel (16 a 48) vale para um vídeo de 1280 px de largura */
+  font-size: max(10px, calc(var(--cap-fs, 24) * 100cqw / 1280));
+  line-height: 1.62;
+  color: #fff;
+  pointer-events: none;
+}
+@container (max-width: 520px) {
+  .cap {
+    font-size: max(10px, calc(var(--cap-fs, 24) * 100cqw / 720));
+  }
+}
+.cap[data-pos="bottom"] {
+  bottom: 6%;
+}
+.cap[data-pos="top"] {
+  top: 6%;
+}
+.cap span {
+  background: #000;
+  border-radius: 0.3em;
+  padding: 0.14em 0.42em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.tl-panel {
+  --tl: #e5525c;
+  background: #211c1d;
+  border-radius: 1.1rem;
+  padding: 1.5rem;
+  box-shadow:
+    inset 0 0 0 1px var(--color-dash-line),
+    0 40px 80px -40px rgb(0 0 0 / 0.9);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+.tl-panel fieldset {
+  border: 0;
+  padding: 0;
+  margin-inline: 0;
+  min-width: 0;
+  transition: opacity 0.25s ease;
+}
+.tl-panel fieldset:disabled {
+  opacity: 0.4;
+}
+.tl-panel .switch {
+  width: 2.5rem;
+  height: 1.4rem;
+}
+.tl-panel .switch::after {
+  width: 1rem;
+  height: 1rem;
+  background: var(--tl);
+}
+.tl-panel [aria-checked="true"] > .switch {
+  background: rgb(229 82 92 / 0.45);
+}
+.tl-panel [aria-checked="true"] > .switch::after {
+  transform: translateX(1.1rem);
+}
+.tl-label {
+  font-size: 0.8125rem;
+  color: #c9bfbd;
+}
+.tl-chip {
+  min-height: 2.25rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--tl);
+  box-shadow: inset 0 0 0 1px var(--tl);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.tl-chip[aria-pressed="true"] {
+  background: var(--tl);
+  color: #2a1114;
+}
+.tl-select {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.5rem 2.25rem 0.5rem 0.85rem;
+  border-radius: 0.5rem;
+  background-color: #1b1718;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23f2edec'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  box-shadow: inset 0 0 0 1px #4a4041;
+  color: #f2edec;
+  font-size: 0.9375rem;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+.tl-select option {
+  background: #1b1718;
+  color: #f2edec;
+}
+.tl-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+.tl-range::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--tl) var(--fill, 0%), rgb(229 82 92 / 0.3) var(--fill, 0%));
+}
+.tl-range::-moz-range-track {
+  height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--tl) var(--fill, 0%), rgb(229 82 92 / 0.3) var(--fill, 0%));
+}
+.tl-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  margin-top: -0.4rem;
+  border-radius: 99px;
+  background: var(--tl);
+}
+.tl-range::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border: 0;
+  border-radius: 99px;
+  background: var(--tl);
+}
 .seg {
   display: grid;
   grid-auto-flow: column;

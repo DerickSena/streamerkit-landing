@@ -176,6 +176,41 @@ export const fr: Dict = {
         text: "Le bitrate baisse pour coller au signal restant, mais le live reste en ligne et le SRT renvoie les paquets perdus.",
       },
     },
+    real: {
+      label: 'Le vrai panneau StreamerKit',
+      text: 'Wi-Fi et 5G actifs en même temps. Le panneau montre quelle part du live passe par chaque connexion.',
+    },
+  },
+
+  translate: {
+    kicker: 'Exclusif · Traduction en direct',
+    title: ['Tu parles. Le tchat lit', 'dans sa langue.'],
+    lede: "Tu parles dans ta langue et les sous-titres s'affichent sur ton live, traduits pour ceux qui regardent. Tu peux streamer de Tokyo vers le Brésil, ou du Brésil vers le monde entier.",
+    videoLabel: 'JonVlogs parle anglais en live, dans un camping-car',
+    audio: 'Audio : anglais',
+    soundOn: "Écouter l'original",
+    soundOff: 'Couper le son',
+    capOff: 'Sous-titres désactivés',
+    capIn: 'Sous-titres : {l}',
+    note: "Extrait d'un vrai live de JonVlogs. Ici, c'est la page qui dessine les sous-titres pour que tu puisses tester. En live, c'est StreamerKit qui les génère.",
+    tryIt: 'Teste ici',
+    tryText: "Change la langue de l'audience et regarde les sous-titres de la vidéo changer.",
+    after: 'Dans le panneau StreamerKit, tu coches aussi les langues que tu parles en live (portugais, anglais, espagnol, français ou arabe). Moins tu en coches, plus la traduction est précise.',
+    langs: {
+      pt: 'Portugais (BR)',
+      en: 'Anglais (US)',
+      es: 'Espagnol',
+      fr: 'Français',
+    },
+    panel: {
+      title: 'Traduction en direct',
+      enable: 'Activer la traduction',
+      audience: "Langue de l'audience (sous-titres)",
+      position: 'Position',
+      bottom: 'Bas',
+      top: 'Haut',
+      size: 'Taille de police',
+    },
   },
 
   remote: {

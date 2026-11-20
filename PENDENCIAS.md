@@ -59,10 +59,19 @@ O dono respondeu uma vez. O formulário saiu do ar no mesmo dia.
 - Teste grátis: 7 dias.
 - Vídeos reais: vai mandar para o Dérick.
 
+## Tradução ao vivo (2026-11-20)
+O dono mandou vídeos e o Dérick apontou a tradução ao vivo como a maior inovação. Entrou a seção "Você fala. O chat lê na língua dele.", com um trecho de live real do JonVlogs e um painel de teste (idioma da audiência, posição e tamanho da legenda).
+- [ ] As falas do vídeo vieram de transcrição automática e a tradução foi feita por IA. Alguém precisa ouvir o clipe com som e conferir, em português principalmente.
+- [ ] A legenda da página é desenhada pelo site (não é a saída do StreamerKit); há uma linha avisando isso embaixo do vídeo. Confirmar com o dono se está bom assim.
+- [ ] A camisa do JonVlogs mostra Superbet (casa de aposta) e Cimed. Confirmar se pode aparecer.
+- [ ] Idiomas da audiência: o painel real mostra a lista de idiomas falados (português, inglês, espanhol, francês, árabe). A lista de idiomas de legenda não foi confirmada; a página oferece português, inglês, espanhol, francês e o idioma da própria página.
+- [ ] O clipe é um reel de 720 px com upscale por IA para 1080p. Se o dono tiver o arquivo original da live, a qualidade melhora de verdade.
+- Depois do simulador de bonding entrou a faixa "Painel real", com a tabela de conexões gravada do painel (Wi-Fi e 5G ativos).
+
 ## O que falta depois das respostas
-- [ ] Aplicar na página: faixa de prova (100 streamers, 20 mil horas), nomes, depoimentos, "7 dias grátis" embaixo do botão, tirar "Só aqui" do canvas (fica só no controle remoto).
+- [x] Aplicado na página (2026-11-19): faixa de prova (100 streamers, 20 mil horas), nomes, depoimentos, "7 dias grátis", canvas sem "Só aqui".
 - [ ] Novos nomes para os selos dos planos.
 - [ ] zanolini tem depoimento, mas não está na lista de quem pode citar: confirmar.
-- [ ] Tradução ao vivo (citada pelo JonVlogs): a página não destaca. Confirmar como funciona para virar destaque.
+- [x] Tradução ao vivo virou seção própria (2026-11-20).
 - [ ] Número de membros do Discord.
-- [ ] Vídeos reais do app e de uma live.
+- [x] Vídeos reais recebidos (2026-11-19): tela do painel e 3 clipes. Usados: clipe do JonVlogs na estrada e a tabela de conexões.

@@ -17,11 +17,12 @@ Vite + React + TypeScript + Tailwind CSS v4 + Motion. Three.js só na cena do bo
 ## Estrutura da página (ordem de conversão)
 1. **Topo (dor):** "Sua live caiu. De novo." O celular mostra a live travando, o chat reclamando e os viewers indo embora. O interruptor "StreamerKit" liga a solução e o título muda para "Sua live continua no ar".
 2. **O problema:** 4 dores, cada uma ligada ao recurso que resolve.
-3. **Bonding (3D):** o visitante derruba o 4G, o 5G ou o Wi-Fi e vê a live continuar. Com tudo caído, entra a cena de BRB.
-4. **Controle remoto:** painel do mod de verdade (lanterna, câmera, zoom, bitrate, PiP, mic, widgets) e o iPhone respondendo.
-5. **Canvas com widgets:** overlays arrastáveis.
-6. **Tudo incluído:** preview das câmeras, multistream, OBS na nuvem, permissões, ingests, H.265, PiP, apps.
-7. **Três passos, Planos (mensal e anual), Dúvidas, Chamada final, Rodapé.**
+3. **Bonding (3D):** o visitante derruba o 4G, o 5G ou o Wi-Fi e vê a live continuar. Com tudo caído, entra a cena de BRB. Logo abaixo, a faixa "Painel real" mostra o vídeo da tabela de conexões do painel do StreamerKit.
+4. **Tradução ao vivo:** trecho de live do JonVlogs com a legenda desenhada por cima e um painel (cópia da tela do produto) que troca o idioma da legenda, a posição e o tamanho da fonte.
+5. **Controle remoto:** painel do mod de verdade (lanterna, câmera, zoom, bitrate, PiP, mic, widgets) e o iPhone respondendo.
+6. **Canvas com widgets:** overlays arrastáveis.
+7. **Tudo incluído:** preview das câmeras, multistream, OBS na nuvem, permissões, ingests, H.265, PiP, apps.
+8. **Três passos, Planos (mensal e anual), Dúvidas, Chamada final, Rodapé.**
 No celular há um botão fixo "Escolher um plano" embaixo.
 
 ## Idiomas
@@ -38,6 +39,8 @@ Dez páginas: `/` (português), `/en/`, `/es/` (Espanha), `/es-419/` (América L
 - Cores e fontes: `src/index.css` (bloco `@theme`).
 - Cada seção: `src/sections/`.
 - Vídeos: `public/media/` (créditos em `CREDITOS-MIDIA.md`).
+- Tradução ao vivo: `src/lib/captions.ts` tem as falas e os tempos do vídeo, em cada idioma da legenda.
+- Clipes de vídeo: `ferramentas/upscale_clipes.py` recorta o clipe e faz o upscale com Real-ESRGAN.
 - Lanterna: `ferramentas/lanterna_bake.py` gera o vídeo com e sem flash (precisa de Python com `opencv-python` e `rembg`).
 
 ## O que falta confirmar
