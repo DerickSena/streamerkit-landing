@@ -1,0 +1,30 @@
+{
+  "name": "streamerkit-landing",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node prerender.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/saira": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.4",
+    "motion": "^14.9.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.4",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.187.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "typescript": "~7.0.2",
+    "vite": "^8.3.5"
+  }
+}

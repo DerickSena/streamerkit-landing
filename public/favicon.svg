@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_1" data-name="Camada 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 856.34 852.45">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Gradiente_sem_nome_148);
+        stroke: url(#Gradiente_sem_nome_88-2);
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 4.25px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        fill: #c01718;
+      }
+
+      .cls-2 {
+        fill: url(#Gradiente_sem_nome_203);
+        stroke: url(#Gradiente_sem_nome_88);
+      }
+
+      .cls-3 {
+        fill: url(#Gradiente_sem_nome_15);
+        stroke: #e30613;
+        stroke-width: 3.19px;
+      }
+    </style>
+    <linearGradient id="Gradiente_sem_nome_15" data-name="Gradiente sem nome 15" x1="342.87" y1="420.8" x2="565.7" y2="420.8" gradientUnits="userSpaceOnUse">
+      <stop offset=".3" stop-color="#ff0c00"/>
+      <stop offset=".54" stop-color="#ff0600"/>
+      <stop offset="1" stop-color="red"/>
+    </linearGradient>
+    <linearGradient id="Gradiente_sem_nome_203" data-name="Gradiente sem nome 203" x1="178.41" y1="300.5" x2="706.82" y2="492.82" gradientUnits="userSpaceOnUse">
+      <stop offset=".01" stop-color="#9a4141"/>
+      <stop offset=".02" stop-color="#953e3e"/>
+      <stop offset=".07" stop-color="#7c3132"/>
+      <stop offset=".13" stop-color="#6a2829"/>
+      <stop offset=".19" stop-color="#602224"/>
+      <stop offset=".26" stop-color="#5d2123"/>
+      <stop offset=".5" stop-color="#49191a"/>
+      <stop offset=".99" stop-color="#170505"/>
+      <stop offset="1" stop-color="#170505"/>
+    </linearGradient>
+    <linearGradient id="Gradiente_sem_nome_88" data-name="Gradiente sem nome 88" x1="150.76" y1="363.67" x2="717.03" y2="363.67" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8a3435"/>
+      <stop offset="1" stop-color="#4f1416"/>
+    </linearGradient>
+    <linearGradient id="Gradiente_sem_nome_148" data-name="Gradiente sem nome 148" x1="79.09" y1="215.76" x2="799.81" y2="631.87" gradientUnits="userSpaceOnUse">
+      <stop offset=".01" stop-color="#b34141"/>
+      <stop offset=".05" stop-color="#953536"/>
+      <stop offset=".1" stop-color="#7c2c2e"/>
+      <stop offset=".15" stop-color="#6a2627"/>
+      <stop offset=".2" stop-color="#602224"/>
+      <stop offset=".26" stop-color="#5d2123"/>
+      <stop offset=".5" stop-color="#49191a"/>
+      <stop offset=".99" stop-color="#170505"/>
+      <stop offset="1" stop-color="#170505"/>
+    </linearGradient>
+    <linearGradient id="Gradiente_sem_nome_88-2" data-name="Gradiente sem nome 88" x1="15.75" y1="420.61" x2="852.04" y2="420.61" xlink:href="#Gradiente_sem_nome_88"/>
+  </defs>
+  <path class="cls-4" d="M142.25,697.97h-.01s-.08-.07-.09-.09c.02.01.05.04.1.09Z"/>
+  <g>
+    <path class="cls-3" d="M551.13,395.37l-163.77-94.55c-19.77-11.42-44.49,2.85-44.49,25.69v189.11c0,22.43,24.28,36.45,43.71,25.24l164.55-95c19.43-11.22,19.43-39.26,0-50.48Z"/>
+    <path class="cls-2" d="M632.6,221.91c-53.07-53.08-123.64-82.31-198.7-82.31s-145.63,29.23-198.7,82.31c-53.07,53.07-82.31,123.63-82.31,198.7,0,54.31,15.31,106.28,43.88,150.95,11.99,18.75,38.17,21.75,53.91,6.01l1.18-1.18c11.58-11.58,13.36-29.61,4.57-43.44-20.65-32.51-32.62-71.06-32.62-112.35,0-115.85,94.25-210.1,210.1-210.1s210.1,94.24,210.1,210.1c0,41.29-11.97,79.84-32.62,112.35-8.79,13.83-7.01,31.86,4.57,43.44l1.18,1.18c15.74,15.74,41.92,12.74,53.91-6.01,28.57-44.68,43.88-96.65,43.88-150.95,0-75.07-29.24-145.63-82.31-198.7Z"/>
+    <path class="cls-1" d="M433.9,836.63c-56.15,0-110.63-11-161.94-32.71-49.54-20.95-94.03-50.95-132.23-89.14-38.19-38.2-68.19-82.68-89.14-132.23-21.7-51.31-32.71-105.8-32.71-161.94s11-110.63,32.71-161.94c20.96-49.54,50.95-94.03,89.14-132.23,38.19-38.19,82.68-68.19,132.23-89.14C323.26,15.6,377.75,4.59,433.9,4.59s110.63,11,161.94,32.71c49.54,20.96,94.03,50.95,132.23,89.14,38.19,38.19,68.19,82.68,89.14,132.23,21.7,51.31,32.71,105.8,32.71,161.94s-11,110.63-32.71,161.94c-20.95,49.54-50.95,94.03-89.14,132.23-38.2,38.19-82.68,68.19-132.23,89.14-51.31,21.7-105.8,32.71-161.94,32.71ZM433.9,75.51c-190.29,0-345.1,154.81-345.1,345.1s154.81,345.1,345.1,345.1,345.1-154.81,345.1-345.1S624.19,75.51,433.9,75.51Z"/>
+  </g>
+  <path class="cls-4" d="M142.25,697.97h-.01s-.08-.07-.09-.09c.02.01.05.04.1.09Z"/>
+</svg>
