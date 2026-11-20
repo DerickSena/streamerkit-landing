@@ -38,3 +38,4 @@ O ideal é gravar a tela do app real e uma live real do StreamerKit.
 - [ ] Imagem de compartilhamento (og:image) aponta para a do site atual. Fazer uma nova com o título "Sua live caiu. De novo."
 - [ ] Medir no ar: cliques em "Escolher um plano" por seção, e quantos ligam o interruptor do topo.
 - [ ] Rodar o Lighthouse no celular depois de publicado (meta: 90+).
+- [ ] Prévia na Vercel: o `vercel.json` manda o Google não indexar (`X-Robots-Tag: noindex`), para a prévia não competir com o site oficial. Tirar essa linha quando a página virar a oficial.
