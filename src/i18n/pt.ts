@@ -180,10 +180,16 @@ export const pt = {
         text: 'O bitrate desce para caber no sinal que sobrou, mas a live segue no ar e o SRT reenvia os pacotes perdidos.',
       },
     },
-    // faixa logo depois do simulador: vídeo da tabela de conexões do painel real
-    real: {
-      label: 'Painel real do StreamerKit',
-      text: 'Wi-Fi e 5G ativos ao mesmo tempo. O painel mostra quanto da live passa por cada conexão.',
+    // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
+    table: {
+      label: 'No painel do StreamerKit',
+      text: 'Ligue, desligue e mude a prioridade de cada conexão. O painel mostra quanto da live passa por cada uma.',
+      title: 'Conexões',
+      cols: { net: 'Rede', status: 'Status', latency: 'Latência', usage: 'Uso na transmissão', rtt: 'SRT RTT', priority: 'Prioridade', enable: 'Ativar' },
+      on: 'Ativa',
+      off: 'Desligada',
+      cell: 'Celular',
+      wifiSub: 'Rede do local',
     },
   },
 

@@ -710,6 +710,187 @@
   border-radius: 99px;
   background: var(--tl);
 }
+/* Tabela de conexões interativa (cópia da tela do painel), dentro do bonding. */
+.cx {
+  padding: 1.25rem;
+}
+.cx-table {
+  border-radius: 0.75rem;
+  background: #1b1718;
+  box-shadow: inset 0 0 0 1px var(--color-dash-line);
+  overflow: hidden;
+  font-size: 0.875rem;
+  color: #f2edec;
+}
+.cx-head,
+.cx-row {
+  display: grid;
+  grid-template-columns: minmax(10.5rem, 1.5fr) 5.75rem 5.5rem minmax(9rem, 1.4fr) 5.25rem minmax(9.5rem, 1.3fr) 3.75rem;
+  align-items: center;
+  column-gap: 1rem;
+  padding: 0.6rem 1rem;
+}
+.cx-head {
+  background: #241f20;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.cx-row {
+  min-height: 3.25rem;
+  border-top: 1px solid var(--color-dash-line);
+}
+.cx-net {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+.cx-net b {
+  font-weight: 650;
+  white-space: nowrap;
+}
+.cx-net span {
+  font-size: 0.75rem;
+  color: #a79c9a;
+  white-space: nowrap;
+}
+.cx-status {
+  font-weight: 600;
+  color: #7fd99a;
+}
+.cx-row[data-on="false"] .cx-status {
+  color: #a79c9a;
+}
+.cx-lat,
+.cx-rtt,
+.cx-use .n,
+.cx-prio span {
+  font-variant-numeric: tabular-nums;
+}
+.cx-lat[data-tone="bad"] {
+  color: #ff6b8a;
+}
+.cx-lat[data-tone="good"] {
+  color: #7fd99a;
+}
+.cx-use {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.cx-use .n {
+  width: 2.6rem;
+}
+.cx-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 99px;
+  background: rgb(111 220 151 / 0.2);
+  overflow: hidden;
+}
+.cx-bar i {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+  background: #6fdc97;
+  transition: width 0.9s var(--ease-out-expo);
+}
+.cx-prio {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.cx-prio .tl-range {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+}
+.cx-prio span {
+  flex: none;
+  width: 2.5rem;
+  text-align: right;
+  font-size: 0.8125rem;
+  color: #c9bfbd;
+}
+.cx-tog {
+  display: flex;
+  justify-content: flex-end;
+}
+.cx-tog button {
+  display: grid;
+  place-items: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+.cx-row[data-on="false"] :is(.cx-lat, .cx-use, .cx-rtt, .cx-prio) {
+  opacity: 0.35;
+}
+.cx-row[data-on="false"] .tl-range {
+  cursor: not-allowed;
+}
+@media (max-width: 899px) {
+  .cx-head,
+  .cx-status {
+    display: none;
+  }
+  .cx-row {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 0.35rem;
+    padding: 0.85rem 1rem;
+  }
+  .cx-net {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .cx-tog {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .cx-use {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    flex-wrap: wrap;
+    row-gap: 0.15rem;
+  }
+  .cx-prio {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+  .cx-lat {
+    grid-column: 1;
+    grid-row: 4;
+  }
+  .cx-rtt {
+    grid-column: 2;
+    grid-row: 4;
+    text-align: right;
+  }
+  .cx-lat,
+  .cx-rtt {
+    font-size: 0.8125rem;
+  }
+  .cx-lat::before,
+  .cx-rtt::before,
+  .cx-use::before,
+  .cx-prio::before {
+    content: attr(data-label);
+    margin-right: 0.5rem;
+    font-size: 0.75rem;
+    color: #a79c9a;
+  }
+  .cx-use::before,
+  .cx-prio::before {
+    flex-basis: 100%;
+    margin-right: 0;
+  }
+}
+@media (min-width: 640px) {
+  .cx {
+    padding: 1.5rem;
+  }
+}
 .seg {
   display: grid;
   grid-auto-flow: column;

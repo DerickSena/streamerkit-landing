@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/react'
 import { Reveal, SectionHead } from '../components/ui'
 import { LiveVideo } from '../components/LiveVideo'
@@ -158,8 +158,146 @@ export function Bonding() {
             </div>
           </div>
         </Reveal>
+
+        <Reveal delay={0.15} className="mt-4">
+          <ConnTable links={links} onToggle={toggle} />
+        </Reveal>
       </div>
     </section>
+  )
+}
+
+/** Latência e RTT de partida de cada conexão (números ilustrativos, como os do simulador). */
+const NET: Record<LinkId, { lat: number; rtt: number }> = { wifi: { lat: 64, rtt: 38 }, '5g': { lat: 31, rtt: 44 }, '4g': { lat: 48, rtt: 61 } }
+const ROWS: LinkId[] = ['wifi', '5g', '4g']
+/** Variação pequena e repetível (igual no servidor e no navegador). */
+const noise = (seed: number) => {
+  const x = Math.sin(seed * 127.1) * 43758.5453
+  return x - Math.floor(x)
+}
+
+/**
+ * Tabela "Conexões", cópia da tela do painel: liga e desliga cada conexão (o mesmo estado do simulador 3D)
+ * e muda a prioridade. O uso na transmissão se redistribui na hora; de tempos em tempos o Wi-Fi engasga
+ * e as outras conexões assumem, como acontece numa live de verdade.
+ */
+function ConnTable({ links, onToggle }: { links: Record<LinkId, boolean>; onToggle: (id: LinkId) => void }) {
+  const t = useT()
+  const c = t.bonding.table
+  const wrap = useRef<HTMLDivElement>(null)
+  const inView = useInView(wrap, { margin: '0px 0px -10% 0px' })
+  const reduce = useReducedMotion()
+  const [prio, setPrio] = useState<Record<LinkId, number>>({ '4g': 1, '5g': 1, wifi: 1 })
+  const [tick, setTick] = useState(0)
+
+  useEffect(() => {
+    if (!inView || reduce) return
+    const id = window.setInterval(() => setTick((n) => n + 1), 1600)
+    return () => window.clearInterval(id)
+  }, [inView, reduce])
+
+  const rows = useMemo(() => {
+    const choke = links.wifi && tick % 7 === 5
+    const raw = ROWS.map((id, i) => {
+      const cap = LINKS.find((l) => l.id === id)!.cap
+      const on = links[id]
+      const bad = choke && id === 'wifi'
+      const w = on ? cap * (1 + (prio[id] - 1) * 0.4) * (0.92 + noise(tick * 7 + i + 1) * 0.16) * (bad ? 0.1 : 1) : 0
+      const lat = bad ? 480 + Math.round(noise(tick + 3) * 280) : NET[id].lat + Math.round((noise(tick * 3 + i + 2) - 0.5) * 14)
+      const rtt = NET[id].rtt + Math.round((noise(tick * 5 + i + 4) - 0.5) * 10)
+      return { id, on, w, lat, rtt, share: 0 }
+    })
+    const sum = raw.reduce((acc, r) => acc + r.w, 0)
+    const active = raw.filter((r) => r.on)
+    let left = 100
+    active.forEach((r, i) => {
+      r.share = i === active.length - 1 ? left : Math.round((r.w / sum) * 100)
+      left -= r.share
+    })
+    return raw
+  }, [links, prio, tick])
+
+  const name = (id: LinkId) => (id === 'wifi' ? { main: 'Wi-Fi', sub: c.wifiSub } : { main: c.cell, sub: id === '5g' ? '5G' : '4G' })
+
+  return (
+    <div ref={wrap} className="tl-panel cx">
+      <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1.5">
+        <p className="label text-live">{c.label}</p>
+        <p className="text-[0.875rem] leading-snug text-[#a79c9a]">{c.text}</p>
+      </div>
+
+      <h3 className="mt-5 text-lg font-semibold text-[#f2edec]">{c.title}</h3>
+      <div className="cx-table mt-3" role="table" aria-label={c.title}>
+        <div className="cx-head" role="row">
+          <span role="columnheader">{c.cols.net}</span>
+          <span role="columnheader">{c.cols.status}</span>
+          <span role="columnheader">{c.cols.latency}</span>
+          <span role="columnheader">{c.cols.usage}</span>
+          <span role="columnheader">{c.cols.rtt}</span>
+          <span role="columnheader">{c.cols.priority}</span>
+          <span role="columnheader" className="text-right">
+            {c.cols.enable}
+          </span>
+        </div>
+
+        {rows.map((r) => {
+          const n = name(r.id)
+          return (
+            <div key={r.id} className="cx-row" role="row" data-on={r.on}>
+              <div role="cell" className="cx-net">
+                {r.id === 'wifi' ? (
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 flex-none" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                    <path d="M2.5 9a14 14 0 0 1 19 0M6 12.7a9 9 0 0 1 12 0M9.4 16.3a4 4 0 0 1 5.2 0" />
+                    <circle cx="12" cy="19.5" r="1" fill="currentColor" stroke="none" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 flex-none" fill="currentColor" aria-hidden="true">
+                    <path d="M21 3v18H3z" />
+                  </svg>
+                )}
+                <b>{n.main}</b>
+                <span>{n.sub}</span>
+              </div>
+              <div role="cell" className="cx-status">
+                {r.on ? c.on : c.off}
+              </div>
+              <div role="cell" className="cx-lat" data-label={c.cols.latency} data-tone={!r.on ? undefined : r.lat > 300 ? 'bad' : r.lat < 60 ? 'good' : undefined}>
+                {r.on ? `${r.lat} ms` : '-'}
+              </div>
+              <div role="cell" className="cx-use" data-label={c.cols.usage}>
+                <span className="n">{r.on ? `${r.share}%` : '-'}</span>
+                <span className="cx-bar" aria-hidden="true">
+                  <i style={{ width: `${r.share}%` }} />
+                </span>
+              </div>
+              <div role="cell" className="cx-rtt" data-label={c.cols.rtt}>
+                {r.on ? `${r.rtt} ms` : '-'}
+              </div>
+              <div role="cell" className="cx-prio" data-label={c.cols.priority}>
+                <input
+                  type="range"
+                  className="tl-range"
+                  min={1}
+                  max={10}
+                  step={1}
+                  value={prio[r.id]}
+                  disabled={!r.on}
+                  aria-label={`${c.cols.priority}: ${n.main} ${n.sub}`}
+                  onChange={(e) => setPrio((p) => ({ ...p, [r.id]: Number(e.target.value) }))}
+                  style={{ '--fill': `${((prio[r.id] - 1) / 9) * 100}%` } as CSSProperties}
+                />
+                <span>{prio[r.id]}/10</span>
+              </div>
+              <div role="cell" className="cx-tog">
+                <button type="button" role="switch" aria-checked={r.on} aria-label={`${c.cols.enable}: ${n.main} ${n.sub}`} onClick={() => onToggle(r.id)}>
+                  <span className="switch" />
+                </button>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
   )
 }
 

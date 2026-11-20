@@ -7,7 +7,6 @@ import { LOCALES, fill, useLocale, useT, type Locale } from '../i18n'
 /*
  * Tradução ao vivo: o vídeo do JonVlogs com a legenda desenhada por cima e um painel, cópia da tela
  * "Tradução ao Vivo" do produto, que troca o idioma, a posição e o tamanho da legenda.
- * BondingReal é a faixa com o vídeo da tabela de conexões do painel real, logo depois do bonding.
  */
 
 /** Páginas cujo idioma também tem legenda própria: o botão dele entra primeiro na lista. */
@@ -23,20 +22,6 @@ function startLang(locale: Locale): CapLang {
 }
 
 type Pos = 'bottom' | 'top'
-
-/** Vídeo curto do painel real, em loop, só quando está na tela. */
-function PanelClip({ src, poster, className = '' }: { src: string; poster: string; className?: string }) {
-  const ref = useRef<HTMLVideoElement>(null)
-  const inView = useInView(ref, { margin: '120px 0px' })
-  const reduce = useReducedMotion()
-  useEffect(() => {
-    const v = ref.current
-    if (!v) return
-    if (inView && !reduce) v.play().catch(() => {})
-    else v.pause()
-  }, [inView, reduce])
-  return <video ref={ref} src={src} poster={poster} muted loop playsInline preload="none" className={className} />
-}
 
 export function Translate() {
   const t = useT()
@@ -220,29 +205,5 @@ export function Translate() {
         </div>
       </div>
     </section>
-  )
-}
-
-/** Faixa logo depois do simulador de bonding: a tabela de conexões do painel real. */
-export function BondingReal() {
-  const real = useT().bonding.real
-  return (
-    <div className="shell -mt-10 pb-16 sm:-mt-14 lg:-mt-20 lg:pb-24">
-      <Reveal>
-        <div className="card p-4 sm:p-6">
-          <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2">
-            <p className="label text-live">{real.label}</p>
-            <p className="text-[0.9375rem] text-mute">{real.text}</p>
-          </div>
-          <div className="mt-4 overflow-x-auto rounded-xl border border-dash-line bg-dash">
-            <PanelClip
-              src="/media/painel-conexoes.mp4"
-              poster="/media/painel-conexoes.webp"
-              className="block aspect-[1474/214] w-full min-w-[46rem]"
-            />
-          </div>
-        </div>
-      </Reveal>
-    </div>
   )
 }

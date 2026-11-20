@@ -175,9 +175,16 @@ export const it: Dict = {
         text: 'Il bitrate scende per stare nel segnale che resta, ma la live rimane in onda e SRT rimanda i pacchetti persi.',
       },
     },
-    real: {
-      label: 'Il vero pannello di StreamerKit',
-      text: 'Wi-Fi e 5G attivi nello stesso momento. Il pannello mostra quanta parte della live passa da ogni connessione.',
+    // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
+    table: {
+      label: 'Nel pannello di StreamerKit',
+      text: 'Accendi, spegni e cambia la priorità di ogni connessione. Il pannello mostra quanta live passa da ciascuna.',
+      title: 'Connessioni',
+      cols: { net: 'Rete', status: 'Stato', latency: 'Latenza', usage: 'Uso nella trasmissione', rtt: 'SRT RTT', priority: 'Priorità', enable: 'Abilita' },
+      on: 'Attiva',
+      off: 'Spenta',
+      cell: 'Cellulare',
+      wifiSub: 'Rete del posto',
     },
   },
 

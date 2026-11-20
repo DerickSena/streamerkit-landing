@@ -17,7 +17,7 @@ Vite + React + TypeScript + Tailwind CSS v4 + Motion. Three.js só na cena do bo
 ## Estrutura da página (ordem de conversão)
 1. **Topo (dor):** "Sua live caiu. De novo." O celular mostra a live travando, o chat reclamando e os viewers indo embora. O interruptor "StreamerKit" liga a solução e o título muda para "Sua live continua no ar".
 2. **O problema:** 4 dores, cada uma ligada ao recurso que resolve.
-3. **Bonding (3D):** o visitante derruba o 4G, o 5G ou o Wi-Fi e vê a live continuar. Com tudo caído, entra a cena de BRB. Logo abaixo, a faixa "Painel real" mostra o vídeo da tabela de conexões do painel do StreamerKit.
+3. **Bonding (3D):** o visitante derruba o 4G, o 5G ou o Wi-Fi e vê a live continuar. Com tudo caído, entra a cena de BRB. Logo abaixo, a tabela "Conexões" (cópia da tela do painel) liga e desliga cada conexão, junto com o simulador, e muda a prioridade; o uso na transmissão se redistribui na hora.
 4. **Tradução ao vivo:** trecho de live do JonVlogs com a legenda desenhada por cima e um painel (cópia da tela do produto) que troca o idioma da legenda, a posição e o tamanho da fonte.
 5. **Controle remoto:** painel do mod de verdade (lanterna, câmera, zoom, bitrate, PiP, mic, widgets) e o iPhone respondendo.
 6. **Canvas com widgets:** overlays arrastáveis.

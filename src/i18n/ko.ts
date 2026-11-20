@@ -175,9 +175,16 @@ export const ko: Dict = {
         text: '남은 신호에 맞춰 비트레이트는 내려가지만 방송은 계속 라이브고, 잃어버린 패킷은 SRT가 다시 보내요.',
       },
     },
-    real: {
-      label: 'StreamerKit 실제 패널',
-      text: 'Wi-Fi와 5G를 동시에 사용 중이에요. 방송이 각 연결로 얼마나 나가는지 패널에서 보여줘요.',
+    // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
+    table: {
+      label: 'StreamerKit 패널에서는',
+      text: '연결마다 켜고 끄고 우선순위를 바꿀 수 있어요. 방송이 각 연결로 얼마나 나가는지도 패널에서 보여줘요.',
+      title: '연결',
+      cols: { net: '네트워크', status: '상태', latency: '지연 시간', usage: '방송 사용률', rtt: 'SRT RTT', priority: '우선순위', enable: '사용' },
+      on: '활성',
+      off: '꺼짐',
+      cell: '모바일',
+      wifiSub: '현장 네트워크',
     },
   },
 

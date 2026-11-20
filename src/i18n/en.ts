@@ -177,9 +177,16 @@ export const en: Dict = {
         text: 'The bitrate comes down to fit the signal that is left, but the stream stays live and SRT resends lost packets.',
       },
     },
-    real: {
-      label: 'The real StreamerKit dashboard',
-      text: 'Wi-Fi and 5G active at the same time. The dashboard shows how much of the stream goes through each connection.',
+    // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
+    table: {
+      label: 'In the StreamerKit dashboard',
+      text: 'Turn each connection on or off and change its priority. The dashboard shows how much of the stream goes through each one.',
+      title: 'Connections',
+      cols: { net: 'Network', status: 'Status', latency: 'Latency', usage: 'Share of the stream', rtt: 'SRT RTT', priority: 'Priority', enable: 'Enable' },
+      on: 'Active',
+      off: 'Off',
+      cell: 'Cellular',
+      wifiSub: 'Venue network',
     },
   },
 

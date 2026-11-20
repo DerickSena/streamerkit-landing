@@ -64,7 +64,7 @@ export const es: Dict = {
   },
   bonding: {
     ...base.bonding,
-    real: { ...base.bonding.real, text: 'Wi-Fi y 5G activos a la vez. El panel muestra cuánto del directo pasa por cada conexión.' },
+    table: { ...base.bonding.table, text: 'Enciende, apaga y cambia la prioridad de cada conexión. El panel muestra cuánto del directo pasa por cada una.', cell: 'Móvil' },
   },
   translate: {
     ...base.translate,

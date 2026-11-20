@@ -66,7 +66,8 @@ O dono mandou vídeos e o Dérick apontou a tradução ao vivo como a maior inov
 - [ ] A camisa do JonVlogs mostra Superbet (casa de aposta) e Cimed. Confirmar se pode aparecer.
 - [ ] Idiomas da audiência: o painel real mostra a lista de idiomas falados (português, inglês, espanhol, francês, árabe). A lista de idiomas de legenda não foi confirmada; a página oferece português, inglês, espanhol, francês e o idioma da própria página.
 - [ ] O clipe é um reel de 720 px com upscale por IA para 1080p. Se o dono tiver o arquivo original da live, a qualidade melhora de verdade.
-- Depois do simulador de bonding entrou a faixa "Painel real", com a tabela de conexões gravada do painel (Wi-Fi e 5G ativos).
+- Depois do simulador de bonding entrou a tabela "Conexões", interativa e ligada ao simulador (o vídeo gravado do painel saiu, o Dérick não gostou).
+- [ ] Os números da tabela (latência, RTT, divisão do uso, efeito da prioridade) são ilustrativos. Confirmar com o dono se a prioridade funciona assim (mais prioridade, mais uso).
 
 ## O que falta depois das respostas
 - [x] Aplicado na página (2026-11-19): faixa de prova (100 streamers, 20 mil horas), nomes, depoimentos, "7 dias grátis", canvas sem "Só aqui".

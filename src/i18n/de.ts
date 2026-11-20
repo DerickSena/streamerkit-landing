@@ -175,9 +175,16 @@ export const de: Dict = {
         text: 'Die Bitrate passt sich an das verbleibende Signal an, aber der Stream bleibt live und SRT schickt verlorene Pakete neu.',
       },
     },
-    real: {
-      label: 'Das echte StreamerKit-Dashboard',
-      text: 'Wi-Fi und 5G gleichzeitig aktiv. Das Dashboard zeigt, wie viel vom Stream über jede Verbindung läuft.',
+    // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
+    table: {
+      label: 'Im StreamerKit-Dashboard',
+      text: 'Schalte jede Verbindung ein oder aus und ändere ihre Priorität. Das Dashboard zeigt, wie viel vom Stream über jede läuft.',
+      title: 'Verbindungen',
+      cols: { net: 'Netz', status: 'Status', latency: 'Latenz', usage: 'Anteil am Stream', rtt: 'SRT RTT', priority: 'Priorität', enable: 'Aktivieren' },
+      on: 'Aktiv',
+      off: 'Aus',
+      cell: 'Mobilfunk',
+      wifiSub: 'Netz vor Ort',
     },
   },
 

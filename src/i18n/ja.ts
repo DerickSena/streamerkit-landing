@@ -175,9 +175,16 @@ export const ja: Dict = {
         text: '残った電波に合わせてビットレートは下がりますが、配信は続き、SRTが失われたパケットを再送します。',
       },
     },
-    real: {
-      label: 'StreamerKitの実際のパネル',
-      text: 'Wi-Fiと5Gを同時に使用中。配信のどれだけが各回線を通っているかがパネルでわかります。',
+    // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
+    table: {
+      label: 'StreamerKitのパネルでは',
+      text: '回線ごとにオン・オフと優先度を切り替えられます。配信のどれだけが各回線を通っているかもパネルでわかります。',
+      title: '接続',
+      cols: { net: 'ネットワーク', status: '状態', latency: '遅延', usage: '配信での使用率', rtt: 'SRT RTT', priority: '優先度', enable: '有効' },
+      on: '稼働中',
+      off: 'オフ',
+      cell: 'モバイル回線',
+      wifiSub: '会場のネットワーク',
     },
   },
 

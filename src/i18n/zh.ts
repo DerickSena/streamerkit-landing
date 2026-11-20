@@ -175,9 +175,16 @@ export const zh: Dict = {
         text: '码率会降到剩下信号能承受的水平，但直播依然在线，SRT 会重传丢失的数据包。',
       },
     },
-    real: {
-      label: 'StreamerKit 真实面板',
-      text: 'Wi-Fi 和 5G 同时在线。面板会显示每条连接分担了多少直播流量。',
+    // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
+    table: {
+      label: '在 StreamerKit 面板里',
+      text: '每条连接都能开关，还能调整优先级。面板会显示直播有多少流量走每条连接。',
+      title: '连接',
+      cols: { net: '网络', status: '状态', latency: '延迟', usage: '直播占用', rtt: 'SRT RTT', priority: '优先级', enable: '启用' },
+      on: '已启用',
+      off: '已关闭',
+      cell: '蜂窝网络',
+      wifiSub: '现场网络',
     },
   },
 
