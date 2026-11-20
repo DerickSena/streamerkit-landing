@@ -2,37 +2,40 @@ import { useState, type ReactNode } from 'react'
 import { Reveal, SectionHead, spot } from '../components/ui'
 import { LiveVideo } from '../components/LiveVideo'
 import { IconCloud, IconPower } from '../components/icons'
+import { useFmt, useT } from '../i18n'
 
 export function Bento() {
+  const t = useT()
+  const { mbps } = useFmt()
   return (
     <section id="recursos" className="section" aria-labelledby="recursos-titulo">
       <div className="shell">
-        <SectionHead id="recursos-titulo" kicker="Tudo incluído" title="A live IRL inteira num lugar só.">
-          Nada de juntar cinco serviços com fita. Bonding, OBS, overlays, multistream e equipe no mesmo painel.
+        <SectionHead id="recursos-titulo" kicker={t.bento.kicker} title={t.bento.title}>
+          {t.bento.lede}
         </SectionHead>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-6">
-          <Card className="sm:col-span-2 lg:col-span-4" title="Preview das câmeras" text="Cada câmera aparece ao vivo no painel, com o bitrate que está chegando. A equipe vê o que entra antes de ir ao ar.">
+          <Card className="sm:col-span-2 lg:col-span-4" title={t.bento.cams.title} text={t.bento.cams.text}>
             <div className="grid grid-cols-2 gap-3">
-              <Cam n={1} mbps="5,8" src="/media/moto.mp4" poster="/media/moto.webp" />
-              <Cam n={2} mbps="4,2" src="/media/praia.mp4" poster="/media/praia.webp" />
+              <Cam n={1} mbps={mbps(5.8)} src="/media/moto.mp4" poster="/media/moto.webp" />
+              <Cam n={2} mbps={mbps(4.2)} src="/media/praia.mp4" poster="/media/praia.webp" />
             </div>
           </Card>
 
-          <Card className="lg:col-span-2" title="Multistream" text="Uma transmissão, até 4 destinos ao mesmo tempo, em todos os planos.">
+          <Card className="lg:col-span-2" title={t.bento.multi.title} text={t.bento.multi.text}>
             <ul className="grid gap-2">
               {[
                 ['Twitch', '#9146ff'],
                 ['Kick', '#53fc18'],
                 ['YouTube', '#ff3b30'],
-                ['RTMP personalizado', '#f7eeec'],
+                [t.bento.multi.rtmp, '#f7eeec'],
               ].map(([n, c], i) => (
                 <li key={n} className="flex items-center gap-3 rounded-xl bg-paper/[0.045] px-3.5 py-2.5 text-sm font-medium">
                   <i className="h-2.5 w-2.5 rounded-full" style={{ background: c }} />
                   {n}
                   <span className="ml-auto flex items-center gap-1.5 text-xs text-dim">
                     <i className="h-1.5 w-1.5 rounded-full bg-live" style={{ animation: `blink 1.6s ease-in-out ${i * 0.3}s infinite` }} />
-                    no ar
+                    {t.bento.multi.onAir}
                   </span>
                 </li>
               ))}
@@ -41,30 +44,30 @@ export function Bento() {
 
           <Card
             className="lg:col-span-2"
-            badge="Plano Avançado"
-            title="OBS na nuvem"
-            text="Um OBS Studio completo roda nos nossos servidores e você controla pelo navegador. O PC de casa pode ficar desligado."
+            badge={t.bento.obs.badge}
+            title={t.bento.obs.title}
+            text={t.bento.obs.text}
           >
             <div className="flex min-h-28 items-stretch gap-3">
               <div className="flex flex-1 flex-col items-center justify-center gap-2 rounded-xl bg-paper/[0.045] py-4 text-dim">
                 <IconPower className="h-6 w-6" />
-                <span className="text-xs font-medium">PC desligado</span>
+                <span className="text-xs font-medium">{t.bento.obs.pcOff}</span>
               </div>
               <div className="h-px w-6 flex-none self-center bg-paper/20" />
               <div className="flex flex-1 flex-col items-center justify-center gap-2 rounded-xl bg-live/10 py-4 text-paper ring-1 ring-live/40">
                 <IconCloud className="h-6 w-6 text-live" />
-                <span className="text-xs font-medium">OBS ligado</span>
+                <span className="text-xs font-medium">{t.bento.obs.obsOn}</span>
               </div>
             </div>
           </Card>
 
-          <Card className="lg:col-span-2" title="Moderadores com permissões" text="Convide a equipe e escolha o que cada um pode mexer.">
+          <Card className="lg:col-span-2" title={t.bento.mods.title} text={t.bento.mods.text}>
             <Mods />
           </Card>
 
-          <Card className="lg:col-span-2" title="Ingest perto de você" text="Seu encoder conecta no ingest mais próximo: menos distância, menos atraso.">
+          <Card className="lg:col-span-2" title={t.bento.ingest.title} text={t.bento.ingest.text}>
             <ul className="grid grid-cols-3 gap-2 text-center">
-              {['Brasil', 'EUA', 'Europa'].map((p, i) => (
+              {t.bento.ingest.places.map((p, i) => (
                 <li key={p} className="flex min-h-28 flex-col justify-center rounded-xl bg-paper/[0.045] px-2 py-4">
                   <span className="relative mx-auto block h-2.5 w-2.5">
                     <i className="absolute inset-0 rounded-full bg-ok" />
@@ -76,18 +79,18 @@ export function Bento() {
             </ul>
           </Card>
 
-          <Card className="lg:col-span-2" title="H.265 (HEVC)" text="Envie H.265 por SRT e gaste menos dados móveis que com H.264, na mesma qualidade.">
+          <Card className="lg:col-span-2" title={t.bento.h265.title} text={t.bento.h265.text}>
             <div className="flex min-h-28 items-center gap-4 rounded-xl bg-paper/[0.045] p-4">
               <span className="num rounded-lg bg-live/15 px-3 py-2 text-lg font-bold text-[#ff8a7f]">HEVC</span>
               <span className="text-sm leading-snug text-mute">
-                Mesma qualidade de imagem.
+                {t.bento.h265.line1}
                 <br />
-                <span className="font-semibold text-paper">Menos dados do seu chip.</span>
+                <span className="font-semibold text-paper">{t.bento.h265.line2}</span>
               </span>
             </div>
           </Card>
 
-          <Card className="lg:col-span-2" title="PiP com duas câmeras" text="Frontal e traseira ao mesmo tempo, uma num quadro menor. A equipe liga e desliga pelo navegador.">
+          <Card className="lg:col-span-2" title={t.bento.pip.title} text={t.bento.pip.text}>
             <div className="relative aspect-video overflow-hidden rounded-xl">
               <img
                 src="/media/moto.webp"
@@ -102,9 +105,9 @@ export function Bento() {
             </div>
           </Card>
 
-          <Card className="lg:col-span-2" title="Funciona com o seu app" text="No iPhone, o app StreamerKit. No Android e em outros aparelhos, qualquer app que envie SRT ou SRTLA.">
+          <Card className="lg:col-span-2" title={t.bento.apps.title} text={t.bento.apps.text}>
             <ul className="flex flex-wrap content-start gap-2">
-              {['App StreamerKit (iPhone)', 'IRL Pro', 'Larix Broadcaster', 'OBS Studio', 'Qualquer encoder SRT'].map((a, i) => (
+              {t.bento.apps.list.map((a, i) => (
                 <li
                   key={a}
                   className="rounded-full px-3 py-1.5 text-[0.8125rem] font-medium ring-1"
@@ -140,6 +143,7 @@ function Card({ title, text, children, className = '', badge }: { title: string;
 }
 
 function Cam({ n, mbps, src, poster }: { n: number; mbps: string; src: string; poster: string }) {
+  const t = useT()
   return (
     <figure>
       <div className="relative aspect-video overflow-hidden rounded-xl">
@@ -147,7 +151,7 @@ function Cam({ n, mbps, src, poster }: { n: number; mbps: string; src: string; p
       </div>
       <figcaption className="mt-2.5 flex items-center justify-between text-[0.8125rem]">
         <span className="flex items-center gap-2 font-semibold">
-          <span className="live-dot" /> Câmera {n}
+          <span className="live-dot" /> {`${t.bento.cams.cam} ${n}`}
         </span>
         <span className="num text-mute">{mbps} Mbps</span>
       </figcaption>
@@ -156,25 +160,26 @@ function Cam({ n, mbps, src, poster }: { n: number; mbps: string; src: string; p
 }
 
 function Mods() {
-  const [perm, setPerm] = useState({ Transmissões: true, Canvas: true, Ingests: false })
+  const t = useT()
+  const [perm, setPerm] = useState([true, true, false])
   return (
     <div className="rounded-xl bg-paper/[0.045] p-3.5">
       <p className="flex items-center gap-2.5 text-sm font-semibold">
         <i className="grid h-7 w-7 place-items-center rounded-full bg-info text-[0.625rem] font-bold not-italic text-ink">KM</i>
         kiko_mod
-        <span className="ml-auto text-xs font-normal text-dim">Moderador</span>
+        <span className="ml-auto text-xs font-normal text-dim">{t.bento.mods.role}</span>
       </p>
       <div className="mt-3 grid gap-1.5">
-        {(Object.keys(perm) as (keyof typeof perm)[]).map((k) => (
+        {perm.map((on, i) => (
           <button
-            key={k}
+            key={i}
             type="button"
             role="switch"
-            aria-checked={perm[k]}
-            onClick={() => setPerm((s) => ({ ...s, [k]: !s[k] }))}
+            aria-checked={on}
+            onClick={() => setPerm((s) => s.map((v, j) => (j === i ? !v : v)))}
             className="flex min-h-11 items-center justify-between gap-3 rounded-lg px-2 text-sm text-mute transition-colors duration-200 hover:bg-paper/[0.05]"
           >
-            {k}
+            {t.bento.mods.perms[i]}
             <span className="switch scale-90" />
           </button>
         ))}

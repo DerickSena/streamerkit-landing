@@ -14,7 +14,7 @@ import {
   IconStealth,
   IconTorch,
 } from './icons'
-import { fmtMbps } from '../lib/site'
+import { useFmt, useT } from '../i18n'
 
 /** iPhone deitado, feito em CSS. O conteúdo da tela entra como children. */
 export function Phone({ children, className = '' }: { children: ReactNode; className?: string }) {
@@ -59,6 +59,8 @@ export function AppPanel({
   reloading = false,
   micLevel = 0.6,
 }: PanelProps) {
+  const t = useT()
+  const fmt = useFmt()
   const low = bitrate < 1.2
   const max = 8
   const pts = history
@@ -78,7 +80,7 @@ export function AppPanel({
             className="num text-[2.05cqw] font-bold transition-colors duration-300"
             style={{ color: !sending ? '#9c9ca6' : low ? '#ff453a' : '#fff' }}
           >
-            {fmtMbps(sending ? bitrate : 0)}
+            {fmt.mbps(sending ? bitrate : 0)}
           </span>
           <span className="text-[1cqw] text-[#9c9ca6]">Mbps</span>
         </div>
@@ -113,10 +115,10 @@ export function AppPanel({
           <span key={l.id} className="inline-flex items-center gap-[0.3cqw]" style={{ opacity: l.up ? 1 : 0.45 }}>
             <i className="inline-block h-[0.5cqw] w-[0.5cqw] rounded-full" style={{ background: l.up ? l.color : '#ff453a' }} />
             {l.label}
-            <b className="num font-semibold text-white">{l.up ? `${Math.round(l.pct)}%` : 'caiu'}</b>
+            <b className="num font-semibold text-white">{l.up ? `${Math.round(l.pct)}%` : t.common.down}</b>
           </span>
         ))}
-        {live.length === 0 && <span className="text-[#ff453a]">sem sinal</span>}
+        {live.length === 0 && <span className="text-[#ff453a]">{t.common.noSignal}</span>}
       </div>
 
       <div className="flex items-center gap-[0.6cqw] text-[1.05cqw] font-semibold leading-none">
@@ -138,11 +140,11 @@ export function AppPanel({
         <Key icon={<IconCamera />} label="Snapshot" />
         <Key icon={<IconReload style={reloading ? { animation: 'spin 0.8s linear infinite' } : undefined} />} label="Reload" on={reloading} />
         <Key icon={<IconGauge />} label="Bitrate" />
-        <Key icon={<IconBell />} label="Alertas" />
+        <Key icon={<IconBell />} label="Alerts" />
         <Key icon={<IconStealth />} label="Stealth" />
         <Key icon={<IconGrid />} label="Widgets" />
         <Key icon={<IconPip />} label="PiP" on={pip} />
-        <Key icon={<IconGlobe />} label="Tradução" />
+        <Key icon={<IconGlobe />} label="Translate" />
         <Key icon={<IconMonitor />} label="OBS" />
         <Key icon={muted ? <IconMicOff /> : <IconMic />} label="Mute" warn={muted} />
         <Key icon={<IconTorch />} label="Torch" on={torch} />

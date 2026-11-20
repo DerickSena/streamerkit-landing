@@ -24,8 +24,15 @@ Vite + React + TypeScript + Tailwind CSS v4 + Motion. Three.js só na cena do bo
 7. **Três passos, Planos (mensal e anual), Dúvidas, Chamada final, Rodapé.**
 No celular há um botão fixo "Escolher um plano" embaixo.
 
+## Idiomas
+Quatro páginas, nos mesmos endereços do site atual: `/` (português), `/en/`, `/es/` (Espanha) e `/es-419/` (América Latina). O build gera um HTML pronto por idioma, cada um com título, descrição e `hreflang` próprios.
+- Textos: um arquivo por idioma em `src/i18n/` (`pt.ts` é a origem; `en.ts`, `es419.ts`; `es.ts` parte do `es419.ts` e troca o vocabulário da Espanha). As perguntas frequentes em inglês e espanhol estão em `faq-official.ts`, copiadas do site atual.
+- Seletor: globo no topo (`src/components/LangSwitcher.tsx`) e links no rodapé. A escolha fica guardada no navegador.
+- Idioma automático: script pequeno no `index.html`. Só age na página raiz, na primeira visita, pelo idioma do navegador. Não redireciona robôs.
+- Idioma novo: copiar `en.ts`, traduzir, e registrar em `src/i18n/index.tsx` (`LOCALES` e `DICTS`).
+
 ## Onde mexer
-- Textos de negócio, preços, links e FAQ: `src/lib/site.ts`.
+- Textos, preços e FAQ: `src/i18n/` (um arquivo por idioma). Links: `src/lib/site.ts`.
 - Cores e fontes: `src/index.css` (bloco `@theme`).
 - Cada seção: `src/sections/`.
 - Vídeos: `public/media/` (créditos em `CREDITOS-MIDIA.md`).

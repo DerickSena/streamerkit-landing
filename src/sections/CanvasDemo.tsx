@@ -3,29 +3,24 @@ import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/rea
 import { Reveal, SectionHead } from '../components/ui'
 import { LiveVideo } from '../components/LiveVideo'
 import { IconCheck, IconClock, IconCursor, IconHand, IconPin, IconPlus, IconSpeed } from '../components/icons'
+import { fill, useFmt, useT } from '../i18n'
 
 type WidgetId = 'score' | 'viewers' | 'place' | 'chat' | 'goal' | 'qr' | 'alert'
 
-const WIDGETS: { id: WidgetId; label: string; x: number; y: number }[] = [
-  { id: 'score', label: 'Placar', x: 3, y: 6 },
-  { id: 'viewers', label: 'Espectadores', x: 73, y: 6 },
-  { id: 'place', label: 'Local e velocidade', x: 3, y: 76 },
-  { id: 'chat', label: 'Chat', x: 69, y: 30 },
-  { id: 'goal', label: 'Meta', x: 35, y: 84 },
-  { id: 'qr', label: 'QR code', x: 82, y: 60 },
-  { id: 'alert', label: 'Alertas', x: 33, y: 8 },
-]
-
-const CHAT = [
-  ['leo_zx', 'essa rua de noite é linda'],
-  ['bia.mp4', 'kkkkk olha o cara da moto'],
-  ['tutu77', 'manda salve pra Anápolis'],
-  ['gabs', 'placar tá ao vivo, que brabo'],
-  ['nandaa', 'cheguei agora, tá onde?'],
-  ['rafa_irl', 'bora pro próximo desafio'],
+// Posição inicial de cada widget, na mesma ordem dos rótulos em t.canvas.labels.
+const WIDGET_POS: { id: WidgetId; x: number; y: number }[] = [
+  { id: 'score', x: 3, y: 6 },
+  { id: 'viewers', x: 73, y: 6 },
+  { id: 'place', x: 3, y: 76 },
+  { id: 'chat', x: 69, y: 30 },
+  { id: 'goal', x: 35, y: 84 },
+  { id: 'qr', x: 82, y: 60 },
+  { id: 'alert', x: 33, y: 8 },
 ]
 
 export function CanvasDemo() {
+  const t = useT()
+  const widgets = WIDGET_POS.map((w, i) => ({ ...w, label: t.canvas.labels[i] }))
   const stage = useRef<HTMLDivElement>(null)
   const inView = useInView(stage, { margin: '100px 0px' })
   const reduce = useReducedMotion()
@@ -60,15 +55,14 @@ export function CanvasDemo() {
       <div className="shell">
         <SectionHead
           id="canvas-titulo"
-          kicker="Só aqui · Canvas com widgets"
+          kicker={t.canvas.kicker}
           title={
             <>
-              Overlay de live grande, <span className="text-live">montado no navegador.</span>
+              {t.canvas.title[0]} <span className="text-live">{t.canvas.title[1]}</span>
             </>
           }
         >
-          Alertas, chat, mapa, placar, espectadores, desafios e QR code. Você arrasta, solta e o canvas entra no OBS como
-          uma fonte de navegador, no seu PC ou na nuvem.
+          {t.canvas.lede}
         </SectionHead>
 
         <Reveal delay={0.08} className="mt-10 grid gap-4 lg:mt-14 lg:grid-cols-[minmax(0,1fr)_17.5rem]">
@@ -80,14 +74,14 @@ export function CanvasDemo() {
                   <i className="h-2.5 w-2.5 rounded-full bg-paper/20" />
                   <i className="h-2.5 w-2.5 rounded-full bg-paper/20" />
                 </span>
-                <span className="truncate">Canvas · Cena IRL</span>
+                <span className="truncate">{t.canvas.windowTitle}</span>
               </p>
               <p className="flex flex-none items-center gap-2 text-xs text-mute">
                 <span className="flex -space-x-1.5">
-                  <i className="grid h-6 w-6 place-items-center rounded-full bg-cta text-[0.625rem] font-bold not-italic text-white ring-2 ring-ink">VC</i>
+                  <i className="grid h-6 w-6 place-items-center rounded-full bg-cta text-[0.625rem] font-bold not-italic text-white ring-2 ring-ink">{t.canvas.youBadge}</i>
                   <i className="grid h-6 w-6 place-items-center rounded-full bg-info text-[0.625rem] font-bold not-italic text-ink ring-2 ring-ink">KM</i>
                 </span>
-                <span className="hidden sm:inline">Você e 1 mod editando</span>
+                <span className="hidden sm:inline">{t.canvas.editing}</span>
               </p>
             </div>
 
@@ -103,12 +97,12 @@ export function CanvasDemo() {
                 src="/media/rua.mp4"
                 poster="/media/rua.webp"
                 className="pointer-events-none absolute inset-0"
-                label="Vídeo de exemplo: rua de cidade à noite vista de dentro do carro"
+                label={t.canvas.videoLabel}
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/30" />
 
               <AnimatePresence>
-                {WIDGETS.filter((w) => on[w.id]).map((w) => (
+                {widgets.filter((w) => on[w.id]).map((w) => (
                   <motion.div
                     key={w.id}
                     drag
@@ -129,7 +123,7 @@ export function CanvasDemo() {
                     data-sel={sel === w.id ? 'true' : undefined}
                     style={{ left: `${w.x}%`, top: `${w.y}%`, zIndex: sel === w.id ? 10 : 5 }}
                     role="img"
-                    aria-label={`Widget ${w.label} (arrastável)`}
+                    aria-label={fill(t.canvas.widgetAria, { l: w.label })}
                   >
                     <WidgetBody id={w.id} tick={tick} />
                   </motion.div>
@@ -156,7 +150,7 @@ export function CanvasDemo() {
                     exit={{ opacity: 0 }}
                     className="label pointer-events-none absolute bottom-3 right-3 z-30 flex items-center gap-2 rounded-full bg-paper px-3 py-1.5 text-ink"
                   >
-                    <IconHand className="h-3.5 w-3.5" /> Arraste os widgets
+                    <IconHand className="h-3.5 w-3.5" /> {t.canvas.hint}
                   </motion.p>
                 )}
               </AnimatePresence>
@@ -165,10 +159,10 @@ export function CanvasDemo() {
 
           <div className="card flex flex-col !bg-ink p-4 sm:p-5">
             <p className="label flex items-center justify-between text-dim">
-              Widgets <span className="num text-paper">{count} na cena</span>
+              {t.canvas.panelTitle} <span className="num text-paper">{fill(t.canvas.count, { n: count })}</span>
             </p>
             <ul className="mt-3.5 grid grid-cols-2 gap-2 lg:grid-cols-1">
-              {WIDGETS.map((w) => (
+              {widgets.map((w) => (
                 <li key={w.id}>
                   <button
                     type="button"
@@ -193,7 +187,7 @@ export function CanvasDemo() {
               ))}
             </ul>
             <p className="mt-auto pt-5 text-[0.8125rem] leading-relaxed text-mute">
-              Textos, imagens, vídeos e páginas de alerta também entram. E os seus moderadores podem editar junto com você.
+              {t.canvas.note}
             </p>
           </div>
         </Reveal>
@@ -203,6 +197,8 @@ export function CanvasDemo() {
 }
 
 function WidgetBody({ id, tick }: { id: WidgetId; tick: number }) {
+  const t = useT()
+  const fmt = useFmt()
   const qr = useMemo(() => makeQr(), [])
   switch (id) {
     case 'score':
@@ -219,11 +215,11 @@ function WidgetBody({ id, tick }: { id: WidgetId; tick: number }) {
         <div className="flex items-center gap-[1.2cqw] px-[1.2cqw] py-[0.9cqw] text-[max(0.6875rem,1.6cqw)] font-bold leading-none">
           <span className="flex items-center gap-[0.6cqw]">
             <i className="h-[1.1cqw] min-h-2 w-[1.1cqw] min-w-2 rounded-sm bg-[#9146ff]" />
-            <span className="num">1.284</span>
+            <span className="num">{fmt.int(1284)}</span>
           </span>
           <span className="flex items-center gap-[0.6cqw]">
             <i className="h-[1.1cqw] min-h-2 w-[1.1cqw] min-w-2 rounded-sm bg-[#53fc18]" />
-            <span className="num">312</span>
+            <span className="num">{fmt.int(312)}</span>
           </span>
         </div>
       )
@@ -232,25 +228,26 @@ function WidgetBody({ id, tick }: { id: WidgetId; tick: number }) {
         <div className="flex flex-col gap-[0.6cqw] rounded-[inherit] bg-transparent p-0 text-[max(0.625rem,1.35cqw)] font-bold leading-none">
           <span className="flex w-fit items-center gap-[0.6cqw] rounded-full bg-[#c03030] px-[1.1cqw] py-[0.7cqw]">
             <IconPin className="h-[1.5cqw] min-h-3 w-[1.5cqw] min-w-3 text-[#ff8a24]" />
-            CONSOLAÇÃO, SÃO PAULO, SP
+            {t.canvas.place}
           </span>
           <span className="flex gap-[0.6cqw]">
             <span className="flex items-center gap-[0.5cqw] rounded-full bg-[#8b1616] px-[1cqw] py-[0.6cqw]">
               <IconClock className="h-[1.3cqw] min-h-2.5 w-[1.3cqw] min-w-2.5" /> 21:47
             </span>
             <span className="flex items-center gap-[0.5cqw] rounded-full bg-[#8b1616] px-[1cqw] py-[0.6cqw]">
-              <IconSpeed className="h-[1.3cqw] min-h-2.5 w-[1.3cqw] min-w-2.5" /> 5 KM/H
+              <IconSpeed className="h-[1.3cqw] min-h-2.5 w-[1.3cqw] min-w-2.5" /> {t.canvas.speed}
             </span>
           </span>
         </div>
       )
     case 'chat': {
-      const rows = [0, 1, 2].map((i) => CHAT[(tick + i) % CHAT.length])
+      const chat = t.canvas.chat
+      const rows = [0, 1, 2].map((i) => chat[(tick + i) % chat.length])
       return (
         <ul className="flex w-[27cqw] min-w-[9.5rem] flex-col gap-[0.7cqw] p-[1.2cqw] text-[max(0.625rem,1.35cqw)] leading-tight">
-          {rows.map(([u, t]) => (
-            <li key={u + t}>
-              <b className="text-[#ff8a7f]">{u}</b> <span className="font-normal text-white/90">{t}</span>
+          {rows.map(([u, msg]) => (
+            <li key={u + msg}>
+              <b className="text-[#ff8a7f]">{u}</b> <span className="font-normal text-white/90">{msg}</span>
             </li>
           ))}
         </ul>
@@ -260,7 +257,7 @@ function WidgetBody({ id, tick }: { id: WidgetId; tick: number }) {
       return (
         <div className="w-[30cqw] min-w-[10rem] p-[1.2cqw] text-[max(0.6875rem,1.4cqw)] font-bold leading-none">
           <div className="flex items-center justify-between">
-            <span>Meta de subs</span>
+            <span>{t.canvas.goalLabel}</span>
             <span className="num">64 / 100</span>
           </div>
           <div className="mt-[0.9cqw] h-[0.9cqw] min-h-1.5 overflow-hidden rounded-full bg-white/20">
@@ -276,7 +273,7 @@ function WidgetBody({ id, tick }: { id: WidgetId; tick: number }) {
               <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" fill="#000" />
             ))}
           </svg>
-          <span className="text-[max(0.5625rem,1.1cqw)] font-bold leading-none">ENTRA NO DISCORD</span>
+          <span className="text-[max(0.5625rem,1.1cqw)] font-bold leading-none">{t.canvas.qrLabel}</span>
         </div>
       )
     case 'alert':
@@ -286,7 +283,7 @@ function WidgetBody({ id, tick }: { id: WidgetId; tick: number }) {
             <IconSpeed className="h-[1.8cqw] min-h-3 w-[1.8cqw] min-w-3" />
           </span>
           <span>
-            bia.mp4 <span className="font-medium text-white/85">virou sub!</span>
+            bia.mp4 <span className="font-medium text-white/85">{t.canvas.alertText}</span>
           </span>
         </div>
       )

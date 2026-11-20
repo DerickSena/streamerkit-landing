@@ -33,9 +33,15 @@ Com isso, entra uma faixa de prova logo abaixo do topo e um bloco antes dos plan
 O ideal é gravar a tela do app real e uma live real do StreamerKit.
 
 ## Técnica
-- [ ] Idiomas: só a versão em português foi refeita. Os links para /en/, /es/ e /es-419/ continuam no rodapé e dependem das páginas atuais.
 - [ ] Google Analytics (G-E7CW2J8C3R) e Cloudflare Insights do site atual não foram colocados aqui. Entram na publicação.
 - [ ] Imagem de compartilhamento (og:image) aponta para a do site atual. Fazer uma nova com o título "Sua live caiu. De novo."
 - [ ] Medir no ar: cliques em "Escolher um plano" por seção, e quantos ligam o interruptor do topo.
 - [ ] Rodar o Lighthouse no celular depois de publicado (meta: 90+).
 - [ ] Prévia na Vercel: o `vercel.json` manda o Google não indexar (`X-Robots-Tag: noindex`), para a prévia não competir com o site oficial. Tirar essa linha quando a página virar a oficial.
+
+## Idiomas (feito em 2026-11-19: português, inglês, espanhol da Espanha e da América Latina)
+- [ ] Pedir para alguém nativo ler o inglês e o espanhol. As perguntas frequentes e os termos (ingest, cloud OBS, "en directo", "en vivo") vieram do site atual; o resto foi traduzido agora.
+- [ ] Política de Privacidade, Termos e Suporte apontam para as páginas em português nos 4 idiomas. Trocar pelos endereços de cada idioma, se existirem.
+- [ ] A imagem de compartilhamento é a mesma (em português) nos 4 idiomas.
+- [ ] Idioma automático: só age na página raiz. Primeira visita com navegador em inglês vai para /en/, em espanhol da Espanha para /es/, outro espanhol para /es-419/, qualquer outro idioma para /en/. Português fica. A escolha feita no seletor fica guardada e vence. Robôs do Google não são redirecionados. Confirmar se ele prefere por país (IP) em vez de idioma do navegador.
+- [ ] Quer outros idiomas (francês, alemão)? É criar um arquivo novo em `src/i18n/` copiando o `en.ts`.

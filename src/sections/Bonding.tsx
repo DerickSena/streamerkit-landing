@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/rea
 import { Reveal, SectionHead } from '../components/ui'
 import { LiveVideo } from '../components/LiveVideo'
 import { IconCheck, IconHand, IconPower, IconReload, IconX } from '../components/icons'
-import { fmtMbps } from '../lib/site'
+import { fill, useFmt, useT } from '../i18n'
 import type { AnchorId, LinkId } from '../three/bonding'
 
 const LINKS: { id: LinkId; label: string; cap: number; color: string }[] = [
@@ -13,16 +13,9 @@ const LINKS: { id: LinkId; label: string; cap: number; color: string }[] = [
 ]
 const TARGET = 6
 
-const NODE_LABELS: { id: AnchorId; title: string; sub: string }[] = [
-  { id: 'phone', title: 'Seu celular', sub: 'App StreamerKit' },
-  { id: 'ingest', title: 'Ingest', sub: 'Brasil, EUA ou Europa' },
-  { id: 'obs', title: 'OBS', sub: 'No seu PC ou na nuvem' },
-  { id: 'twitch', title: 'Twitch', sub: '' },
-  { id: 'kick', title: 'Kick', sub: '' },
-  { id: 'youtube', title: 'YouTube', sub: '' },
-]
-
 export function Bonding() {
+  const t = useT()
+  const fmt = useFmt()
   const [links, setLinks] = useState<Record<LinkId, boolean>>({ '4g': true, '5g': true, wifi: true })
   const [touched, setTouched] = useState(false)
   const upCount = LINKS.filter((l) => links[l.id]).length
@@ -40,12 +33,12 @@ export function Bonding() {
   }
 
   const status = brb
-    ? { tone: '#f2b04e', title: 'BRB automático no ar', text: 'Todas as conexões caíram. O OBS trocou para a sua cena de BRB e a live continua aberta. Quando o sinal voltar, ele volta sozinho para a cena ao vivo.' }
+    ? { tone: '#f2b04e', ...t.bonding.status.brb }
     : upCount === 3
-      ? { tone: '#30d158', title: 'Três conexões somadas', text: 'O vídeo viaja dividido entre 4G, 5G e Wi-Fi. Nenhuma delas carrega a live sozinha.' }
+      ? { tone: '#30d158', ...t.bonding.status.three }
       : upCount === 2
-        ? { tone: '#30d158', title: 'Uma caiu, duas seguram', text: 'O SRTLA redistribuiu a transmissão na hora. Quem está assistindo não percebe a troca.' }
-        : { tone: '#f2b04e', title: 'Segurando com uma conexão', text: 'O bitrate desce para caber no sinal que sobrou, mas a live segue no ar e o SRT reenvia os pacotes perdidos.' }
+        ? { tone: '#30d158', ...t.bonding.status.two }
+        : { tone: '#f2b04e', ...t.bonding.status.one }
 
   return (
     <section id="bonding" className="section bg-ink-deep" aria-labelledby="bonding-titulo">
@@ -54,24 +47,23 @@ export function Bonding() {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <SectionHead
             id="bonding-titulo"
-            kicker="Como o StreamerKit segura"
+            kicker={t.bonding.kicker}
             title={
               <>
-                Derrube uma conexão. <span className="text-live">A live continua.</span>
+                {t.bonding.title[0]} <span className="text-live">{t.bonding.title[1]}</span>
               </>
             }
           >
-            O SRTLA bonding soma o 4G, o 5G e o Wi-Fi do celular numa transmissão só. Teste: toque em uma conexão para
-            desligar e veja o que chega nas plataformas.
+            {t.bonding.lede}
           </SectionHead>
           <Reveal delay={0.1} className="flex flex-none gap-2.5">
             <button type="button" onClick={() => all(false)} className="btn btn-ghost btn-sm">
               <IconX className="h-4 w-4" />
-              Derrubar todas
+              {t.bonding.dropAll}
             </button>
             <button type="button" onClick={() => all(true)} className="btn btn-ghost btn-sm">
               <IconReload className="h-4 w-4" />
-              Religar
+              {t.bonding.reconnect}
             </button>
           </Reveal>
         </div>
@@ -89,7 +81,7 @@ export function Bonding() {
                 quality={quality}
                 playing={!brb}
                 className="absolute inset-0"
-                label="Vídeo de exemplo: o que chega para quem assiste"
+                label={t.bonding.videoLabel}
               />
               <AnimatePresence>
                 {brb && (
@@ -107,8 +99,8 @@ export function Bonding() {
                       style={{ background: 'radial-gradient(60% 80% at 50% 50%, rgb(242 176 78 / 0.22), transparent 70%)' }}
                     />
                     <div className="relative text-center">
-                      <p className="display text-[clamp(2.75rem,9vw,4.25rem)] text-warn">Já volto</p>
-                      <p className="label mt-2 text-paper/70">Cena de BRB · live no ar</p>
+                      <p className="display text-[clamp(2.75rem,9vw,4.25rem)] text-warn">{t.bonding.brbTitle}</p>
+                      <p className="label mt-2 text-paper/70">{t.bonding.brbSub}</p>
                     </div>
                   </motion.div>
                 )}
@@ -116,10 +108,10 @@ export function Bonding() {
               <div className="absolute left-3 top-3 flex items-center gap-2">
                 <span className="flex items-center gap-1.5 rounded-md bg-live px-2 py-1 text-[0.6875rem] font-bold uppercase leading-none tracking-wide text-white">
                   <i className="h-1.5 w-1.5 rounded-full bg-white" style={{ animation: 'blink 1.4s ease-in-out infinite' }} />
-                  Ao vivo
+                  {t.common.live}
                 </span>
                 <span className="rounded-md bg-black/60 px-2 py-1 text-[0.6875rem] font-medium leading-none text-white/90">
-                  O que o viewer vê
+                  {t.bonding.viewerSees}
                 </span>
               </div>
             </div>
@@ -127,15 +119,16 @@ export function Bonding() {
             <div className="flex flex-1 flex-col p-5 sm:p-6">
               <div className="flex items-end justify-between gap-4">
                 <div>
-                  <p className="label text-dim">Bitrate somado</p>
+                  <p className="label text-dim">{t.bonding.total}</p>
                   <p className="num mt-1.5 text-4xl font-semibold leading-none" style={{ color: brb ? '#f2b04e' : '#f7eeec' }}>
-                    {fmtMbps(total)}
+                    {fmt.mbps(total)}
                     <span className="ml-1.5 text-sm font-medium text-dim">Mbps</span>
                   </p>
                 </div>
                 <p className="num text-right text-xs leading-relaxed text-dim">
-                  {upCount} de 3<br />
-                  conexões
+                  {fill(t.bonding.countOf, { n: upCount })}
+                  <br />
+                  {t.bonding.connections}
                 </p>
               </div>
 
@@ -181,6 +174,8 @@ function Scene({
   onToggle: (id: LinkId) => void
   touched: boolean
 }) {
+  const t = useT()
+  const fmt = useFmt()
   const wrap = useRef<HTMLDivElement>(null)
   const canvas = useRef<HTMLCanvasElement>(null)
   const labels = useRef<Partial<Record<AnchorId, HTMLElement | null>>>({})
@@ -262,7 +257,7 @@ function Scene({
             }}
             onClick={() => onToggle(l.id)}
             aria-pressed={up}
-            aria-label={`${l.label}: ${up ? 'ligado, toque para derrubar' : 'caiu, toque para religar'}`}
+            aria-label={fill(up ? t.bonding.ariaUp : t.bonding.ariaDown, { l: l.label })}
             className={`group flex min-h-11 items-center gap-2 rounded-full py-2 pl-3 pr-3.5 text-sm font-semibold leading-none shadow-[0_10px_30px_-10px_rgb(0_0_0/0.9)] transition-[background-color,color,box-shadow,scale] duration-300 hover:scale-105 active:scale-95 ${mode === '3d' ? 'absolute left-0 top-0' : ''}`}
             style={{
               background: up ? '#140404' : '#2a0e0c',
@@ -272,12 +267,21 @@ function Scene({
           >
             <i className="h-2 w-2 rounded-full transition-colors duration-300" style={{ background: up ? l.color : '#ff453a' }} />
             <span className={up ? '' : 'line-through decoration-2'}>{l.label}</span>
-            <span className="num text-xs font-medium opacity-70">{up ? `${fmtMbps(l.cap)}` : 'caiu'}</span>
+            <span className="num text-xs font-medium opacity-70">{up ? fmt.mbps(l.cap) : t.common.down}</span>
           </button>
         )
       }),
-    [links, mode, onToggle],
+    [links, mode, onToggle, t, fmt],
   )
+
+  const nodeLabels: { id: AnchorId; title: string; sub: string }[] = [
+    { id: 'phone', title: t.bonding.nodes.phone[0], sub: t.bonding.nodes.phone[1] },
+    { id: 'ingest', title: t.bonding.nodes.ingest[0], sub: t.bonding.nodes.ingest[1] },
+    { id: 'obs', title: t.bonding.nodes.obs[0], sub: t.bonding.nodes.obs[1] },
+    { id: 'twitch', title: 'Twitch', sub: '' },
+    { id: 'kick', title: 'Kick', sub: '' },
+    { id: 'youtube', title: 'YouTube', sub: '' },
+  ]
 
   return (
     <div
@@ -296,7 +300,7 @@ function Scene({
       {mode === '3d' ? (
         <div className="absolute inset-0">
           {chips}
-          {NODE_LABELS.map((n) => (
+          {nodeLabels.map((n) => (
             <div
               key={n.id}
               ref={(el) => {
@@ -313,7 +317,7 @@ function Scene({
         <div className="absolute inset-0 grid place-items-center p-6">
           <div className="text-center">
             <div className="flex flex-wrap justify-center gap-2.5">{chips}</div>
-            <p className="mt-5 text-sm text-mute">Celular → Ingest → OBS → Twitch, Kick e YouTube</p>
+            <p className="mt-5 text-sm text-mute">{t.bonding.fallback}</p>
           </div>
         </div>
       )}
@@ -327,11 +331,11 @@ function Scene({
             exit={{ opacity: 0 }}
             className="label pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-paper px-3 py-1.5 text-ink sm:bottom-4"
           >
-            <IconHand className="h-3.5 w-3.5" /> Toque em 4G, 5G ou Wi-Fi
+            <IconHand className="h-3.5 w-3.5" /> {t.bonding.hint}
           </motion.p>
         )}
       </AnimatePresence>
-      <p className="label absolute left-4 top-4 text-dim">{brb ? 'Sem sinal · BRB segurando' : 'SRTLA bonding'}</p>
+      <p className="label absolute left-4 top-4 text-dim">{brb ? t.bonding.sceneLabelBrb : t.bonding.sceneLabel}</p>
     </div>
   )
 }

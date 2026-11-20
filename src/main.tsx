@@ -4,11 +4,14 @@ import '@fontsource-variable/saira/wdth.css'
 import '@fontsource-variable/jetbrains-mono'
 import './index.css'
 import App from './App.tsx'
+import { localeFromPath } from './i18n'
 
 const root = document.getElementById('root')!
+// O idioma vem do endereço: / (português), /en/, /es/ e /es-419/.
+const locale = localeFromPath(window.location.pathname)
 const app = (
   <StrictMode>
-    <App />
+    <App locale={locale} />
   </StrictMode>
 )
 

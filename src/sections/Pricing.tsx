@@ -1,9 +1,13 @@
 import { useState } from 'react'
 import { Reveal, SectionHead, spot } from '../components/ui'
 import { IconArrow, IconCheck, IconX } from '../components/icons'
-import { INCLUDED_IN_BOTH, LINKS, PLANS, type Interval } from '../lib/site'
+import { LINKS, type Interval } from '../lib/site'
+import { fill, useT } from '../i18n'
+
+const PLAN_IDS = ['basic', 'advanced'] as const
 
 export function Pricing() {
+  const t = useT()
   const [interval, setCycle] = useState<Interval>('month')
   const year = interval === 'year'
 
@@ -11,34 +15,39 @@ export function Pricing() {
     <section id="planos" className="section" aria-labelledby="planos-titulo">
       <div className="shell">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHead id="planos-titulo" kicker="Planos" title="Escolha o seu e entre ao vivo.">
-            A diferença é quantos celulares ou câmeras transmitem ao mesmo tempo (ingests) e se você quer o OBS na
-            nuvem.
+          <SectionHead id="planos-titulo" kicker={t.pricing.kicker} title={t.pricing.title}>
+            {t.pricing.lede}
           </SectionHead>
 
           <Reveal delay={0.1} className="flex-none">
-            <div className="seg !bg-ink-raised !p-1.5 !shadow-[inset_0_0_0_1px_rgb(247_238_236/0.12)]" role="group" aria-label="Ciclo de cobrança">
+            <div className="seg !bg-ink-raised !p-1.5 !shadow-[inset_0_0_0_1px_rgb(247_238_236/0.12)]" role="group" aria-label={t.pricing.cycleAria}>
               <button type="button" aria-pressed={!year} onClick={() => setCycle('month')} className="!min-h-11 px-5">
-                Mensal
+                {t.pricing.monthly}
               </button>
               <button type="button" aria-pressed={year} onClick={() => setCycle('year')} className="flex !min-h-11 items-center justify-center gap-2 px-5">
-                Anual
+                {t.pricing.annual}
                 <span
                   className="rounded-full px-2 py-0.5 text-[0.6875rem] font-bold leading-tight transition-colors duration-200"
                   style={{ background: year ? '#d92b21' : 'rgb(255 42 28 / 0.18)', color: year ? '#fff' : '#ff8a7f' }}
                 >
-                  2 meses grátis
+                  {t.pricing.free}
                 </span>
               </button>
             </div>
           </Reveal>
         </div>
 
+        {t.pricing.currencyNote && <p className="mt-6 text-sm text-dim">{t.pricing.currencyNote}</p>}
+
         <div className="mt-10 grid gap-4 lg:mt-14 lg:grid-cols-2">
-          {PLANS.map((p, i) => {
-            const hero = p.id === 'advanced'
+          {PLAN_IDS.map((id, i) => {
+            const hero = id === 'advanced'
+            const p = t.pricing.plans[id]
+            const price = t.pricing.prices[id]
+            // no Básico, só os 2 primeiros recursos valem; no Avançado, todos
+            const features = p.features.map((text, k) => ({ text, on: hero || k < 2 }))
             return (
-              <Reveal key={p.id} delay={i * 0.08}>
+              <Reveal key={id} delay={i * 0.08}>
                 <article
                   onPointerMove={spot}
                   className="card card-spot flex h-full flex-col p-6 sm:p-8"
@@ -57,7 +66,7 @@ export function Pricing() {
                       className="label rounded-full px-3 py-1.5"
                       style={hero ? { background: '#d92b21', color: '#fff' } : { boxShadow: 'inset 0 0 0 1px rgb(247 238 236 / 0.2)', color: '#b8a3a0' }}
                     >
-                      {hero ? 'PC desligado' : 'Para começar'}
+                      {p.badge}
                     </p>
                   </div>
                   <p className="mt-2 max-w-[26rem] text-[0.9375rem] leading-relaxed text-mute lg:min-h-[3.25rem]">{p.tagline}</p>
@@ -65,21 +74,21 @@ export function Pricing() {
                   <div className="mt-7 flex items-end gap-2" aria-live="polite">
                     <span className="mb-2 text-lg font-medium text-mute">R$</span>
                     <span key={interval} className="display text-[clamp(4.25rem,13vw,6rem)] text-paper" style={{ animation: 'price-in 0.45s cubic-bezier(0.16,1,0.3,1)' }}>
-                      {p.price[interval]}
+                      {price[interval]}
                     </span>
-                    <span className="mb-2 text-base text-mute">/{year ? 'ano' : 'mês'}</span>
+                    <span className="mb-2 text-base text-mute">{year ? t.pricing.perYear : t.pricing.perMonth}</span>
                   </div>
                   <p className="mt-1.5 min-h-[1.5rem] text-sm text-dim">
-                    {year ? `Equivale a R$ ${p.perMonthOnYear} por mês. Você paga 10 e usa 12.` : 'No anual, 2 meses saem de graça.'}
+                    {year ? fill(t.pricing.yearNote, { v: price.perMonthOnYear }) : t.pricing.monthNote}
                   </p>
 
-                  <a href={LINKS.plan(p.id, interval)} className={`btn mt-7 w-full ${hero ? 'btn-primary' : 'btn-ghost'}`}>
-                    Escolher {p.name}
+                  <a href={LINKS.plan(id, interval)} className={`btn mt-7 w-full ${hero ? 'btn-primary' : 'btn-ghost'}`}>
+                    {fill(t.pricing.choose, { name: p.name })}
                     <IconArrow className="h-5 w-5" />
                   </a>
 
                   <ul className="mt-7 grid gap-3 border-t border-paper/10 pt-7 text-[0.9375rem]">
-                    {p.features.map((f) => (
+                    {features.map((f) => (
                       <li key={f.text} className="flex items-start gap-3" style={{ color: f.on ? '#f7eeec' : '#8f7a77' }}>
                         <span
                           className="mt-0.5 grid h-5 w-5 flex-none place-items-center rounded-full"
@@ -89,7 +98,7 @@ export function Pricing() {
                         </span>
                         <span>
                           <span className={f.on ? '' : 'line-through decoration-paper/25'}>{f.text}</span>
-                          {!f.on && <span className="ml-2 whitespace-nowrap">(só no Avançado)</span>}
+                          {!f.on && <span className="ml-2 whitespace-nowrap">{t.pricing.onlyAdvanced}</span>}
                         </span>
                       </li>
                     ))}
@@ -102,22 +111,19 @@ export function Pricing() {
 
         <Reveal className="mt-4">
           <div className="card p-6 sm:p-8">
-            <p className="label text-dim">Os dois planos incluem</p>
+            <p className="label text-dim">{t.pricing.bothTitle}</p>
             <ul className="mt-4 flex flex-wrap gap-x-7 gap-y-3 text-[0.9375rem] text-paper">
-              {INCLUDED_IN_BOTH.map((t) => (
-                <li key={t} className="flex items-center gap-2.5">
+              {t.pricing.included.map((item) => (
+                <li key={item} className="flex items-center gap-2.5">
                   <IconCheck className="h-4 w-4 flex-none text-ok" />
-                  {t}
+                  {item}
                 </li>
               ))}
             </ul>
           </div>
         </Reveal>
 
-        <p className="mt-6 max-w-[52rem] text-sm leading-relaxed text-dim">
-          Você entra com a sua conta da Twitch ou da Kick. Nos planos mensais, cada ingest extra custa R$&nbsp;49,90 por
-          mês, com cobrança proporcional, em assinaturas elegíveis no cartão e no Pix Automático.
-        </p>
+        <p className="mt-6 max-w-[52rem] text-sm leading-relaxed text-dim">{t.pricing.footnote}</p>
       </div>
     </section>
   )

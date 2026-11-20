@@ -1,4 +1,5 @@
 import { MotionConfig } from 'motion/react'
+import { LocaleProvider, type Locale } from './i18n'
 import { Nav } from './sections/Nav'
 import { Hero } from './sections/Hero'
 import { Pains } from './sections/Pains'
@@ -13,24 +14,26 @@ import { FinalCta } from './sections/FinalCta'
 import { Footer } from './sections/Footer'
 import { StickyCta } from './sections/StickyCta'
 
-export default function App() {
+export default function App({ locale = 'pt' }: { locale?: Locale }) {
   return (
-    <MotionConfig reducedMotion="user">
-      <Nav />
-      <main id="conteudo">
-        <Hero />
-        <Pains />
-        <Bonding />
-        <Remote />
-        <CanvasDemo />
-        <Bento />
-        <Steps />
-        <Pricing />
-        <Faq />
-        <FinalCta />
-      </main>
-      <Footer />
-      <StickyCta />
-    </MotionConfig>
+    <LocaleProvider locale={locale}>
+      <MotionConfig reducedMotion="user">
+        <Nav />
+        <main id="conteudo">
+          <Hero />
+          <Pains />
+          <Bonding />
+          <Remote />
+          <CanvasDemo />
+          <Bento />
+          <Steps />
+          <Pricing />
+          <Faq />
+          <FinalCta />
+        </main>
+        <Footer />
+        <StickyCta />
+      </MotionConfig>
+    </LocaleProvider>
   )
 }

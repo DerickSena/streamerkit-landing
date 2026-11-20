@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { IconArrow } from '../components/icons'
 import { LINKS } from '../lib/site'
+import { useT } from '../i18n'
 
 /** Barra fixa no celular: aparece depois do topo e some nos planos e no fim da página. */
 export function StickyCta() {
+  const t = useT()
   const [show, setShow] = useState(false)
   useEffect(() => {
     const on = () => {
@@ -28,9 +30,9 @@ export function StickyCta() {
       aria-hidden={!show}
     >
       <a href={LINKS.plans} tabIndex={show ? 0 : -1} className="btn btn-primary w-full justify-between !px-5">
-        <span>Escolher um plano</span>
+        <span>{t.common.choosePlan}</span>
         <span className="flex items-center gap-2 text-sm font-medium text-white/85">
-          a partir de R$ 119,90 <IconArrow className="h-5 w-5" />
+          {t.sticky.from} <IconArrow className="h-5 w-5" />
         </span>
       </a>
     </div>

@@ -1,23 +1,10 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { Reveal, SectionHead } from '../components/ui'
-
-const STEPS = [
-  {
-    title: 'Escolha um plano',
-    text: 'Você entra com a sua conta da Twitch ou da Kick. Sem cadastro novo, sem senha nova.',
-  },
-  {
-    title: 'Conecte o OBS',
-    text: 'No seu PC, instale o plugin do StreamerKit (Windows) e escolha a sua cena de BRB. No Avançado, o OBS na nuvem já vem pronto.',
-  },
-  {
-    title: 'Entre ao vivo',
-    text: 'Abra o app StreamerKit no iPhone, ou escaneie o QR code da página Ingests com o IRL Pro ou o Larix.',
-  },
-]
+import { useT } from '../i18n'
 
 export function Steps() {
+  const t = useT()
   const ref = useRef<HTMLOListElement>(null)
   const reduce = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.8', 'end 0.55'] })
@@ -27,8 +14,8 @@ export function Steps() {
     <section id="como-funciona" className="section bg-ink-deep" aria-labelledby="passos-titulo">
       <div className="hairline absolute inset-x-0 top-0" />
       <div className="shell">
-        <SectionHead id="passos-titulo" kicker="Como começar" title="No ar em três passos.">
-          Sem montar servidor, sem linha de comando. Do plano à primeira live no mesmo dia.
+        <SectionHead id="passos-titulo" kicker={t.steps.kicker} title={t.steps.title}>
+          {t.steps.lede}
         </SectionHead>
 
         <div className="relative mt-14 lg:mt-20">
@@ -39,7 +26,7 @@ export function Steps() {
             style={reduce ? undefined : { scaleX: scale }}
           />
           <ol ref={ref} className="relative grid gap-10 lg:grid-cols-3 lg:gap-8">
-          {STEPS.map((s, i) => (
+          {t.steps.items.map((s, i) => (
             <li key={s.title} className="relative lg:pt-10">
               <Reveal delay={i * 0.1}>
                 <span aria-hidden="true" className="absolute left-0 top-[-5px] hidden h-[11px] w-[11px] rounded-full bg-live ring-4 ring-ink-deep lg:block" />

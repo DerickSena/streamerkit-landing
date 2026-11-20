@@ -18,13 +18,16 @@ import {
   IconTorch,
   IconZoom,
 } from '../components/icons'
-import { LINKS, fmtMbps } from '../lib/site'
+import { LINKS } from '../lib/site'
+import { fill, useFmt, useT } from '../i18n'
 
 type Cam = 'back' | 'front'
 type Zoom = 0.5 | 1 | 2
 const ZOOM_SCALE: Record<number, number> = { 0.5: 1, 1: 1.42, 2: 2.3 }
 
 export function Remote() {
+  const t = useT()
+  const fmt = useFmt()
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { margin: '120px 0px' })
 
@@ -37,7 +40,7 @@ export function Remote() {
   const [pip, setPip] = useState(false)
   const [goal, setGoal] = useState(true)
   const [reloading, setReloading] = useState(false)
-  const [last, setLast] = useState('Nenhuma ainda. Mexa nos controles.')
+  const [last, setLast] = useState(() => t.remote.lastNone)
 
   // O bitrate real persegue o alvo, com a oscilação normal de rede móvel.
   const [live, setLive] = useState({ bitrate: 4, history: Array.from({ length: 26 }, () => 4), mic: 0.6, n: 0 })
@@ -65,7 +68,7 @@ export function Remote() {
   const reloadTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   useEffect(() => () => clearTimeout(reloadTimer.current), [])
   const reload = () => {
-    setLast('Mod recarregou os widgets')
+    setLast(t.remote.log.reload)
     setReloading(true)
     clearTimeout(reloadTimer.current)
     reloadTimer.current = setTimeout(() => setReloading(false), 1300)
@@ -84,21 +87,20 @@ export function Remote() {
       <div className="shell">
         <SectionHead
           id="controle-titulo"
-          kicker="Só aqui · App StreamerKit para iPhone"
+          kicker={t.remote.kicker}
           title={
             <>
-              Você faz a live. <span className="text-live">Sua equipe cuida do celular.</span>
+              {t.remote.title[0]} <span className="text-live">{t.remote.title[1]}</span>
             </>
           }
         >
-          Pelo navegador, de qualquer lugar, seus mods trocam a câmera, dão zoom, acendem a lanterna e seguram o
-          bitrate. Você não tira o olho do rolê.
+          {t.remote.lede}
         </SectionHead>
 
         <Reveal delay={0.05}>
           <p className="mt-10 inline-flex items-center gap-2.5 rounded-full bg-paper px-4 py-2 text-sm font-semibold text-ink lg:mt-12">
             <span className="live-dot" />
-            Faça o papel do mod: mexa nos controles e veja o celular responder
+            {t.remote.tryPill}
           </p>
         </Reveal>
 
@@ -165,7 +167,7 @@ export function Remote() {
                         className="absolute bottom-[2.2cqw] left-[7.4cqw] z-10 w-[26cqw] rounded-[1.2cqw] bg-black/65 p-[1.1cqw] text-white"
                       >
                         <div className="flex items-center justify-between text-[1.25cqw] font-semibold leading-none">
-                          <span>Meta do dia</span>
+                          <span>{t.remote.goal}</span>
                           <span className="num">64%</span>
                         </div>
                         <div className="mt-[0.8cqw] h-[0.7cqw] overflow-hidden rounded-full bg-white/20">
@@ -182,12 +184,12 @@ export function Remote() {
                     </span>
                     {muted && (
                       <span className="app-pill" style={{ background: 'rgb(255 69 58 / 0.92)' }}>
-                        <IconMicOff /> Mudo
+                        <IconMicOff /> {t.remote.overlay.muted}
                       </span>
                     )}
                     {torchOn && (
                       <span className="app-pill" style={{ background: '#f2f2f5', color: '#121216' }}>
-                        <IconTorch /> Lanterna
+                        <IconTorch /> {t.remote.overlay.torch}
                       </span>
                     )}
                   </div>
@@ -204,7 +206,7 @@ export function Remote() {
                         </span>
                       ))}
                     </span>
-                    <span className="app-pill">{cam === 'back' ? 'Traseira' : 'Frontal'}</span>
+                    <span className="app-pill">{cam === 'back' ? t.remote.back : t.remote.front}</span>
                   </div>
 
                   <AnimatePresence>
@@ -216,7 +218,7 @@ export function Remote() {
                         exit={{ opacity: 0 }}
                         className="absolute inset-0 z-20 grid place-items-center bg-black/70"
                       >
-                        <p className="rounded-full bg-black/80 px-[2.6cqw] py-[1.3cqw] text-[2.2cqw] font-semibold leading-none">Envio pausado pelo mod</p>
+                        <p className="rounded-full bg-black/80 px-[2.6cqw] py-[1.3cqw] text-[2.2cqw] font-semibold leading-none">{t.remote.overlay.paused}</p>
                       </motion.div>
                     )}
                     {reloading && (
@@ -228,7 +230,7 @@ export function Remote() {
                         className="absolute bottom-[2.2cqw] left-[7.4cqw] z-10 flex items-center gap-[1cqw] rounded-full bg-black/70 px-[1.6cqw] py-[0.9cqw] text-[1.3cqw] font-semibold leading-none"
                       >
                         <IconReload style={{ width: '1.5cqw', height: '1.5cqw', animation: 'spin 0.8s linear infinite' }} />
-                        Recarregando widgets
+                        {t.remote.overlay.reloading}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -252,23 +254,23 @@ export function Remote() {
               <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5 px-1 text-[0.8125rem] sm:text-sm">
                 <span className="flex items-center gap-2 font-semibold" style={{ color: sending ? '#f7eeec' : '#8f7a77' }}>
                   <span className={sending ? 'live-dot' : 'h-2 w-2 rounded-full bg-dim'} />
-                  {sending ? 'Ao vivo' : 'Parado'}
+                  {sending ? t.common.live : t.remote.stopped}
                 </span>
                 <span className="num text-mute">4G + Wi-Fi</span>
-                <span className="num text-mute">{fmtMbps(sending ? live.bitrate : 0)} Mbps</span>
+                <span className="num text-mute">{fmt.mbps(sending ? live.bitrate : 0)} Mbps</span>
                 <span className="hidden truncate text-dim sm:inline" aria-hidden="true">
-                  <span className="label mr-2">Última ação</span>
+                  <span className="label mr-2">{t.remote.lastAction}</span>
                   {last}
                 </span>
               </div>
 
               <div className="mt-8 hidden border-t border-paper/10 pt-7 lg:block">
-                <p className="label text-dim">O que a equipe controla daqui</p>
+                <p className="label text-dim">{t.remote.teamTitle}</p>
                 <ul className="mt-4 grid grid-cols-2 gap-x-8 gap-y-2.5 text-[0.9375rem] text-paper xl:grid-cols-3">
-                  {['Câmera frontal e traseira', 'Zoom', 'PiP com duas câmeras', 'Microfone', 'Lanterna', 'Bitrate', 'Iniciar e parar o envio', 'Widgets no celular', 'Qualidade de cada conexão'].map((t) => (
-                    <li key={t} className="flex items-center gap-2.5">
+                  {t.remote.teamItems.map((item) => (
+                    <li key={item} className="flex items-center gap-2.5">
                       <i className="h-1.5 w-1.5 flex-none rounded-full bg-live" />
-                      {t}
+                      {item}
                     </li>
                   ))}
                 </ul>
@@ -282,9 +284,9 @@ export function Remote() {
               <div className="mb-4 flex items-center justify-between gap-3">
                 <p className="flex items-center gap-2 rounded-full bg-black/35 px-3 py-1.5 text-sm font-medium ring-1 ring-dash-line">
                   <span className="h-2 w-2 rounded-full" style={{ background: sending ? '#30d158' : '#8f7a77' }} />
-                  iPhone do streamer
+                  {t.remote.device}
                 </p>
-                <p className="label text-[#bcb2b0]">Painel do mod</p>
+                <p className="label text-[#bcb2b0]">{t.remote.panelLabel}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-2.5">
@@ -292,21 +294,21 @@ export function Remote() {
                   type="button"
                   className="dash-key"
                   style={sending ? { background: '#c62828', boxShadow: 'none', color: '#fff' } : { background: '#2e7d32', boxShadow: 'none', color: '#fff' }}
-                  onClick={() => act(sending ? 'Mod parou o envio' : 'Mod iniciou o envio', () => setSending((v) => !v))}
+                  onClick={() => act(sending ? t.remote.log.stopped : t.remote.log.started, () => setSending((v) => !v))}
                 >
                   {sending ? <IconStop className="mb-auto h-5 w-5" /> : <IconPlay className="mb-auto h-5 w-5" />}
-                  <span className="k-title">{sending ? 'Parar de enviar' : 'Iniciar envio'}</span>
-                  <span className="k-sub">{sending ? 'Enviando' : 'Parado'}</span>
+                  <span className="k-title">{sending ? t.remote.keys.stop[0] : t.remote.keys.start[0]}</span>
+                  <span className="k-sub">{sending ? t.remote.keys.stop[1] : t.remote.keys.start[1]}</span>
                 </button>
                 <button
                   type="button"
                   className="dash-key"
                   aria-pressed={muted}
-                  onClick={() => act(muted ? 'Mod ligou o microfone' : 'Mod mutou o microfone', () => setMuted((v) => !v))}
+                  onClick={() => act(muted ? t.remote.log.micOn : t.remote.log.micOff, () => setMuted((v) => !v))}
                 >
                   {muted ? <IconMicOff className="mb-auto h-5 w-5" /> : <IconMic className="mb-auto h-5 w-5" />}
-                  <span className="k-title">{muted ? 'Desmutar' : 'Mutar'}</span>
-                  <span className="k-sub">{muted ? 'Microfone mutado' : 'Microfone ligado'}</span>
+                  <span className="k-title">{muted ? t.remote.keys.unmute[0] : t.remote.keys.mute[0]}</span>
+                  <span className="k-sub">{muted ? t.remote.keys.unmute[1] : t.remote.keys.mute[1]}</span>
                 </button>
                 <button
                   type="button"
@@ -314,38 +316,38 @@ export function Remote() {
                   aria-pressed={torchOn}
                   disabled={cam === 'front'}
                   style={cam === 'front' ? { opacity: 0.45 } : undefined}
-                  onClick={() => act(torch ? 'Mod apagou a lanterna' : 'Mod acendeu a lanterna', () => setTorch((v) => !v))}
+                  onClick={() => act(torch ? t.remote.log.torchOff : t.remote.log.torchOn, () => setTorch((v) => !v))}
                 >
                   <IconTorch className="mb-auto h-5 w-5" />
-                  <span className="k-title">{torchOn ? 'Apagar lanterna' : 'Ligar lanterna'}</span>
-                  <span className="k-sub">{cam === 'front' ? 'Só na câmera traseira' : torchOn ? 'Lanterna acesa' : 'Lanterna desligada'}</span>
+                  <span className="k-title">{torchOn ? t.remote.keys.torchOff[0] : t.remote.keys.torchOn[0]}</span>
+                  <span className="k-sub">{cam === 'front' ? t.remote.keys.torchFront : torchOn ? t.remote.keys.torchOff[1] : t.remote.keys.torchOn[1]}</span>
                 </button>
                 <button type="button" className="dash-key" onClick={reload}>
                   <IconReload className="mb-auto h-5 w-5" style={reloading ? { animation: 'spin 0.8s linear infinite' } : undefined} />
-                  <span className="k-title">Recarregar widgets</span>
-                  <span className="k-sub">{reloading ? 'Recarregando' : 'Alertas e metas'}</span>
+                  <span className="k-title">{t.remote.keys.reload[0]}</span>
+                  <span className="k-sub">{reloading ? t.remote.keys.reloadBusy : t.remote.keys.reload[1]}</span>
                 </button>
               </div>
 
-              <Row icon={<IconFlip className="h-4 w-4" />} label="Cena">
-                <div className="seg" role="group" aria-label="Câmera">
+              <Row icon={<IconFlip className="h-4 w-4" />} label={t.remote.scene}>
+                <div className="seg" role="group" aria-label={t.remote.cameraAria}>
                   {(['back', 'front'] as Cam[]).map((c) => (
                     <button
                       key={c}
                       type="button"
                       aria-pressed={cam === c}
-                      onClick={() => act(`Mod trocou para a câmera ${c === 'back' ? 'traseira' : 'frontal'}`, () => setCam(c))}
+                      onClick={() => act(c === 'back' ? t.remote.log.camBack : t.remote.log.camFront, () => setCam(c))}
                     >
-                      {c === 'back' ? 'Traseira' : 'Frontal'}
+                      {c === 'back' ? t.remote.back : t.remote.front}
                     </button>
                   ))}
                 </div>
               </Row>
 
-              <Row icon={<IconZoom className="h-4 w-4" />} label="Zoom">
-                <div className="seg" role="group" aria-label="Zoom">
+              <Row icon={<IconZoom className="h-4 w-4" />} label={t.remote.zoom}>
+                <div className="seg" role="group" aria-label={t.remote.zoom}>
                   {([0.5, 1, 2] as Zoom[]).map((z) => (
-                    <button key={z} type="button" aria-pressed={zoom === z} onClick={() => act(`Mod ajustou o zoom para ${z}x`, () => setZoom(z))}>
+                    <button key={z} type="button" aria-pressed={zoom === z} onClick={() => act(fill(t.remote.log.zoom, { z }), () => setZoom(z))}>
                       {z}x
                     </button>
                   ))}
@@ -355,11 +357,11 @@ export function Remote() {
               <div className="mt-2.5 rounded-[0.85rem] bg-dash-raised px-3.5 pb-1 pt-3 ring-1 ring-dash-line">
                 <div className="flex items-center justify-between gap-3">
                   <label htmlFor="bitrate" className="flex items-center gap-2 text-sm font-medium text-[#bcb2b0]">
-                    <IconGauge className="h-4 w-4" /> Bitrate
+                    <IconGauge className="h-4 w-4" /> {t.remote.bitrate}
                   </label>
                   <p className="text-sm">
-                    <span className="font-semibold [font-stretch:88%]">Alvo de {fmtMbps(target)} Mb/s</span>
-                    <span className="num ml-2 text-xs text-[#bcb2b0]">enviando {fmtMbps(sending ? live.bitrate : 0)}</span>
+                    <span className="font-semibold [font-stretch:88%]">{fill(t.remote.target, { v: fmt.mbps(target) })}</span>
+                    <span className="num ml-2 text-xs text-[#bcb2b0]">{fill(t.remote.sending, { v: fmt.mbps(sending ? live.bitrate : 0) })}</span>
                   </p>
                 </div>
                 <input
@@ -371,38 +373,37 @@ export function Remote() {
                   step={0.5}
                   value={target}
                   style={{ ['--fill' as string]: `${((target - 1) / 7) * 100}%` }}
-                  onChange={(e) => act(`Mod mudou o bitrate para ${fmtMbps(+e.target.value)} Mb/s`, () => setTarget(+e.target.value))}
+                  onChange={(e) => act(fill(t.remote.log.bitrate, { v: fmt.mbps(+e.target.value) }), () => setTarget(+e.target.value))}
                 />
               </div>
 
               <Toggle
                 icon={<IconPip className="h-4 w-4" />}
-                title="Picture-in-Picture"
-                sub={pip ? `${cam === 'back' ? 'Frontal' : 'Traseira'}, 30%` : 'Desligado'}
+                title={t.remote.pipTitle}
+                sub={pip ? fill(t.remote.pipSub, { cam: cam === 'back' ? t.remote.front : t.remote.back }) : t.remote.pipOff}
                 on={pip}
-                onChange={() => act(pip ? 'Mod desligou o PiP' : 'Mod ligou o PiP com as duas câmeras', () => setPip((v) => !v))}
+                onChange={() => act(pip ? t.remote.log.pipOff : t.remote.log.pipOn, () => setPip((v) => !v))}
               />
 
-              <p className="label mb-1 mt-5 text-[#bcb2b0]">Widgets</p>
+              <p className="label mb-1 mt-5 text-[#bcb2b0]">{t.remote.widgets}</p>
               <Toggle
-                title="Meta do dia"
+                title={t.remote.goal}
                 sub="https://overlay/meta"
                 on={goal}
-                onChange={() => act(goal ? 'Mod escondeu a meta do dia' : 'Mod mostrou a meta do dia', () => setGoal((v) => !v))}
+                onChange={() => act(goal ? t.remote.log.goalHide : t.remote.log.goalShow, () => setGoal((v) => !v))}
               />
 
-              <p className="mt-4 text-xs leading-relaxed text-[#8f8583]">Simulação: nada aqui se conecta a uma live de verdade.</p>
+              <p className="mt-4 text-xs leading-relaxed text-[#8f8583]">{t.remote.simNote}</p>
             </div>
           </Reveal>
         </div>
 
         <Reveal className="mt-10 flex flex-col gap-4 border-t border-paper/10 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-14">
           <p className="max-w-[40rem] text-[0.9875rem] leading-relaxed text-mute">
-            Os widgets também saem dali: cole o link do alerta ou da meta uma vez, posicione arrastando e ele aparece no
-            celular. E a equipe vê a qualidade de cada conexão, Wi-Fi e rede móvel, em tempo real.
+            {t.remote.footer}
           </p>
           <a href={LINKS.plans} className="btn btn-primary flex-none">
-            Quero isso na minha live
+            {t.remote.cta}
             <IconArrow className="h-5 w-5" />
           </a>
         </Reveal>

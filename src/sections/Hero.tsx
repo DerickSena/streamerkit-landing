@@ -12,7 +12,8 @@ import {
 import { AppPanel, Phone, type LinkStat } from '../components/Phone'
 import { LiveVideo } from '../components/LiveVideo'
 import { IconArrow, IconArrowDown, IconChat, IconEye, IconPower } from '../components/icons'
-import { LINKS, fmtInt, fmtMbps } from '../lib/site'
+import { LINKS } from '../lib/site'
+import { useFmt, useT, type Dict } from '../i18n'
 
 type Phase = 'ok' | 'drop' | 'frozen' | 'offline' | 'on'
 type Msg = { id: number; user: string; text: string; tone: 'bad' | 'good' | 'neutral' }
@@ -30,25 +31,6 @@ type Sim = {
 }
 
 const NAMES = ['leo_zx', 'bia.mp4', 'tutu77', 'gabs', 'rafa_irl', 'nandaa', 'kiko_mod', 'ju.live', 'pedrox', 'mari_s2']
-const POOL: Record<Phase, string[]> = {
-  ok: ['que show!!', 'manda salve', 'tá onde?', 'olha esse palco', 'kkkkk'],
-  drop: ['tá travando', 'lagou aqui', 'imagem toda quadrada', 'o bitrate tá caindo'],
-  frozen: ['caiu?', 'F', 'travou', 'caiu dnv kkkk', 'volta!!', 'congelou aqui', 'F no chat'],
-  offline: ['encerrou :(', 'vou pra outra live', 'avisa quando voltar'],
-  on: [
-    'imagem lisa demais',
-    'nem parece 4G',
-    'que show!!',
-    'o 5G caiu e nem travou',
-    'manda salve',
-    'kkkkk',
-    'qualidade absurda',
-    'segue o baile',
-    'tá onde?',
-    'live boa demais',
-  ],
-}
-
 const GREEN = '#30d158'
 const AMBER = '#f2b04e'
 const BLUE = '#3b9bff'
@@ -75,7 +57,10 @@ const initial = (on: boolean): Sim => ({
 })
 
 /** Simulação da live: sem o StreamerKit ela cai em ciclo; com ele, segura. */
-function useHeroSim(on: boolean, active: boolean) {
+function useHeroSim(on: boolean, active: boolean, chatPool: Dict['hero']['chat']) {
+  // Mensagens do idioma atual, lidas por ref para o intervalo não ser recriado ao trocar de idioma.
+  const pool = useRef<Record<Phase, string[]>>(chatPool)
+  pool.current = chatPool
   const [s, setS] = useState<Sim>(() => initial(on))
   const r = useRef({ t: 0, viewers: START_VIEWERS, hist: initial(on).history, chat: [] as Msg[], next: 0.7, id: 0, cycles: 0, n: 0 })
 
@@ -160,8 +145,8 @@ function useHeroSim(on: boolean, active: boolean) {
 
       m.next -= dt
       if (m.next <= 0) {
-        const pool = POOL[phase]
-        const text = pool[(m.id * 7 + m.cycles * 3) % pool.length]
+        const msgs = pool.current[phase]
+        const text = msgs[(m.id * 7 + m.cycles * 3) % msgs.length]
         const tone = phase === 'on' || phase === 'ok' ? (phase === 'on' ? 'good' : 'neutral') : 'bad'
         m.id += 1
         m.chat = [...m.chat.slice(-3), { id: m.id, user: NAMES[(m.id * 3) % NAMES.length], text, tone }]
@@ -188,6 +173,7 @@ function useHeroSim(on: boolean, active: boolean) {
 }
 
 export function Hero() {
+  const t = useT()
   const [on, setOn] = useState(false)
   const [touched, setTouched] = useState(false)
   const toggle = (v: boolean) => {
@@ -202,56 +188,57 @@ export function Hero() {
         <div className="lg:col-span-5">
           <p className="label mb-4 flex items-center gap-2.5 text-mute sm:mb-5">
             <span className="live-dot" />
-            Servidor de live IRL
+            {t.hero.kicker}
           </p>
 
           <h1 className="display grid text-[clamp(3.9rem,19.5vw,8.6rem)] lg:text-[clamp(5rem,8.3vw,8.6rem)]">
-            <span className="sr-only">StreamerKit, servidor de live IRL: </span>
+            <span className="sr-only">{t.hero.srPrefix}</span>
             <HeadlineVariant show={!on}>
-              <span className="block">Sua live</span>
+              <span className="block">{t.hero.off[0]}</span>
               <span className="block">
-                <span className="glitch" data-text="caiu.">
-                  caiu.
+                <span className="glitch" data-text={t.hero.off[1]}>
+                  {t.hero.off[1]}
                 </span>
               </span>
-              <span className="block text-paper/40">De novo.</span>
+              <span className="block text-paper/40">{t.hero.off[2]}</span>
             </HeadlineVariant>
             <HeadlineVariant show={on}>
-              <span className="block">Sua live</span>
-              <span className="block">continua</span>
-              <span className="block text-live">no ar.</span>
+              <span className="block">{t.hero.on[0]}</span>
+              <span className="block">{t.hero.on[1]}</span>
+              <span className="block text-live">{t.hero.on[2]}</span>
             </HeadlineVariant>
           </h1>
 
           <div className="mt-5 grid max-w-[34rem] sm:mt-6">
             <LedeVariant show={!on}>
-              <span className="hidden sm:inline">Show lotado, todo mundo pendurado na mesma antena, e o seu único chip não aguenta. </span>
-              <span className="sm:hidden">Um chip só não aguenta show lotado. </span>O{' '}
-              <strong className="font-semibold text-paper">StreamerKit</strong> junta 4G, 5G e Wi-Fi numa transmissão só e
-              segura a sua live no ar.
+              <span className="hidden sm:inline">{t.hero.ledeOff.long}</span>
+              <span className="sm:hidden">{t.hero.ledeOff.short}</span>
+              {t.hero.ledeOff.pre}
+              <strong className="font-semibold text-paper">{t.hero.ledeOff.brand}</strong>
+              {t.hero.ledeOff.post}
             </LedeVariant>
             <LedeVariant show={on}>
-              4G, 5G e Wi-Fi somados numa transmissão só. Se uma conexão cai, as outras seguram.
+              {t.hero.ledeOn.main}
               <span className="hidden sm:inline">
-                {' '}
-                Se todas caem, a cena de BRB mantém <strong className="font-semibold text-paper">a sua live no ar</strong> até
-                você voltar.
+                {t.hero.ledeOn.extraPre}
+                <strong className="font-semibold text-paper">{t.hero.ledeOn.extraStrong}</strong>
+                {t.hero.ledeOn.extraPost}
               </span>
             </LedeVariant>
           </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center">
             <a href={LINKS.plans} className="btn btn-primary w-full sm:w-auto">
-              Escolher um plano
+              {t.common.choosePlan}
               <IconArrow className="h-5 w-5" />
             </a>
             <a href="#bonding" className="btn btn-ghost hidden sm:inline-flex sm:w-auto">
-              Ver funcionando
+              {t.hero.secondary}
               <IconArrowDown className="h-5 w-5" />
             </a>
           </div>
           <p className="mt-3.5 text-sm text-dim sm:mt-4">
-            Você entra com a sua conta da Twitch ou da Kick. Planos a partir de R$&nbsp;119,90 por mês.
+            {t.common.signInNote} {t.common.fromPrice}
           </p>
         </div>
 
@@ -323,7 +310,9 @@ function Stage({ on, touched, onToggle }: { on: boolean; touched: boolean; onTog
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { margin: '120px 0px' })
   const reduce = useReducedMotion()
-  const sim = useHeroSim(on, inView && !reduce)
+  const t = useT()
+  const fmt = useFmt()
+  const sim = useHeroSim(on, inView && !reduce, t.hero.chat)
 
   // 3D: o celular inclina com o mouse e "deita" um pouco conforme a página rola.
   const px = useMotionValue(0)
@@ -369,7 +358,7 @@ function Stage({ on, touched, onToggle }: { on: boolean; touched: boolean; onTog
                 frozen={!on && frozen}
                 className="absolute inset-0"
                 style={{ filter: 'brightness(1.14) saturate(1.12)' }}
-                label="Vídeo de exemplo: plateia de um show filmando o palco com o celular"
+                label={t.hero.videoLabel}
               />
 
               {/* brilho vermelho quando a live está morrendo */}
@@ -383,13 +372,13 @@ function Stage({ on, touched, onToggle }: { on: boolean; touched: boolean; onTog
                   <IconChat style={{ color: '#30d158' }} />
                   <i className="h-[1.4cqw] w-px bg-white/25" />
                   <IconEye />
-                  <span className="num">{fmtInt(sim.viewers)}</span>
+                  <span className="num">{fmt.int(sim.viewers)}</span>
                 </span>
                 <span
                   className="app-pill transition-colors duration-300"
                   style={{ background: frozen && !on ? 'rgb(60 60 66 / 0.9)' : 'rgb(255 42 28 / 0.92)' }}
                 >
-                  {frozen && !on ? 'OFFLINE' : 'AO VIVO'}
+                  {frozen && !on ? t.hero.offlineTag : t.hero.liveTag}
                 </span>
               </div>
 
@@ -399,7 +388,7 @@ function Stage({ on, touched, onToggle }: { on: boolean; touched: boolean; onTog
                   <span className="rounded-full bg-white px-[0.8cqw] py-[0.2cqw] text-black">1</span>
                   <span className="opacity-50">2</span>
                 </span>
-                <span className="app-pill">Traseira</span>
+                <span className="app-pill">{t.hero.rear}</span>
               </div>
 
               <AnimatePresence>
@@ -416,7 +405,7 @@ function Stage({ on, touched, onToggle }: { on: boolean; touched: boolean; onTog
                         className="block h-[2.4cqw] w-[2.4cqw] rounded-full border-[0.3cqw] border-white/25 border-t-white"
                         style={{ animation: 'spin 0.8s linear infinite' }}
                       />
-                      Reconectando...
+                      {t.hero.reconnecting}
                     </div>
                   </motion.div>
                 )}
@@ -431,15 +420,15 @@ function Stage({ on, touched, onToggle }: { on: boolean; touched: boolean; onTog
                     <div className="tv-static absolute inset-0 opacity-70" />
                     <div className="scanlines absolute inset-0" />
                     <div className="relative px-[3cqw] text-center">
-                      <p className="label !text-[1.5cqw] text-white/70">Conexão perdida</p>
-                      <p className="display mt-[1cqw] text-[7.4cqw] text-white">Live encerrada</p>
+                      <p className="label !text-[1.5cqw] text-white/70">{t.hero.offline.label}</p>
+                      <p className="display mt-[1cqw] text-[7.4cqw] text-white">{t.hero.offline.title}</p>
                       <button
                         type="button"
                         onClick={() => onToggle(true)}
                         className="mt-[2.2cqw] inline-flex min-h-11 items-center gap-2 rounded-full bg-white px-5 text-sm font-semibold text-black transition-transform duration-300 hover:scale-105 active:scale-95"
                       >
                         <IconPower className="h-4 w-4" />
-                        Ligar o StreamerKit
+                        {t.hero.offline.button}
                       </button>
                     </div>
                   </motion.div>
@@ -471,10 +460,11 @@ function Stage({ on, touched, onToggle }: { on: boolean; touched: boolean; onTog
 }
 
 function ChatCard({ chat }: { chat: Msg[] }) {
+  const t = useT()
   return (
     <div className="rounded-2xl bg-ink-deep/90 p-3.5 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.9)] ring-1 ring-paper/10">
       <p className="label mb-2.5 flex items-center gap-2 text-dim">
-        <IconChat className="h-3.5 w-3.5" /> Chat da live
+        <IconChat className="h-3.5 w-3.5" /> {t.hero.chatTitle}
       </p>
       <ul className="flex h-[6.75rem] flex-col justify-end gap-1.5 overflow-hidden text-[0.8125rem] leading-tight">
         <AnimatePresence initial={false}>
@@ -501,13 +491,14 @@ function ChatCard({ chat }: { chat: Msg[] }) {
 
 /** No celular e no tablet o chat vira uma linha só, embaixo dos números. */
 function ChatTicker({ msg }: { msg?: Msg }) {
+  const t = useT()
   return (
     <div
       aria-hidden="true"
       className="flex min-h-10 items-center gap-2.5 overflow-hidden rounded-xl bg-ink-deep/80 px-3.5 text-[0.8125rem] ring-1 ring-paper/10 sm:col-span-2 lg:hidden"
     >
       <IconChat className="h-3.5 w-3.5 flex-none text-dim" />
-      <span className="label flex-none text-dim">Chat</span>
+      <span className="label flex-none text-dim">{t.hero.chatShort}</span>
       {msg && (
         <span key={msg.id} className="truncate" style={{ animation: 'price-in 0.35s cubic-bezier(0.16,1,0.3,1)' }}>
           <b className="font-semibold" style={{ color: msg.tone === 'bad' ? '#ff6b5e' : msg.tone === 'good' ? '#30d158' : '#b8a3a0' }}>
@@ -521,6 +512,7 @@ function ChatTicker({ msg }: { msg?: Msg }) {
 }
 
 function PowerSwitch({ on, touched, onToggle }: { on: boolean; touched: boolean; onToggle: (v: boolean) => void }) {
+  const t = useT()
   return (
     <div className="relative">
       <button
@@ -544,9 +536,9 @@ function PowerSwitch({ on, touched, onToggle }: { on: boolean; touched: boolean;
         </span>
         <span className="min-w-0 flex-1">
           <span className="block text-[1.0625rem] font-semibold leading-tight [font-stretch:88%]">
-            StreamerKit {on ? 'ligado' : 'desligado'}
+            {on ? t.hero.switch.on : t.hero.switch.off}
           </span>
-          <span className="mt-0.5 block truncate text-sm text-mute">{on ? '4G + 5G + Wi-Fi somados' : 'Um chip 4G, sozinho'}</span>
+          <span className="mt-0.5 block truncate text-sm text-mute">{on ? t.hero.switch.onSub : t.hero.switch.offSub}</span>
         </span>
         <span className="switch" data-on={on ? 'true' : undefined} style={on ? { background: '#30d158' } : undefined} />
       </button>
@@ -555,7 +547,7 @@ function PowerSwitch({ on, touched, onToggle }: { on: boolean; touched: boolean;
           className="label pointer-events-none absolute -top-2.5 left-4 flex items-center gap-1.5 rounded-full bg-paper px-2.5 py-1 text-ink shadow-lg"
           style={{ animation: 'blink 1.8s ease-in-out infinite' }}
         >
-          Ligue e veja <IconArrowDown className="h-3 w-3" />
+          {t.hero.switch.hint} <IconArrowDown className="h-3 w-3" />
         </p>
       )}
     </div>
@@ -563,25 +555,27 @@ function PowerSwitch({ on, touched, onToggle }: { on: boolean; touched: boolean;
 }
 
 function Telemetry({ sim, on }: { sim: Sim; on: boolean }) {
+  const t = useT()
+  const fmt = useFmt()
   const dropping = sim.delta < -1
   const dead = !on && (sim.phase === 'frozen' || sim.phase === 'offline')
   return (
     <div className="grid grid-cols-[1fr_1.15fr_1.6fr] divide-x divide-paper/10 rounded-2xl bg-ink-deep/80 py-3 ring-1 ring-paper/10 sm:py-3.5">
       <div className="px-3.5">
-        <p className="label text-dim">Viewers</p>
+        <p className="label text-dim">{t.hero.telemetry.viewers}</p>
         <p className="num mt-1 text-lg font-semibold leading-none transition-colors duration-300 sm:text-xl" style={{ color: dropping ? '#ff6b5e' : '#f7eeec' }}>
-          {fmtInt(sim.viewers)}
+          {fmt.int(sim.viewers)}
         </p>
       </div>
       <div className="px-3.5">
-        <p className="label text-dim">Bitrate</p>
+        <p className="label text-dim">{t.hero.telemetry.bitrate}</p>
         <p className="num mt-1 text-lg font-semibold leading-none transition-colors duration-300 sm:text-xl" style={{ color: dead || sim.bitrate < 1.2 ? '#ff6b5e' : '#f7eeec' }}>
-          {fmtMbps(dead ? 0 : sim.bitrate)}
+          {fmt.mbps(dead ? 0 : sim.bitrate)}
           <span className="ml-1 text-[0.6875rem] font-medium text-dim">Mbps</span>
         </p>
       </div>
       <div className="px-3.5">
-        <p className="label text-dim">Sinal</p>
+        <p className="label text-dim">{t.hero.telemetry.signal}</p>
         <div className="mt-1.5 flex items-center gap-1.5">
           {sim.links.map((l) => (
             <span
@@ -603,12 +597,8 @@ function Telemetry({ sim, on }: { sim: Sim; on: boolean }) {
 }
 
 function TrustBar() {
-  const items = [
-    ['Transmite para', 'Twitch, Kick e YouTube'],
-    ['Ingests', 'Brasil, EUA e Europa'],
-    ['Cobrança em real', 'Cartão ou Pix Automático'],
-    ['Funciona com', 'iPhone, IRL Pro e Larix'],
-  ]
+  const t = useT()
+  const items = t.hero.trust
   return (
     <div className="shell relative mt-14 lg:mt-20">
       <div className="hairline" />

@@ -1,8 +1,14 @@
 import type { ReactNode } from 'react'
 import { IconDiscord, IconInstagram, IconTiktok, IconXLogo } from '../components/icons'
 import { LINKS } from '../lib/site'
+import { LOCALES, useLocale, useT } from '../i18n'
+import { rememberLocale } from '../components/LangSwitcher'
+
+const PRODUCT_HREFS = ['#bonding', '#controle', '#canvas', '#planos']
 
 export function Footer() {
+  const t = useT()
+  const locale = useLocale()
   const social = [
     ['Discord', LINKS.discord, IconDiscord],
     ['Instagram', LINKS.instagram, IconInstagram],
@@ -17,22 +23,23 @@ export function Footer() {
           <div>
             <img src="/logo-horizontal-light.svg" alt="StreamerKit" width={134} height={36} loading="lazy" className="h-9 w-auto" />
             <p className="mt-4 max-w-[20rem] text-[0.9375rem] leading-relaxed text-mute">
-              O StreamerKit mantém lives IRL no ar quando o sinal cai. Também conhecido como Servidor do Marco.
+              {t.footer.blurb}
             </p>
           </div>
-          <FootCol title="Produto">
-            <FootLink href="#bonding">Como segura a live</FootLink>
-            <FootLink href="#controle">Controle remoto</FootLink>
-            <FootLink href="#canvas">Canvas com widgets</FootLink>
-            <FootLink href="#planos">Planos</FootLink>
+          <FootCol title={t.footer.product}>
+            {t.footer.productLinks.map((label, i) => (
+              <FootLink key={PRODUCT_HREFS[i]} href={PRODUCT_HREFS[i]}>
+                {label}
+              </FootLink>
+            ))}
           </FootCol>
-          <FootCol title="Conta e ajuda">
-            <FootLink href={LINKS.login}>Entrar</FootLink>
-            <FootLink href={LINKS.help}>Central de ajuda</FootLink>
-            <FootLink href={LINKS.support}>Suporte</FootLink>
-            <FootLink href="#duvidas">Perguntas frequentes</FootLink>
+          <FootCol title={t.footer.account}>
+            <FootLink href={LINKS.login}>{t.nav.login}</FootLink>
+            <FootLink href={LINKS.help}>{t.footer.help}</FootLink>
+            <FootLink href={LINKS.support}>{t.footer.support}</FootLink>
+            <FootLink href="#duvidas">{t.footer.faq}</FootLink>
           </FootCol>
-          <FootCol title="Redes">
+          <FootCol title={t.footer.social}>
             {social.map(([n, h, I]) => (
               <a
                 key={n}
@@ -58,25 +65,33 @@ export function Footer() {
       </p>
 
       <div className="shell mt-8 flex flex-col gap-4 text-[0.8125rem] text-dim lg:flex-row lg:items-center lg:justify-between">
-        <p>© 2026 StreamerKit. Todos os direitos reservados.</p>
-        <nav aria-label="Idiomas" className="flex flex-wrap gap-x-5 gap-y-2">
-          <span className="font-semibold text-paper">Português</span>
-          <a href={LINKS.en} className="transition-colors hover:text-paper">
-            English
-          </a>
-          <a href={LINKS.es} className="transition-colors hover:text-paper">
-            Español (España)
-          </a>
-          <a href={LINKS.es419} className="transition-colors hover:text-paper">
-            Español (Latinoamérica)
-          </a>
+        <p>{t.footer.rights}</p>
+        <nav aria-label={t.nav.langAria} className="flex flex-wrap gap-x-5 gap-y-2">
+          {LOCALES.map((l) =>
+            l.id === locale ? (
+              <span key={l.id} className="font-semibold text-paper">
+                {l.label}
+              </span>
+            ) : (
+              <a
+                key={l.id}
+                href={l.path}
+                hrefLang={l.hreflang[0]}
+                lang={l.hreflang[0]}
+                onClick={() => rememberLocale(l.id)}
+                className="transition-colors hover:text-paper"
+              >
+                {l.label}
+              </a>
+            ),
+          )}
         </nav>
-        <nav aria-label="Legal" className="flex flex-wrap gap-x-5 gap-y-2">
+        <nav aria-label={t.footer.legalAria} className="flex flex-wrap gap-x-5 gap-y-2">
           <a href={LINKS.privacy} className="transition-colors hover:text-paper">
-            Política de Privacidade
+            {t.footer.privacy}
           </a>
           <a href={LINKS.terms} className="transition-colors hover:text-paper">
-            Termos de Serviço
+            {t.footer.terms}
           </a>
         </nav>
       </div>
