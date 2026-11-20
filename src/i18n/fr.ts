@@ -20,6 +20,7 @@ export const fr: Dict = {
     choosePlan: 'Choisir une offre',
     signInNote: 'Tu te connectes avec ton compte Twitch ou Kick.',
     fromPrice: 'Offres à partir de R$ 119,90 par mois.',
+    trial: 'Essai gratuit de 7 jours.',
     live: 'En live',
     down: 'coupé',
     noSignal: 'pas de signal',
@@ -92,6 +93,15 @@ export const fr: Dict = {
       ['Ingests', 'Brésil, États-Unis et Europe'],
       ['Au paiement', 'Paie dans ta monnaie locale'],
       ['Compatible', 'iPhone, IRL Pro et Larix'],
+    ],
+  },
+
+  // Faixa de prova logo abaixo do topo: números e streamers que autorizaram citar o nome.
+  proof: {
+    title: 'Ils streament déjà avec StreamerKit',
+    stats: [
+      { value: '100', label: "streamers qui l'utilisent aujourd'hui" },
+      { value: '20\u202f000', label: 'heures de live diffusées' },
     ],
   },
 
@@ -244,7 +254,7 @@ export const fr: Dict = {
   },
 
   canvas: {
-    kicker: 'Exclusif · Canvas avec widgets',
+    kicker: 'Canvas avec widgets',
     title: ['Des overlays de gros streamer,', 'montés dans ton navigateur.'],
     lede: "Alertes, tchat, carte, tableau de score, nombre de viewers, défis et QR code. Tu glisses, tu déposes, et le canvas entre dans OBS comme source navigateur, sur ton PC ou dans le cloud.",
     windowTitle: 'Canvas · scène IRL',
@@ -339,6 +349,18 @@ export const fr: Dict = {
         title: 'Lance le live',
         text: "Ouvre l'app StreamerKit sur iPhone, ou scanne le QR code de la page Ingests avec IRL Pro ou Larix.",
       },
+    ],
+  },
+
+  testimonials: {
+    kicker: 'Témoignages',
+    title: "Ceux qui l'utilisent en parlent.",
+    // aspas tipográficas do idioma: abre e fecha
+    marks: ['«\u00a0', '\u00a0»'],
+    items: [
+      { quote: "Ce n'est pas un hack, c'est StreamerKit\u00a0!", author: 'zanolini' },
+      { quote: 'Le seul serveur au monde avec la traduction en direct.', author: 'JonVlogs' },
+      { quote: "StreamerKit a réglé tout ce dont j'avais besoin pour mes lives.", author: 'sheviii2k' },
     ],
   },
 

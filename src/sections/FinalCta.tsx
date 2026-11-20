@@ -35,7 +35,9 @@ export function FinalCta() {
               {t.common.choosePlan}
               <IconArrow className="h-5 w-5" />
             </a>
-            <p className="text-sm text-dim">{t.final.micro}</p>
+            <p className="max-w-[36rem] text-sm text-dim">
+              <span className="font-medium text-mute">{t.common.trial}</span> {t.final.micro}
+            </p>
           </div>
         </Reveal>
       </div>

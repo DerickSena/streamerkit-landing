@@ -238,7 +238,7 @@ export function Hero() {
             </a>
           </div>
           <p className="mt-3.5 text-sm text-dim sm:mt-4">
-            {t.common.signInNote} {t.common.fromPrice}
+            <span className="font-medium text-mute">{t.common.trial}</span> {t.common.signInNote} {t.common.fromPrice}
           </p>
         </div>
 

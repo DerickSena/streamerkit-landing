@@ -19,6 +19,7 @@ export const zh: Dict = {
     choosePlan: '选择套餐',
     signInNote: '用你的 Twitch 或 Kick 账号登录。',
     fromPrice: '套餐低至每月 R$119.90。',
+    trial: '可免费试用 7 天。',
     live: '直播中',
     down: '已断开',
     noSignal: '无信号',
@@ -91,6 +92,15 @@ export const zh: Dict = {
       ['Ingests', '巴西、美国和欧洲'],
       ['结账时', '可用你的本地货币支付'],
       ['支持', 'iPhone、IRL Pro 和 Larix'],
+    ],
+  },
+
+  // Faixa de prova logo abaixo do topo: números e streamers que autorizaram citar o nome.
+  proof: {
+    title: '已经在用 StreamerKit 直播的主播',
+    stats: [
+      { value: '100', label: '位主播正在使用' },
+      { value: '2万', label: '小时直播已经播出' },
     ],
   },
 
@@ -243,7 +253,7 @@ export const zh: Dict = {
   },
 
   canvas: {
-    kicker: '独家功能 · 带 widgets 的 Canvas',
+    kicker: '带 widgets 的 Canvas',
     title: ['大主播级别的 overlays，', '在浏览器里就能做。'],
     lede: '提醒、弹幕、地图、比分牌、观众人数、挑战和二维码。拖一拖、放一放，Canvas 就能作为浏览器来源加进 OBS，电脑上或云端都行。',
     windowTitle: 'Canvas · IRL 场景',
@@ -335,6 +345,18 @@ export const zh: Dict = {
         title: '开播',
         text: '在 iPhone 上打开 StreamerKit App，或者用 IRL Pro 或 Larix 扫描 Ingests 页面上的二维码。',
       },
+    ],
+  },
+
+  testimonials: {
+    kicker: '用户怎么说',
+    title: '听听主播怎么说。',
+    // aspas tipográficas do idioma: abre e fecha
+    marks: ['“', '”'],
+    items: [
+      { quote: '这不是外挂，这是 StreamerKit！', author: 'zanolini' },
+      { quote: '全世界唯一带实时翻译的服务器。', author: 'JonVlogs' },
+      { quote: 'StreamerKit 解决了我直播需要的一切。', author: 'sheviii2k' },
     ],
   },
 

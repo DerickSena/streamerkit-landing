@@ -21,6 +21,7 @@ export const es419: Dict = {
     choosePlan: 'Elegir un plan',
     signInNote: 'Inicias sesión con tu cuenta de Twitch o Kick.',
     fromPrice: 'Planes desde R$ 119,90 al mes.',
+    trial: 'Prueba gratis por 7 días.',
     live: 'En vivo',
     down: 'cayó',
     noSignal: 'sin señal',
@@ -93,6 +94,15 @@ export const es419: Dict = {
       ['Ingests', 'Brasil, EE. UU. y Europa'],
       ['Al pagar', 'Usa tu moneda local'],
       ['Funciona con', 'iPhone, IRL Pro y Larix'],
+    ],
+  },
+
+  // Faixa de prova logo abaixo do topo: números e streamers que autorizaram citar o nome.
+  proof: {
+    title: 'Ya transmiten con StreamerKit',
+    stats: [
+      { value: '100', label: 'streamers transmitiendo hoy' },
+      { value: '20 mil', label: 'horas de transmisión en vivo' },
     ],
   },
 
@@ -245,7 +255,7 @@ export const es419: Dict = {
   },
 
   canvas: {
-    kicker: 'Solo aquí · Canvas con widgets',
+    kicker: 'Canvas con widgets',
     title: ['Overlays de stream grande,', 'armados en el navegador.'],
     lede: 'Alertas, chat, mapa, marcador, espectadores, retos y código QR. Arrastras, sueltas y el canvas entra en OBS como una fuente de navegador, en tu computadora o en la nube.',
     windowTitle: 'Canvas · Escena IRL',
@@ -337,6 +347,18 @@ export const es419: Dict = {
         title: 'Transmite en vivo',
         text: 'Abre la app StreamerKit en el iPhone, o escanea el código QR de la página Ingests con IRL Pro o Larix.',
       },
+    ],
+  },
+
+  testimonials: {
+    kicker: 'Testimonios',
+    title: 'Lo dicen quienes lo usan.',
+    // aspas tipográficas do idioma: abre e fecha
+    marks: ['“', '”'],
+    items: [
+      { quote: '¡Esto no es hack, esto es StreamerKit!', author: 'zanolini' },
+      { quote: 'El único servidor del mundo con traducción en vivo.', author: 'JonVlogs' },
+      { quote: 'StreamerKit resolvió todo lo que necesitaba en mis transmisiones.', author: 'sheviii2k' },
     ],
   },
 

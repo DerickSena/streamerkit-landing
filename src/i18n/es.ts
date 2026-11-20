@@ -62,6 +62,19 @@ export const es: Dict = {
         : item,
     ),
   },
+  proof: {
+    title: 'Ya emiten con StreamerKit',
+    stats: [
+      { value: '100', label: 'streamers emitiendo hoy' },
+      { value: '20 mil', label: 'horas de directo emitidas' },
+    ],
+  },
+  testimonials: {
+    ...base.testimonials,
+    items: base.testimonials.items.map((item, i) =>
+      i === 2 ? { ...item, quote: 'StreamerKit resolvió todo lo que necesitaba en mis directos.' } : item,
+    ),
+  },
   canvas: {
     ...base.canvas,
     videoLabel: 'Vídeo de ejemplo: una calle de ciudad de noche vista desde dentro del coche',

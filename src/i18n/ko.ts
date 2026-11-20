@@ -19,6 +19,7 @@ export const ko: Dict = {
     choosePlan: '요금제 고르기',
     signInNote: 'Twitch 또는 Kick 계정으로 로그인해요.',
     fromPrice: '월 R$119.90부터.',
+    trial: '7일 무료 체험.',
     live: '라이브',
     down: '끊김',
     noSignal: '신호 없음',
@@ -91,6 +92,15 @@ export const ko: Dict = {
       ['Ingests', '브라질, 미국, 유럽'],
       ['결제할 때', '현지 통화로 결제'],
       ['호환', 'iPhone, IRL Pro, Larix'],
+    ],
+  },
+
+  // Faixa de prova logo abaixo do topo: números e streamers que autorizaram citar o nome.
+  proof: {
+    title: 'StreamerKit으로 방송하는 스트리머',
+    stats: [
+      { value: '100', label: '명의 스트리머가 사용 중' },
+      { value: '2만', label: '시간 라이브 송출' },
     ],
   },
 
@@ -243,7 +253,7 @@ export const ko: Dict = {
   },
 
   canvas: {
-    kicker: '여기에만 · 위젯이 있는 Canvas',
+    kicker: '위젯이 있는 Canvas',
     title: ['대형 방송급 오버레이,', '브라우저에서 바로 만들어요.'],
     lede: '알림, 채팅, 지도, 스코어보드, 시청자 수, 미션, QR 코드. 끌어다 놓기만 하면 Canvas가 브라우저 소스로 OBS에 들어가요. PC에서든 클라우드에서든.',
     windowTitle: 'Canvas · IRL 장면',
@@ -335,6 +345,18 @@ export const ko: Dict = {
         title: '방송 켜기',
         text: 'iPhone에서 StreamerKit 앱을 열거나, IRL Pro나 Larix로 Ingests 페이지의 QR 코드를 찍어요.',
       },
+    ],
+  },
+
+  testimonials: {
+    kicker: '사용 후기',
+    title: '써 본 사람들의 말.',
+    // aspas tipográficas do idioma: abre e fecha
+    marks: ['“', '”'],
+    items: [
+      { quote: '이건 핵이 아니야, StreamerKit이야!', author: 'zanolini' },
+      { quote: '실시간 번역이 되는 세계 유일의 서버.', author: 'JonVlogs' },
+      { quote: 'StreamerKit이 제 방송에 필요한 걸 전부 해결해 줬어요.', author: 'sheviii2k' },
     ],
   },
 

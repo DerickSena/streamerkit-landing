@@ -37,7 +37,12 @@ export function Pricing() {
           </Reveal>
         </div>
 
-        {t.pricing.currencyNote && <p className="mt-6 text-sm text-dim">{t.pricing.currencyNote}</p>}
+        {/* Teste grátis: uma linha só para os dois planos (não sabemos se vale para um plano específico). */}
+        <p className="mt-6 flex items-center gap-2 text-[0.9375rem] font-medium text-paper">
+          <IconCheck className="h-4 w-4 flex-none text-ok" />
+          {t.common.trial}
+        </p>
+        {t.pricing.currencyNote && <p className="mt-2 text-sm text-dim">{t.pricing.currencyNote}</p>}
 
         <div className="mt-10 grid gap-4 lg:mt-14 lg:grid-cols-2">
           {PLAN_IDS.map((id, i) => {

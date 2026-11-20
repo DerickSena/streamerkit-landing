@@ -19,6 +19,7 @@ export const ja: Dict = {
     choosePlan: 'プランを選ぶ',
     signInNote: 'TwitchまたはKickのアカウントでログインします。',
     fromPrice: 'プランは月額R$119.90から。',
+    trial: '7日間の無料トライアルあり。',
     live: '配信中',
     down: '切断',
     noSignal: '信号なし',
@@ -91,6 +92,15 @@ export const ja: Dict = {
       ['Ingests', 'ブラジル、アメリカ、ヨーロッパ'],
       ['お支払い', '現地通貨で支払い可能'],
       ['対応アプリ', 'iPhone、IRL Pro、Larix'],
+    ],
+  },
+
+  // Faixa de prova logo abaixo do topo: números e streamers que autorizaram citar o nome.
+  proof: {
+    title: 'StreamerKitで配信しているストリーマー',
+    stats: [
+      { value: '100', label: '人のストリーマーが利用中' },
+      { value: '2万', label: '時間のライブを配信' },
     ],
   },
 
@@ -243,7 +253,7 @@ export const ja: Dict = {
   },
 
   canvas: {
-    kicker: 'ここだけ・ウィジェット付きCanvas',
+    kicker: 'ウィジェット付きCanvas',
     title: ['大型配信並みのオーバーレイを、', 'ブラウザで作成。'],
     lede: 'アラート、チャット、マップ、スコアボード、視聴者数、チャレンジ、QRコード。ドラッグして配置するだけで、CanvasはブラウザソースとしてOBSに入ります。PCでもクラウドでも使えます。',
     windowTitle: 'Canvas・IRLシーン',
@@ -335,6 +345,18 @@ export const ja: Dict = {
         title: '配信開始',
         text: 'iPhoneでStreamerKitアプリを開くか、IngestsページのQRコードをIRL ProまたはLarixで読み取ります。',
       },
+    ],
+  },
+
+  testimonials: {
+    kicker: '利用者の声',
+    title: '使っている人の声。',
+    // aspas tipográficas do idioma: abre e fecha
+    marks: ['「', '」'],
+    items: [
+      { quote: 'これはハックじゃない、StreamerKitだ！', author: 'zanolini' },
+      { quote: '世界で唯一、ライブ翻訳ができるサーバー。', author: 'JonVlogs' },
+      { quote: '配信に必要だったことは、StreamerKitが全部解決してくれた。', author: 'sheviii2k' },
     ],
   },
 
