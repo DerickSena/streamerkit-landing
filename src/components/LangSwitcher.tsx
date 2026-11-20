@@ -50,7 +50,7 @@ export function LangSwitcher() {
       </button>
 
       <ul
-        className="absolute right-0 top-full z-10 mt-2 w-60 origin-top-right rounded-2xl bg-ink-raised p-1.5 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.9)] ring-1 ring-paper/12 transition-[opacity,transform,visibility] duration-200 ease-out"
+        className="absolute right-0 top-full z-10 mt-2 max-h-[min(70vh,32rem)] w-60 origin-top-right overflow-y-auto overscroll-contain rounded-2xl bg-ink-raised p-1.5 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.9)] ring-1 ring-paper/12 transition-[opacity,transform,visibility] duration-200 ease-out"
         style={{
           opacity: open ? 1 : 0,
           transform: open ? 'none' : 'translateY(-6px) scale(0.98)',

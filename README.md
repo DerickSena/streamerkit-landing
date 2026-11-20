@@ -25,11 +25,16 @@ Vite + React + TypeScript + Tailwind CSS v4 + Motion. Three.js só na cena do bo
 No celular há um botão fixo "Escolher um plano" embaixo.
 
 ## Idiomas
-Quatro páginas, nos mesmos endereços do site atual: `/` (português), `/en/`, `/es/` (Espanha) e `/es-419/` (América Latina). O build gera um HTML pronto por idioma, cada um com título, descrição e `hreflang` próprios.
-- Textos: um arquivo por idioma em `src/i18n/` (`pt.ts` é a origem; `en.ts`, `es419.ts`; `es.ts` parte do `es419.ts` e troca o vocabulário da Espanha). As perguntas frequentes em inglês e espanhol estão em `faq-official.ts`, copiadas do site atual.
+Dez páginas: `/` (português), `/en/`, `/es/` (Espanha), `/es-419/` (América Latina), `/de/`, `/fr/`, `/it/`, `/ja/`, `/ko/` e `/zh/` (chinês simplificado). As quatro primeiras usam os endereços do site atual. O build gera um HTML pronto por idioma, cada um com título, descrição e `hreflang` próprios.
+- Textos: um arquivo por idioma em `src/i18n/` (`pt.ts` é a origem). `es.ts` parte do `es419.ts` e troca o vocabulário da Espanha. As perguntas frequentes em inglês e espanhol estão em `faq-official.ts`, copiadas do site atual.
+- O navegador baixa só o idioma da página (`LOADERS` em `src/i18n/index.tsx`). O build usa todos (`src/i18n/all.ts`).
 - Seletor: globo no topo (`src/components/LangSwitcher.tsx`) e links no rodapé. A escolha fica guardada no navegador.
 - Idioma automático: script pequeno no `index.html`. Só age na página raiz, na primeira visita, pelo idioma do navegador. Não redireciona robôs.
-- Idioma novo: copiar `en.ts`, traduzir, e registrar em `src/i18n/index.tsx` (`LOCALES` e `DICTS`).
+- Idioma novo: copiar `en.ts`, traduzir (regras em `ferramentas/BRIEFING-TRADUCAO.md`) e registrar em `LOCALES` e `LOADERS` (`src/i18n/index.tsx`), em `src/i18n/all.ts` e na lista do script do `index.html`.
+- Japonês, coreano e chinês: a fonte Saira não tem esses caracteres; o fim do `src/index.css` indica fontes do sistema e ajusta o tamanho dos títulos.
+
+## Formulário de perguntas ao dono
+`public/briefing/index.html` (endereço `/briefing/`): formulário simples que manda as respostas para um webhook do n8n. Detalhes em `PENDENCIAS.md`.
 
 ## Onde mexer
 - Textos, preços e FAQ: `src/i18n/` (um arquivo por idioma). Links: `src/lib/site.ts`.

@@ -7,7 +7,7 @@
       // Idioma automático. Só age na página raiz (português) e só troca de endereço se:
       // 1) a pessoa já escolheu outro idioma antes (fica guardado em "sk-lang"), ou
       // 2) é a primeira visita e o navegador dela não está em português.
-      // Quem chega direto em /en/, /es/ ou /es-419/ fica onde está. Robôs de busca e de prévia de link não são redirecionados.
+      // Quem chega direto no endereço de um idioma (/en/, /de/, /ja/...) fica onde está. Robôs de busca e de prévia de link não são redirecionados.
       ;(function () {
         try {
           var p = location.pathname
@@ -19,9 +19,10 @@
           } catch (e) {}
           if (!want) {
             var l = ((navigator.languages && navigator.languages[0]) || navigator.language || 'pt').toLowerCase()
-            want = l.indexOf('pt') === 0 ? 'pt' : l === 'es-es' ? 'es' : l.indexOf('es') === 0 ? 'es-419' : 'en'
+            var p2 = l.slice(0, 2)
+            want = p2 === 'pt' ? 'pt' : l === 'es-es' ? 'es' : p2 === 'es' ? 'es-419' : /^(de|fr|it|ja|ko|zh)$/.test(p2) ? p2 : 'en'
           }
-          var map = { en: '/en/', es: '/es/', 'es-419': '/es-419/' }
+          var map = { en: '/en/', es: '/es/', 'es-419': '/es-419/', de: '/de/', fr: '/fr/', it: '/it/', ja: '/ja/', ko: '/ko/', zh: '/zh/' }
           if (map[want]) location.replace(map[want] + location.search + location.hash)
         } catch (e) {}
       })()

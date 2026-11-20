@@ -749,4 +749,62 @@ details[open]::details-content {
 .rise {
   animation: rise 1.1s var(--ease-out-expo) 0.1s both;
 }
+
+/* ---------- Japonês, coreano e chinês ---------- */
+/* A Saira não tem esses caracteres. Sem indicar a fonte, o Windows escolhe uma versão fina
+   para os títulos; aqui vão fontes do sistema que têm negrito de verdade. */
+:lang(ja) {
+  --font-cjk: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Meiryo', 'Yu Gothic UI', 'Noto Sans JP', 'Noto Sans CJK JP', sans-serif;
+}
+:lang(ko) {
+  --font-cjk: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif;
+}
+:lang(zh) {
+  --font-cjk: 'PingFang SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Noto Sans SC', 'Noto Sans CJK SC', sans-serif;
+}
+:lang(ja) .display,
+:lang(ko) .display,
+:lang(zh) .display,
+:lang(ja) .headline,
+:lang(ko) .headline,
+:lang(zh) .headline,
+:lang(ja) .subhead,
+:lang(ko) .subhead,
+:lang(zh) .subhead {
+  font-family: 'Saira Variable', var(--font-cjk);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+:lang(ja) .display,
+:lang(ko) .display,
+:lang(zh) .display {
+  zoom: 0.7;
+  line-height: 1.12;
+}
+:lang(ja) .headline,
+:lang(ko) .headline,
+:lang(zh) .headline {
+  line-height: 1.2;
+  zoom: 0.82;
+}
+:lang(ja) .subhead,
+:lang(ko) .subhead,
+:lang(zh) .subhead {
+  line-height: 1.25;
+  zoom: 0.88;
+}
+:lang(ja) .label,
+:lang(ko) .label,
+:lang(zh) .label {
+  letter-spacing: 0.06em;
+}
+:lang(ja) body,
+:lang(zh) body {
+  line-height: 1.7;
+  line-break: strict;
+}
+:lang(ko) body {
+  line-height: 1.7;
+  word-break: keep-all;
+}
 }

@@ -39,9 +39,17 @@ O ideal é gravar a tela do app real e uma live real do StreamerKit.
 - [ ] Rodar o Lighthouse no celular depois de publicado (meta: 90+).
 - [ ] Prévia na Vercel: o `vercel.json` manda o Google não indexar (`X-Robots-Tag: noindex`), para a prévia não competir com o site oficial. Tirar essa linha quando a página virar a oficial.
 
-## Idiomas (feito em 2026-11-19: português, inglês, espanhol da Espanha e da América Latina)
-- [ ] Pedir para alguém nativo ler o inglês e o espanhol. As perguntas frequentes e os termos (ingest, cloud OBS, "en directo", "en vivo") vieram do site atual; o resto foi traduzido agora.
-- [ ] Política de Privacidade, Termos e Suporte apontam para as páginas em português nos 4 idiomas. Trocar pelos endereços de cada idioma, se existirem.
-- [ ] A imagem de compartilhamento é a mesma (em português) nos 4 idiomas.
-- [ ] Idioma automático: só age na página raiz. Primeira visita com navegador em inglês vai para /en/, em espanhol da Espanha para /es/, outro espanhol para /es-419/, qualquer outro idioma para /en/. Português fica. A escolha feita no seletor fica guardada e vence. Robôs do Google não são redirecionados. Confirmar se ele prefere por país (IP) em vez de idioma do navegador.
-- [ ] Quer outros idiomas (francês, alemão)? É criar um arquivo novo em `src/i18n/` copiando o `en.ts`.
+## Idiomas (2026-11-19: 10 idiomas)
+Português, inglês, espanhol (Espanha e América Latina), alemão, francês, italiano, japonês, coreano e chinês simplificado.
+- [ ] Pedir para alguém nativo ler cada idioma. Só o inglês e o espanhol têm perguntas frequentes e termos vindos do site atual; alemão, francês, italiano, japonês, coreano e chinês foram traduzidos por IA, sem revisão humana.
+- [ ] `/de/`, `/fr/`, `/it/`, `/ja/`, `/ko/` e `/zh/` são endereços novos: o site atual só tem `/`, `/en/`, `/es/` e `/es-419/`.
+- [ ] Política de Privacidade, Termos e Suporte apontam para as páginas em português em todos os idiomas.
+- [ ] A imagem de compartilhamento é a mesma (em português) em todos os idiomas.
+- [ ] Japonês, coreano e chinês usam a fonte do aparelho (a fonte da marca não tem esses caracteres), então o título muda um pouco de aparelho para aparelho.
+- [ ] Idioma automático: só age na página raiz, na primeira visita, pelo idioma do navegador. Idioma sem tradução cai no inglês. A escolha do seletor fica guardada e vence. Robôs do Google não são redirecionados.
+
+## Formulário para o dono responder (2026-11-19)
+- Página: `/briefing/` (arquivo `public/briefing/index.html`, HTML simples, fora do React). Não aparece no menu nem no Google.
+- As respostas vão para o n8n da VPS do Dérick: fluxo "StreamerKit: respostas do formulário" (id `6rSaPBInzYuDrKmk`), que grava na tabela de dados `streamerkit_briefing`. Não há senha: o endereço do webhook está no HTML da página.
+- Se o envio falhar, a própria página mostra as respostas para a pessoa copiar e mandar por mensagem.
+- Quando a página virar a oficial, apagar a pasta `public/briefing/` e desligar o fluxo no n8n.

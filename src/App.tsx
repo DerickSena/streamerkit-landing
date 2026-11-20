@@ -1,5 +1,5 @@
 import { MotionConfig } from 'motion/react'
-import { LocaleProvider, type Locale } from './i18n'
+import { LocaleProvider, type Dict, type Locale } from './i18n'
 import { Nav } from './sections/Nav'
 import { Hero } from './sections/Hero'
 import { Pains } from './sections/Pains'
@@ -14,9 +14,9 @@ import { FinalCta } from './sections/FinalCta'
 import { Footer } from './sections/Footer'
 import { StickyCta } from './sections/StickyCta'
 
-export default function App({ locale = 'pt' }: { locale?: Locale }) {
+export default function App({ locale, dict }: { locale: Locale; dict: Dict }) {
   return (
-    <LocaleProvider locale={locale}>
+    <LocaleProvider locale={locale} dict={dict}>
       <MotionConfig reducedMotion="user">
         <Nav />
         <main id="conteudo">

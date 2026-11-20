@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Perguntas rápidas | Nova página do StreamerKit</title>
+    <meta name="theme-color" content="#140404" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      :root {
+        --ink: #140404;
+        --raised: #1d0807;
+        --line: rgb(247 238 236 / 0.12);
+        --paper: #f7eeec;
+        --mute: #b8a3a0;
+        --dim: #8f7a77;
+        --cta: #d92b21;
+        --ok: #30d158;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        background: var(--ink);
+        color: var(--paper);
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        margin: 0;
+        font: 16px/1.55 system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      main {
+        max-width: 44rem;
+        margin: 0 auto;
+        padding: 1.5rem 1.125rem 6rem;
+      }
+      header img {
+        height: 2.25rem;
+        width: auto;
+        display: block;
+      }
+      h1 {
+        font-size: clamp(1.9rem, 6vw, 2.75rem);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin: 2rem 0 0.75rem;
+        text-wrap: balance;
+      }
+      h1 span {
+        color: #ff2a1c;
+      }
+      .intro {
+        color: var(--mute);
+        font-size: 1.0625rem;
+        margin: 0 0 0.5rem;
+      }
+      .intro a {
+        color: var(--paper);
+      }
+      fieldset {
+        border: 0;
+        margin: 1.25rem 0 0;
+        padding: 1.25rem;
+        border-radius: 1.25rem;
+        background: var(--raised);
+        box-shadow: inset 0 0 0 1px var(--line);
+        min-width: 0;
+      }
+      legend {
+        float: left;
+        width: 100%;
+        padding: 0;
+        margin: 0 0 0.25rem;
+        font-size: 1.125rem;
+        font-weight: 650;
+        line-height: 1.3;
+      }
+      legend + * {
+        clear: both;
+      }
+      .num {
+        display: inline-block;
+        font: 600 0.75rem/1 ui-monospace, Consolas, monospace;
+        letter-spacing: 0.1em;
+        color: #ff2a1c;
+        margin-bottom: 0.5rem;
+      }
+      .hint {
+        color: var(--dim);
+        font-size: 0.9375rem;
+        margin: 0 0 0.9rem;
+      }
+      label.field {
+        display: block;
+        margin-top: 0.9rem;
+        font-size: 0.9375rem;
+        color: var(--mute);
+      }
+      input[type='text'],
+      textarea {
+        display: block;
+        width: 100%;
+        margin-top: 0.4rem;
+        padding: 0.85rem 0.9rem;
+        font: inherit;
+        color: var(--paper);
+        background: rgb(0 0 0 / 0.35);
+        border: 1px solid var(--line);
+        border-radius: 0.8rem;
+        min-height: 3rem;
+      }
+      textarea {
+        min-height: 5.5rem;
+        resize: vertical;
+      }
+      input:focus-visible,
+      textarea:focus-visible,
+      .opt input:focus-visible + span,
+      button:focus-visible {
+        outline: 2px solid var(--paper);
+        outline-offset: 2px;
+      }
+      .opts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.6rem;
+      }
+      .opt {
+        position: relative;
+        display: inline-flex;
+      }
+      .opt input {
+        position: absolute;
+        opacity: 0;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        cursor: pointer;
+      }
+      .opt span {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.75rem;
+        padding: 0.5rem 0.95rem;
+        border-radius: 99px;
+        font-size: 0.9375rem;
+        font-weight: 550;
+        color: var(--mute);
+        box-shadow: inset 0 0 0 1px rgb(247 238 236 / 0.2);
+        transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+      }
+      .opt input:checked + span {
+        background: var(--paper);
+        color: var(--ink);
+        box-shadow: none;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.35rem;
+        padding: 0.85rem 0;
+        border-top: 1px solid var(--line);
+      }
+      .row:first-of-type {
+        border-top: 0;
+        padding-top: 0.25rem;
+      }
+      .row p {
+        margin: 0;
+        font-size: 0.9875rem;
+      }
+      .row .opts {
+        margin-top: 0.35rem;
+      }
+      @media (min-width: 40rem) {
+        .row {
+          grid-template-columns: minmax(0, 1fr) auto;
+          align-items: center;
+          gap: 1rem;
+        }
+        .row .opts {
+          margin-top: 0;
+          flex-wrap: nowrap;
+        }
+        .grid3 {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 0.75rem;
+        }
+      }
+      .send {
+        position: sticky;
+        bottom: 0;
+        margin: 1.5rem -1.125rem 0;
+        padding: 1rem 1.125rem max(1rem, env(safe-area-inset-bottom));
+        background: linear-gradient(to top, var(--ink) 70%, transparent);
+      }
+      button.primary {
+        width: 100%;
+        min-height: 3.5rem;
+        border: 0;
+        border-radius: 0.9rem;
+        background: var(--cta);
+        color: #fff;
+        font: 650 1.0625rem/1 inherit;
+        cursor: pointer;
+        box-shadow: 0 12px 30px -12px rgb(255 42 28 / 0.7);
+      }
+      button.primary:disabled {
+        opacity: 0.6;
+        cursor: progress;
+      }
+      .msg {
+        margin: 0.75rem 0 0;
+        font-size: 0.9375rem;
+        color: #ff8a7f;
+        text-align: center;
+        min-height: 1.4em;
+      }
+      .done {
+        display: none;
+        text-align: center;
+        padding: 4rem 0;
+      }
+      .done h2 {
+        font-size: 2rem;
+        margin: 0 0 0.5rem;
+      }
+      .done p {
+        color: var(--mute);
+        margin: 0 auto;
+        max-width: 28rem;
+      }
+      .check {
+        width: 4rem;
+        height: 4rem;
+        margin: 0 auto 1.25rem;
+        border-radius: 99px;
+        background: rgb(48 209 88 / 0.16);
+        color: var(--ok);
+        display: grid;
+        place-items: center;
+        font-size: 2rem;
+      }
+      .fallback {
+        display: none;
+        margin-top: 1.25rem;
+      }
+      .hp {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+      button.ghost {
+        margin-top: 0.75rem;
+        min-height: 3rem;
+        padding: 0 1.25rem;
+        border-radius: 0.8rem;
+        background: transparent;
+        color: var(--paper);
+        border: 1px solid rgb(247 238 236 / 0.25);
+        font: 600 0.9375rem/1 inherit;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <img src="/logo-horizontal-light.svg" alt="StreamerKit" width="134" height="36" />
+      </header>
+
+      <form id="f" novalidate>
+        <h1>Perguntas rápidas sobre a <span>página nova</span>.</h1>
+        <p class="intro">
+          Leva uns 5 minutos. Quase tudo é de tocar. <strong>Só o nome é obrigatório</strong>: o que você não souber,
+          pode pular.
+        </p>
+        <p class="intro">
+          Para lembrar da página: <a href="/" target="_blank" rel="noopener">abrir a prévia em outra aba</a>.
+        </p>
+
+        <div class="hp" aria-hidden="true">
+          <label>Não preencha este campo <input type="text" name="site" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <fieldset>
+          <span class="num">01</span>
+          <legend>Quem está respondendo?</legend>
+          <label class="field">Seu nome <input type="text" name="nome" autocomplete="name" required /></label>
+          <label class="field">Melhor contato (WhatsApp ou Discord) <input type="text" name="contato" /></label>
+        </fieldset>
+
+        <fieldset>
+          <span class="num">02</span>
+          <legend>O que você achou da página nova?</legend>
+          <div class="opts" data-q="O que achou">
+            <label class="opt"><input type="radio" name="achou" value="Gostei, pode seguir" /><span>Gostei, pode seguir</span></label>
+            <label class="opt"><input type="radio" name="achou" value="Gostei, com ajustes" /><span>Gostei, com ajustes</span></label>
+            <label class="opt"><input type="radio" name="achou" value="Não gostei" /><span>Não gostei</span></label>
+          </div>
+          <label class="field">O que você mudaria? <textarea name="mudaria" placeholder="Texto, ordem, cor, o que sentiu falta..."></textarea></label>
+        </fieldset>
+
+        <fieldset>
+          <span class="num">03</span>
+          <legend>Números que podem aparecer na página</legend>
+          <p class="hint">Pode ser por alto. É o que mais convence quem está em dúvida.</p>
+          <div class="grid3">
+            <label class="field">Streamers usando hoje <input type="text" name="n_streamers" inputmode="numeric" placeholder="ex.: 120" /></label>
+            <label class="field">Horas de live já transmitidas <input type="text" name="n_horas" placeholder="ex.: 30 mil" /></label>
+            <label class="field">Membros no Discord <input type="text" name="n_discord" inputmode="numeric" placeholder="ex.: 800" /></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <span class="num">04</span>
+          <legend>Quem usa e deixa citar o nome?</legend>
+          <p class="hint">2 ou 3 streamers conhecidos já resolvem.</p>
+          <label class="field">Nomes ou canais (um por linha) <textarea name="streamers" placeholder="twitch.tv/fulano&#10;kick.com/ciclano"></textarea></label>
+          <label class="field">Tem alguma frase de streamer ou de mod elogiando? Cole aqui <textarea name="depoimento"></textarea></label>
+        </fieldset>
+
+        <fieldset>
+          <span class="num">05</span>
+          <legend>Confirme o que escrevi na página</legend>
+          <p class="hint">Toque em Sim, Não ou Não sei.</p>
+          <div class="row" data-yn="pagamento" data-q="Pagamento por cartão e Pix Automático, em real">
+            <p>O pagamento é por cartão e Pix Automático, cobrado em real.</p>
+          </div>
+          <div class="row" data-yn="marco" data-q="Mostrar 'Servidor do Marco' no rodapé">
+            <p>Pode aparecer "Também conhecido como Servidor do Marco" no rodapé.</p>
+          </div>
+          <div class="row" data-yn="so_aqui" data-q="Dizer 'Só aqui' no controle pelo mod e no canvas">
+            <p>Dá para dizer "Só aqui" no controle do celular pelo mod e no canvas com widgets.</p>
+          </div>
+          <div class="row" data-yn="mods_canvas" data-q="Mods editam o canvas junto">
+            <p>Os mods conseguem editar o canvas junto com o streamer.</p>
+          </div>
+          <div class="row" data-yn="selos" data-q="Selos 'Para começar' e 'PC desligado'">
+            <p>Chamei o Básico de "Para começar" e o Avançado de "PC desligado".</p>
+          </div>
+          <div class="row" data-yn="chat" data-q="Chat da simulação parece real">
+            <p>O chat da simulação ("caiu?", "F", "travou", "lagou aqui") parece chat de verdade.</p>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <span class="num">06</span>
+          <legend>Tem teste grátis, garantia ou reembolso?</legend>
+          <p class="hint">Se tiver, vira a frase embaixo do botão de assinar.</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="garantia" value="Não tem" /><span>Não tem</span></label>
+            <label class="opt"><input type="radio" name="garantia" value="Teste grátis" /><span>Teste grátis</span></label>
+            <label class="opt"><input type="radio" name="garantia" value="Reembolso" /><span>Reembolso</span></label>
+            <label class="opt"><input type="radio" name="garantia" value="Outro" /><span>Outro</span></label>
+          </div>
+          <label class="field">Como funciona? (quantos dias, condições) <input type="text" name="garantia_detalhe" /></label>
+        </fieldset>
+
+        <fieldset>
+          <span class="num">07</span>
+          <legend>Vídeos de verdade</legend>
+          <p class="hint">Hoje os vídeos são de banco de imagem. O ideal é a tela do app e um trecho de live real.</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="videos" value="Mando do app e de uma live" /><span>Mando do app e de uma live</span></label>
+            <label class="opt"><input type="radio" name="videos" value="Só do app" /><span>Só do app</span></label>
+            <label class="opt"><input type="radio" name="videos" value="Não tenho agora" /><span>Não tenho agora</span></label>
+          </div>
+          <label class="field">Link dos vídeos, se já tiver (Drive, clipe, VOD) <input type="text" name="videos_link" inputmode="url" /></label>
+        </fieldset>
+
+        <fieldset>
+          <span class="num">08</span>
+          <legend>Idiomas</legend>
+          <p class="hint">A página já está nestes idiomas. Marque os que você quer manter.</p>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="idiomas" value="Português" checked /><span>Português</span></label>
+            <label class="opt"><input type="checkbox" name="idiomas" value="Inglês" checked /><span>Inglês</span></label>
+            <label class="opt"><input type="checkbox" name="idiomas" value="Espanhol" checked /><span>Espanhol</span></label>
+            <label class="opt"><input type="checkbox" name="idiomas" value="Alemão" /><span>Alemão</span></label>
+            <label class="opt"><input type="checkbox" name="idiomas" value="Francês" /><span>Francês</span></label>
+            <label class="opt"><input type="checkbox" name="idiomas" value="Italiano" /><span>Italiano</span></label>
+            <label class="opt"><input type="checkbox" name="idiomas" value="Japonês" /><span>Japonês</span></label>
+            <label class="opt"><input type="checkbox" name="idiomas" value="Coreano" /><span>Coreano</span></label>
+            <label class="opt"><input type="checkbox" name="idiomas" value="Chinês" /><span>Chinês</span></label>
+          </div>
+          <label class="field">Falta algum idioma? <input type="text" name="idiomas_outros" /></label>
+          <div class="row" data-yn="nativo" data-q="Tem alguém nativo para revisar as traduções" style="margin-top: 0.9rem">
+            <p>Você tem alguém nativo para revisar as traduções?</p>
+          </div>
+          <p class="hint" style="margin: 0.9rem 0 0">Como o site deve escolher o idioma sozinho?</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="auto_idioma" value="Pelo idioma do navegador (como está)" /><span>Pelo idioma do navegador (como está)</span></label>
+            <label class="opt"><input type="radio" name="auto_idioma" value="Pelo país" /><span>Pelo país</span></label>
+            <label class="opt"><input type="radio" name="auto_idioma" value="Não trocar sozinho" /><span>Não trocar sozinho</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <span class="num">09</span>
+          <legend>Podemos colocar no lugar do site atual?</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="publicar" value="Pode trocar" /><span>Pode trocar</span></label>
+            <label class="opt"><input type="radio" name="publicar" value="Ainda não, quero ajustar" /><span>Ainda não, quero ajustar</span></label>
+            <label class="opt"><input type="radio" name="publicar" value="Vou pensar" /><span>Vou pensar</span></label>
+          </div>
+          <label class="field">Mais alguma coisa? <textarea name="extra"></textarea></label>
+        </fieldset>
+
+        <div class="send">
+          <button class="primary" type="submit" id="btn">Enviar respostas</button>
+          <p class="msg" id="msg" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="fallback" id="fallback">
+          <fieldset>
+            <legend>Não consegui enviar daqui</legend>
+            <p class="hint">Suas respostas estão abaixo. Copie e mande por mensagem.</p>
+            <textarea id="copia" rows="12" readonly></textarea>
+            <button class="ghost" type="button" id="copiar">Copiar respostas</button>
+          </fieldset>
+        </div>
+      </form>
+
+      <section class="done" id="done" aria-live="polite">
+        <div class="check" aria-hidden="true">✓</div>
+        <h2>Recebido. Valeu!</h2>
+        <p>Suas respostas já chegaram. Com elas eu fecho os ajustes da página.</p>
+      </section>
+    </main>
+
+    <script>
+      ;(function () {
+        var WEBHOOK = 'https://n8n.fisherai.shop/webhook/streamerkit-briefing-7f3c9a1e'
+        var KEY = 'sk-briefing'
+        var f = document.getElementById('f')
+        var btn = document.getElementById('btn')
+        var msg = document.getElementById('msg')
+
+        // Linhas de Sim / Não / Não sei: monta os 3 botões de cada uma.
+        Array.prototype.forEach.call(document.querySelectorAll('[data-yn]'), function (row) {
+          var name = row.getAttribute('data-yn')
+          var box = document.createElement('div')
+          box.className = 'opts'
+          ;['Sim', 'Não', 'Não sei'].forEach(function (v) {
+            var l = document.createElement('label')
+            l.className = 'opt'
+            l.innerHTML = '<input type="radio" name="' + name + '" value="' + v + '" /><span>' + v + '</span>'
+            box.appendChild(l)
+          })
+          row.appendChild(box)
+        })
+
+        // Guarda o rascunho no navegador, para não perder se a pessoa fechar a página.
+        function coletar() {
+          var d = {}
+          Array.prototype.forEach.call(f.elements, function (el) {
+            if (!el.name || el.name === 'site') return
+            if (el.type === 'radio') {
+              if (el.checked) d[el.name] = el.value
+            } else if (el.type === 'checkbox') {
+              if (el.checked) (d[el.name] = d[el.name] || []).push(el.value)
+            } else if (el.value.trim()) d[el.name] = el.value.trim()
+          })
+          return d
+        }
+        function restaurar() {
+          try {
+            var d = JSON.parse(localStorage.getItem(KEY) || 'null')
+            if (!d) return
+            Array.prototype.forEach.call(f.elements, function (el) {
+              if (!el.name || !(el.name in d)) return
+              if (el.type === 'radio') el.checked = d[el.name] === el.value
+              else if (el.type === 'checkbox') el.checked = d[el.name].indexOf(el.value) >= 0
+              else el.value = d[el.name]
+            })
+          } catch (e) {}
+        }
+        restaurar()
+        f.addEventListener('input', function () {
+          try {
+            localStorage.setItem(KEY, JSON.stringify(coletar()))
+          } catch (e) {}
+        })
+
+        var ROTULOS = {
+          nome: 'Nome',
+          contato: 'Contato',
+          achou: 'O que achou',
+          mudaria: 'O que mudaria',
+          n_streamers: 'Streamers usando hoje',
+          n_horas: 'Horas de live',
+          n_discord: 'Membros no Discord',
+          streamers: 'Quem deixa citar',
+          depoimento: 'Depoimento',
+          pagamento: 'Cartão e Pix Automático, em real',
+          marco: 'Mostrar "Servidor do Marco"',
+          so_aqui: 'Pode dizer "Só aqui"',
+          mods_canvas: 'Mods editam o canvas junto',
+          selos: 'Selos "Para começar" e "PC desligado"',
+          chat: 'Chat da simulação parece real',
+          garantia: 'Teste grátis, garantia ou reembolso',
+          garantia_detalhe: 'Como funciona',
+          videos: 'Vídeos reais',
+          videos_link: 'Link dos vídeos',
+          idiomas: 'Idiomas para manter',
+          idiomas_outros: 'Idioma que falta',
+          nativo: 'Tem nativo para revisar',
+          auto_idioma: 'Idioma automático',
+          publicar: 'Trocar o site atual',
+          extra: 'Mais alguma coisa',
+        }
+        function resumo(d) {
+          return Object.keys(ROTULOS)
+            .filter(function (k) {
+              return k in d
+            })
+            .map(function (k) {
+              return ROTULOS[k] + ': ' + (Array.isArray(d[k]) ? d[k].join(', ') : d[k])
+            })
+            .join('\n')
+        }
+
+        function fim() {
+          try {
+            localStorage.removeItem(KEY)
+          } catch (e) {}
+          f.style.display = 'none'
+          document.getElementById('done').style.display = 'block'
+          window.scrollTo(0, 0)
+        }
+
+        f.addEventListener('submit', function (e) {
+          e.preventDefault()
+          var d = coletar()
+          if (!d.nome) {
+            msg.textContent = 'Falta só o seu nome, lá em cima.'
+            f.elements.nome.focus()
+            return
+          }
+          if (f.elements.site.value) return fim() // robô preencheu o campo escondido
+          var texto = resumo(d)
+          btn.disabled = true
+          btn.textContent = 'Enviando...'
+          msg.textContent = ''
+          var corpo = new URLSearchParams()
+          corpo.set('nome', d.nome)
+          corpo.set('resumo', texto)
+          corpo.set('respostas_json', JSON.stringify(d))
+          corpo.set('pagina', location.host + location.pathname)
+          // URLSearchParams vai como formulário comum: o navegador não precisa de pré-checagem de CORS.
+          fetch(WEBHOOK, { method: 'POST', body: corpo })
+            .then(function (r) {
+              if (!r.ok) throw new Error('status ' + r.status)
+              fim()
+            })
+            .catch(function () {
+              btn.disabled = false
+              btn.textContent = 'Tentar de novo'
+              msg.textContent = 'Não consegui enviar. Tente de novo ou copie as respostas abaixo.'
+              document.getElementById('fallback').style.display = 'block'
+              document.getElementById('copia').value = texto
+            })
+        })
+
+        document.getElementById('copiar').addEventListener('click', function () {
+          var t = document.getElementById('copia')
+          t.select()
+          if (navigator.clipboard) navigator.clipboard.writeText(t.value)
+          else document.execCommand('copy')
+          this.textContent = 'Copiado'
+        })
+      })()
+    </script>
+  </body>
+</html>

@@ -1,40 +1,66 @@
 import { createContext, useContext, useMemo, type ReactNode } from 'react'
-import { pt, type Dict } from './pt'
-import { en } from './en'
-import { es419 } from './es419'
-import { es } from './es'
+import type { Dict } from './pt'
 
 export type { Dict }
-export type Locale = 'pt' | 'en' | 'es' | 'es-419'
+export type Locale = 'pt' | 'en' | 'es' | 'es-419' | 'de' | 'fr' | 'it' | 'ja' | 'ko' | 'zh'
 
-/** Mesmos endereços e hreflang do site atual do StreamerKit. */
+/**
+ * Idiomas da página. Os 4 primeiros usam os mesmos endereços e hreflang do site atual do StreamerKit;
+ * os outros são novos. Para criar um idioma: copiar en.ts, traduzir e acrescentar uma linha aqui,
+ * uma em LOADERS (abaixo) e uma em all.ts. O script de idioma automático do index.html tem a mesma lista.
+ */
 export const LOCALES: { id: Locale; path: string; label: string; short: string; hreflang: string[] }[] = [
   { id: 'pt', path: '/', label: 'Português', short: 'PT', hreflang: ['pt-BR'] },
   { id: 'en', path: '/en/', label: 'English', short: 'EN', hreflang: ['en'] },
   { id: 'es', path: '/es/', label: 'Español (España)', short: 'ES', hreflang: ['es-ES'] },
   { id: 'es-419', path: '/es-419/', label: 'Español (Latinoamérica)', short: 'ES', hreflang: ['es', 'es-419'] },
+  { id: 'de', path: '/de/', label: 'Deutsch', short: 'DE', hreflang: ['de'] },
+  { id: 'fr', path: '/fr/', label: 'Français', short: 'FR', hreflang: ['fr'] },
+  { id: 'it', path: '/it/', label: 'Italiano', short: 'IT', hreflang: ['it'] },
+  { id: 'ja', path: '/ja/', label: '日本語', short: 'JA', hreflang: ['ja'] },
+  { id: 'ko', path: '/ko/', label: '한국어', short: 'KO', hreflang: ['ko'] },
+  { id: 'zh', path: '/zh/', label: '简体中文', short: '中文', hreflang: ['zh-Hans'] },
 ]
 
-export const DICTS: Record<Locale, Dict> = { pt, en, es, 'es-419': es419 }
+/** Cada idioma é baixado só por quem abre aquele idioma (o navegador não carrega os outros 9). */
+export const LOADERS: Record<Locale, () => Promise<Dict>> = {
+  pt: () => import('./pt').then((m) => m.pt),
+  en: () => import('./en').then((m) => m.en),
+  es: () => import('./es').then((m) => m.es),
+  'es-419': () => import('./es419').then((m) => m.es419),
+  de: () => import('./de').then((m) => m.de),
+  fr: () => import('./fr').then((m) => m.fr),
+  it: () => import('./it').then((m) => m.it),
+  ja: () => import('./ja').then((m) => m.ja),
+  ko: () => import('./ko').then((m) => m.ko),
+  zh: () => import('./zh').then((m) => m.zh),
+}
 
 /** Chave do navegador onde fica o idioma que a pessoa escolheu. O script do index.html usa a mesma. */
 export const STORAGE_KEY = 'sk-lang'
 
 export function localeFromPath(pathname: string): Locale {
   const seg = pathname.split('/')[1] ?? ''
-  return seg === 'en' || seg === 'es' || seg === 'es-419' ? seg : 'pt'
+  const found = LOCALES.find((l) => l.id !== 'pt' && l.id === seg)
+  return found ? found.id : 'pt'
 }
 
-const Ctx = createContext<{ locale: Locale; t: Dict }>({ locale: 'pt', t: pt })
+const Ctx = createContext<{ locale: Locale; t: Dict } | null>(null)
 
-export function LocaleProvider({ locale, children }: { locale: Locale; children: ReactNode }) {
-  const value = useMemo(() => ({ locale, t: DICTS[locale] }), [locale])
+export function LocaleProvider({ locale, dict, children }: { locale: Locale; dict: Dict; children: ReactNode }) {
+  const value = useMemo(() => ({ locale, t: dict }), [locale, dict])
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }
 
+function useCtx() {
+  const c = useContext(Ctx)
+  if (!c) throw new Error('LocaleProvider ausente')
+  return c
+}
+
 /** Textos do idioma atual. */
-export const useT = () => useContext(Ctx).t
-export const useLocale = () => useContext(Ctx).locale
+export const useT = () => useCtx().t
+export const useLocale = () => useCtx().locale
 
 /** Troca {chave} pelo valor: fill('{n} de 3', { n: 2 }) vira '2 de 3'. */
 export function fill(text: string, vars: Record<string, string | number>) {
