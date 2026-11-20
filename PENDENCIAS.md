@@ -1,21 +1,21 @@
 # Pendências (confirmar com o dono do StreamerKit)
 
-## Prova social (o que mais pesa na conversão e ainda não existe na página)
-A página não tem nenhum depoimento nem número de uso, porque nada foi inventado. Pedir ao dono:
-- [ ] Quantos streamers usam hoje, ou quantas horas de live já passaram pelo servidor.
-- [ ] 2 ou 3 streamers conhecidos que usam e autorizam citar o nome (com print ou clipe).
-- [ ] Um depoimento curto de streamer e um de moderador.
-- [ ] Tamanho do Discord (número de membros).
+## Prova social (respondida, falta aplicar na página)
+A página ainda não mostra depoimento nem número de uso. O dono já mandou (ver "Respostas do dono" no fim):
+- [x] Quantos streamers usam hoje e quantas horas de live.
+- [x] Streamers que autorizam citar o nome (12 nomes; sem print nem clipe).
+- [x] Depoimentos curtos (3, todos de streamer; nenhum de moderador).
+- [ ] Tamanho do Discord (não respondeu).
 Com isso, entra uma faixa de prova logo abaixo do topo e um bloco antes dos planos.
 
 ## Textos e fatos a validar
-- [ ] "Cobrança em real: cartão ou Pix Automático" (tirado da nota de rodapé dos planos do site atual).
-- [ ] "Também conhecido como Servidor do Marco" no rodapé (está nos dados do site atual; confirmar se quer mostrar).
-- [ ] Rótulos dos planos: "Para começar" (Básico) e "PC desligado" (Avançado).
+- [x] "Cobrança em real: cartão ou Pix Automático": confirmado.
+- [ ] "Também conhecido como Servidor do Marco" no rodapé (está nos dados do site atual; o Dérick tirou a pergunta do formulário, segue como está).
+- [ ] Rótulos dos planos: "Para começar" (Básico) e "PC desligado" (Avançado): o dono prefere mudar, falta dizer para qual.
 - [x] Gírias do chat da simulação: o Dérick conferiu e disse que parecem reais (2026-11-19).
-- [ ] Rótulo "Só aqui" no controle remoto e no canvas: vem da frase do site atual ("o que você só encontra aqui"). Concorrentes têm controle remoto e overlay parecidos (Moblin, IRLhosting), então confirmar se a frase se sustenta ou trocar por "Diferencial".
-- [ ] "Seus moderadores podem editar junto com você" (canvas): também vem do site atual.
-- [ ] Existe teste grátis, garantia ou reembolso? Se existir, vira a frase embaixo do botão (reduz o risco de quem está em dúvida).
+- [x] Rótulo "Só aqui": vale no controle remoto (só o StreamerKit faz). No canvas não vale (outros também fazem): trocar.
+- [x] "Seus moderadores podem editar junto com você" (canvas): confirmado.
+- [x] Teste grátis: sim, 7 dias. Vira a frase embaixo do botão.
 
 ## Números da simulação (são ilustrativos, não promessa)
 - Bonding: 4G 2,4 + 5G 3,6 + Wi-Fi 2,0 Mbps, alvo de 6,0 Mbps.
@@ -48,8 +48,21 @@ Português, inglês, espanhol (Espanha e América Latina), alemão, francês, it
 - [ ] Japonês, coreano e chinês usam a fonte do aparelho (a fonte da marca não tem esses caracteres), então o título muda um pouco de aparelho para aparelho.
 - [x] Idioma automático (decidido pelo Dérick em 2026-11-19: fica pelo idioma do navegador): só age na página raiz, na primeira visita. Idioma sem tradução cai no inglês. A escolha do seletor fica guardada e vence. Robôs do Google não são redirecionados.
 
-## Formulário para o dono responder (2026-11-19)
-- Página: `/briefing/` (arquivo `public/briefing/index.html`, HTML simples, fora do React). Não aparece no menu nem no Google.
-- As respostas vão para o n8n da VPS do Dérick: fluxo "StreamerKit: respostas do formulário" (id `6rSaPBInzYuDrKmk`), que grava na tabela de dados `streamerkit_briefing`. Não há senha: o endereço do webhook está no HTML da página.
-- Se o envio falhar, a própria página mostra as respostas para a pessoa copiar e mandar por mensagem.
-- Quando a página virar a oficial, apagar a pasta `public/briefing/` e desligar o fluxo no n8n.
+## Respostas do dono (formulário, 2026-11-19)
+O dono respondeu uma vez. O formulário saiu do ar no mesmo dia.
+- Streamers usando hoje: 100. Horas de live pelo servidor: 20 mil. Discord: não informou.
+- Pode citar: jon vlogs, tota, dona, sheviii2k, kosky, fontinellerj, jhowrj, andreachinii, cerol, diegohiga, moicano, mctuto.
+- Depoimentos: "Isso não é hack, isso é StreamerKit!" (zanolini); "O único servidor no mundo com tradução ao vivo" (JonVlogs); "StreamerKit resolveu tudo que eu precisava nas minhas lives" (sheviii2k).
+- Cartão e Pix Automático em real: sim. Mods editam o canvas junto: sim.
+- Selos "Para começar" e "PC desligado": prefere mudar (não disse para qual).
+- Controle do celular pelo mod: só o StreamerKit faz. Canvas com widgets: outros também fazem.
+- Teste grátis: 7 dias.
+- Vídeos reais: vai mandar para o Dérick.
+
+## O que falta depois das respostas
+- [ ] Aplicar na página: faixa de prova (100 streamers, 20 mil horas), nomes, depoimentos, "7 dias grátis" embaixo do botão, tirar "Só aqui" do canvas (fica só no controle remoto).
+- [ ] Novos nomes para os selos dos planos.
+- [ ] zanolini tem depoimento, mas não está na lista de quem pode citar: confirmar.
+- [ ] Tradução ao vivo (citada pelo JonVlogs): a página não destaca. Confirmar como funciona para virar destaque.
+- [ ] Número de membros do Discord.
+- [ ] Vídeos reais do app e de uma live.

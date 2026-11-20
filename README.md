@@ -33,9 +33,6 @@ Dez páginas: `/` (português), `/en/`, `/es/` (Espanha), `/es-419/` (América L
 - Idioma novo: copiar `en.ts`, traduzir (regras em `ferramentas/BRIEFING-TRADUCAO.md`) e registrar em `LOCALES` e `LOADERS` (`src/i18n/index.tsx`), em `src/i18n/all.ts` e na lista do script do `index.html`.
 - Japonês, coreano e chinês: a fonte Saira não tem esses caracteres; o fim do `src/index.css` indica fontes do sistema e ajusta o tamanho dos títulos.
 
-## Formulário de perguntas ao dono
-`public/briefing/index.html` (endereço `/briefing/`): formulário simples que manda as respostas para um webhook do n8n. Detalhes em `PENDENCIAS.md`.
-
 ## Onde mexer
 - Textos, preços e FAQ: `src/i18n/` (um arquivo por idioma). Links: `src/lib/site.ts`.
 - Cores e fontes: `src/index.css` (bloco `@theme`).
