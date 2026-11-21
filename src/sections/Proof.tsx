@@ -36,18 +36,19 @@ export function Proof() {
   return (
     <section aria-labelledby="prova-titulo" className="relative py-10 sm:py-14 lg:py-16">
       <div className="shell grid items-center gap-x-12 gap-y-9 lg:grid-cols-12">
-        <ul className="grid grid-cols-2 gap-6 sm:gap-10 lg:col-span-5">
+        {/* Três números lado a lado: as colunas seguem a largura de cada número, para "1" não ocupar o espaço de "20 mil+". */}
+        <ul className="grid grid-cols-[repeat(3,auto)] justify-between gap-x-4 sm:justify-start sm:gap-x-12 lg:col-span-6 lg:gap-x-8 xl:gap-x-12">
           {t.proof.stats.map((s, i) => (
             <li key={s.label}>
               <Reveal delay={i * 0.06} y={20}>
-                <p className="display text-[clamp(3.6rem,15vw,6rem)] whitespace-nowrap tabular-nums text-paper">{s.value}</p>
+                <p className="display text-[clamp(2.4rem,10.5vw,6rem)] whitespace-nowrap tabular-nums text-paper lg:text-[clamp(4.25rem,5.6vw,5.75rem)]">{s.value}</p>
                 <p className="label mt-3 max-w-[13rem] text-mute">{s.label}</p>
               </Reveal>
             </li>
           ))}
         </ul>
 
-        <Reveal delay={0.1} y={20} className="min-w-0 lg:col-span-7">
+        <Reveal delay={0.1} y={20} className="min-w-0 lg:col-span-6">
           <h2 id="prova-titulo" className="label mb-4 flex items-center gap-3 text-live">
             <span className="h-px w-8 bg-live" />
             {t.proof.title}

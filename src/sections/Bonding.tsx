@@ -7,21 +7,21 @@ import { fill, useFmt, useT } from '../i18n'
 import type { AnchorId, LinkId } from '../three/bonding'
 
 const LINKS: { id: LinkId; label: string; cap: number; color: string }[] = [
-  { id: '4g', label: '4G', cap: 2.4, color: '#30d158' },
   { id: '5g', label: '5G', cap: 3.6, color: '#f2b04e' },
-  { id: 'wifi', label: 'Wi-Fi', cap: 2.0, color: '#3b9bff' },
+  { id: 'wifi', label: 'Wi-Fi', cap: 2.4, color: '#3b9bff' },
 ]
 const TARGET = 6
 
 export function Bonding() {
   const t = useT()
   const fmt = useFmt()
-  const [links, setLinks] = useState<Record<LinkId, boolean>>({ '4g': true, '5g': true, wifi: true })
+  const [links, setLinks] = useState<Record<LinkId, boolean>>({ '5g': true, wifi: true })
   const [touched, setTouched] = useState(false)
   const upCount = LINKS.filter((l) => links[l.id]).length
   const brb = upCount === 0
   const total = Math.min(TARGET, LINKS.reduce((s, l) => s + (links[l.id] ? l.cap : 0), 0))
-  const quality = brb ? 1 : total >= 4 ? 1 : total >= 3 ? 0.82 : 0.62
+  // Com uma conexão só a imagem continua cheia: o SRTLA passa tudo para a que ficou. Sem nenhuma, entra o BRB.
+  const quality = 1
 
   const toggle = (id: LinkId) => {
     setTouched(true)
@@ -29,16 +29,14 @@ export function Bonding() {
   }
   const all = (v: boolean) => {
     setTouched(true)
-    setLinks({ '4g': v, '5g': v, wifi: v })
+    setLinks({ '5g': v, wifi: v })
   }
 
   const status = brb
     ? { tone: '#f2b04e', ...t.bonding.status.brb }
-    : upCount === 3
-      ? { tone: '#30d158', ...t.bonding.status.three }
-      : upCount === 2
-        ? { tone: '#30d158', ...t.bonding.status.two }
-        : { tone: '#f2b04e', ...t.bonding.status.one }
+    : upCount === LINKS.length
+      ? { tone: '#30d158', ...t.bonding.status.both }
+      : { tone: '#30d158', ...t.bonding.status.one }
 
   return (
     <section id="bonding" className="section bg-ink-deep" aria-labelledby="bonding-titulo">
@@ -168,8 +166,8 @@ export function Bonding() {
 }
 
 /** Latência e RTT de partida de cada conexão (números ilustrativos, como os do simulador). */
-const NET: Record<LinkId, { lat: number; rtt: number }> = { wifi: { lat: 64, rtt: 38 }, '5g': { lat: 31, rtt: 44 }, '4g': { lat: 48, rtt: 61 } }
-const ROWS: LinkId[] = ['wifi', '5g', '4g']
+const NET: Record<LinkId, { lat: number; rtt: number }> = { wifi: { lat: 64, rtt: 38 }, '5g': { lat: 31, rtt: 44 } }
+const ROWS: LinkId[] = ['wifi', '5g']
 /** Variação pequena e repetível (igual no servidor e no navegador). */
 const noise = (seed: number) => {
   const x = Math.sin(seed * 127.1) * 43758.5453
@@ -179,7 +177,7 @@ const noise = (seed: number) => {
 /**
  * Tabela "Conexões", cópia da tela do painel: liga e desliga cada conexão (o mesmo estado do simulador 3D)
  * e muda a prioridade. O uso na transmissão se redistribui na hora; de tempos em tempos o Wi-Fi engasga
- * e as outras conexões assumem, como acontece numa live de verdade.
+ * e o 5G assume, como acontece numa live de verdade.
  */
 function ConnTable({ links, onToggle }: { links: Record<LinkId, boolean>; onToggle: (id: LinkId) => void }) {
   const t = useT()
@@ -187,7 +185,7 @@ function ConnTable({ links, onToggle }: { links: Record<LinkId, boolean>; onTogg
   const wrap = useRef<HTMLDivElement>(null)
   const inView = useInView(wrap, { margin: '0px 0px -10% 0px' })
   const reduce = useReducedMotion()
-  const [prio, setPrio] = useState<Record<LinkId, number>>({ '4g': 1, '5g': 1, wifi: 1 })
+  const [prio, setPrio] = useState<Record<LinkId, number>>({ '5g': 1, wifi: 1 })
   const [tick, setTick] = useState(0)
 
   useEffect(() => {
@@ -217,7 +215,7 @@ function ConnTable({ links, onToggle }: { links: Record<LinkId, boolean>; onTogg
     return raw
   }, [links, prio, tick])
 
-  const name = (id: LinkId) => (id === 'wifi' ? { main: 'Wi-Fi', sub: c.wifiSub } : { main: c.cell, sub: id === '5g' ? '5G' : '4G' })
+  const name = (id: LinkId) => (id === 'wifi' ? { main: 'Wi-Fi', sub: c.wifiSub } : { main: c.cell, sub: '5G' })
 
   return (
     <div ref={wrap} className="tl-panel cx">

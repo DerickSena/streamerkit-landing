@@ -77,7 +77,7 @@ export function Remote() {
   const quality = !sending ? 1 : live.bitrate >= 3.2 ? 1 : live.bitrate >= 2.2 ? 0.8 : live.bitrate >= 1.5 ? 0.6 : 0.42
   const share = 58 + Math.sin(live.n * 0.2) * 5
   const links: LinkStat[] = [
-    { id: '4g', label: '4G', pct: share, color: '#30d158', up: sending },
+    { id: '5g', label: '5G', pct: share, color: '#f2b04e', up: sending },
     { id: 'wifi', label: 'Wi-Fi', pct: 100 - share, color: '#3b9bff', up: sending },
   ]
   const torchOn = torch && cam === 'back'
@@ -256,7 +256,7 @@ export function Remote() {
                   <span className={sending ? 'live-dot' : 'h-2 w-2 rounded-full bg-dim'} />
                   {sending ? t.common.live : t.remote.stopped}
                 </span>
-                <span className="num text-mute">4G + Wi-Fi</span>
+                <span className="num text-mute">5G + Wi-Fi</span>
                 <span className="num text-mute">{fmt.mbps(sending ? live.bitrate : 0)} Mbps</span>
                 <span className="hidden truncate text-dim sm:inline" aria-hidden="true">
                   <span className="label mr-2">{t.remote.lastAction}</span>

@@ -7,10 +7,10 @@ export const pt = {
     ogLocale: 'pt_BR',
     title: 'Servidor de live IRL que não deixa a live cair | StreamerKit',
     description:
-      'Sua live IRL caiu de novo? O StreamerKit junta 4G, 5G e Wi-Fi numa transmissão só (SRTLA), segura a live com BRB automático, roda o OBS na nuvem e transmite para Twitch, Kick e YouTube ao mesmo tempo.',
+      'Sua live IRL caiu de novo? O StreamerKit junta 5G e Wi-Fi numa transmissão só (SRTLA), segura a live com BRB automático, roda o OBS na nuvem e transmite para Twitch, Kick e YouTube ao mesmo tempo.',
     ogTitle: 'Sua live caiu. De novo. | StreamerKit',
     ogDescription:
-      'Junte 4G, 5G e Wi-Fi numa transmissão só e mantenha a live IRL no ar. OBS na nuvem, multistream e controle remoto do celular pela sua equipe.',
+      'Junte 5G e Wi-Fi numa transmissão só e mantenha a live IRL no ar. OBS na nuvem, multistream e controle remoto do celular pela sua equipe.',
   },
 
   // Formato dos números: separador decimal e de milhar.
@@ -46,11 +46,11 @@ export const pt = {
       short: 'Um chip só não aguenta show lotado. ',
       pre: 'O ',
       brand: 'StreamerKit',
-      post: ' junta 4G, 5G e Wi-Fi numa transmissão só e segura a sua live no ar.',
+      post: ' junta 5G e Wi-Fi numa transmissão só e segura a sua live no ar.',
     },
     ledeOn: {
-      main: '4G, 5G e Wi-Fi somados numa transmissão só. Se uma conexão cai, as outras seguram.',
-      extraPre: ' Se todas caem, a cena de BRB mantém ',
+      main: '5G e Wi-Fi somados numa transmissão só. Se uma conexão cai, a outra segura.',
+      extraPre: ' Se as duas caem, a cena de BRB mantém ',
       extraStrong: 'a sua live no ar',
       extraPost: ' até você voltar.',
     },
@@ -66,8 +66,8 @@ export const pt = {
     switch: {
       on: 'StreamerKit ligado',
       off: 'StreamerKit desligado',
-      onSub: '4G + 5G + Wi-Fi somados',
-      offSub: 'Um chip 4G, sozinho',
+      onSub: '5G + Wi-Fi somados',
+      offSub: 'Um chip só, sozinho',
       hint: 'Ligue e veja',
     },
     telemetry: { viewers: 'Viewers', bitrate: 'Bitrate', signal: 'Sinal' },
@@ -79,7 +79,7 @@ export const pt = {
       offline: ['encerrou :(', 'vou pra outra live', 'avisa quando voltar'],
       on: [
         'imagem lisa demais',
-        'nem parece 4G',
+        'nem parece live de celular',
         'que show!!',
         'o 5G caiu e nem travou',
         'manda salve',
@@ -102,8 +102,9 @@ export const pt = {
   proof: {
     title: 'Quem já transmite com o StreamerKit',
     stats: [
-      { value: '100', label: 'streamers transmitindo hoje' },
-      { value: '20 mil', label: 'horas de live no ar' },
+      { value: '1', label: 'ano desde a fundação' },
+      { value: '100+', label: 'streamers transmitindo hoje' },
+      { value: '20 mil+', label: 'horas de live no ar' },
     ],
   },
 
@@ -141,7 +142,7 @@ export const pt = {
     kicker: 'Como o StreamerKit segura',
     // título em 2 pedaços: normal e destaque em vermelho
     title: ['Derrube uma conexão.', 'A live continua.'],
-    lede: 'O SRTLA bonding soma o 4G, o 5G e o Wi-Fi do celular numa transmissão só. Teste: toque em uma conexão para desligar e veja o que chega nas plataformas.',
+    lede: 'O SRTLA bonding soma o 5G e o Wi-Fi do celular numa transmissão só. Teste: toque em uma conexão para desligar e veja o que chega nas plataformas.',
     dropAll: 'Derrubar todas',
     reconnect: 'Religar',
     viewerSees: 'O que o viewer vê',
@@ -149,11 +150,11 @@ export const pt = {
     brbTitle: 'Já volto',
     brbSub: 'Cena de BRB · live no ar',
     total: 'Bitrate somado',
-    countOf: '{n} de 3',
+    countOf: '{n} de 2',
     connections: 'conexões',
     sceneLabel: 'SRTLA bonding',
     sceneLabelBrb: 'Sem sinal · BRB segurando',
-    hint: 'Toque em 4G, 5G ou Wi-Fi',
+    hint: 'Toque em 5G ou Wi-Fi',
     fallback: 'Celular → Ingest → OBS → Twitch, Kick e YouTube',
     ariaUp: '{l}: ligado, toque para derrubar',
     ariaDown: '{l}: caiu, toque para religar',
@@ -167,17 +168,13 @@ export const pt = {
         title: 'BRB automático no ar',
         text: 'Todas as conexões caíram. O OBS trocou para a sua cena de BRB e a live continua aberta. Quando o sinal voltar, ele volta sozinho para a cena ao vivo.',
       },
-      three: {
-        title: 'Três conexões somadas',
-        text: 'O vídeo viaja dividido entre 4G, 5G e Wi-Fi. Nenhuma delas carrega a live sozinha.',
-      },
-      two: {
-        title: 'Uma caiu, duas seguram',
-        text: 'O SRTLA redistribuiu a transmissão na hora. Quem está assistindo não percebe a troca.',
+      both: {
+        title: 'Duas conexões somadas',
+        text: 'O vídeo viaja dividido entre 5G e Wi-Fi. Nenhuma delas carrega a live sozinha.',
       },
       one: {
-        title: 'Segurando com uma conexão',
-        text: 'O bitrate desce para caber no sinal que sobrou, mas a live segue no ar e o SRT reenvia os pacotes perdidos.',
+        title: 'Uma caiu, a outra segura',
+        text: 'O SRTLA passou a transmissão inteira para a conexão que ficou. Quem está assistindo não percebe a troca.',
       },
     },
     // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
@@ -434,7 +431,7 @@ export const pt = {
     onlyAdvanced: '(só no Avançado)',
     bothTitle: 'Os dois planos incluem',
     included: [
-      'SRTLA bonding (4G + 5G + Wi-Fi)',
+      'SRTLA bonding (5G + Wi-Fi)',
       'Cena de BRB automática',
       'Multistream para até 4 destinos',
       'Canvas com widgets',

@@ -7,10 +7,10 @@ export const ja: Dict = {
     ogLocale: 'ja_JP',
     title: '配信を落とさないIRL配信サーバー | StreamerKit',
     description:
-      'IRL配信がまた落ちた？ StreamerKitは4G、5G、Wi-Fiをひとつの配信に束ね（SRTLA）、自動BRBで配信を維持し、OBSをクラウドで動かして、Twitch、Kick、YouTubeに同時配信します。',
+      'IRL配信がまた落ちた？ StreamerKitは5GとWi-Fiをひとつの配信に束ね（SRTLA）、自動BRBで配信を維持し、OBSをクラウドで動かして、Twitch、Kick、YouTubeに同時配信します。',
     ogTitle: '配信が落ちた。またか。 | StreamerKit',
     ogDescription:
-      '4G、5G、Wi-Fiをひとつに束ねて、IRL配信を止めません。クラウドOBS、同時配信、チームによるスマホのリモート操作に対応。',
+      '5GとWi-Fiをひとつに束ねて、IRL配信を止めません。クラウドOBS、同時配信、チームによるスマホのリモート操作に対応。',
   },
 
   num: { decimal: '.', thousands: ',' },
@@ -44,11 +44,11 @@ export const ja: Dict = {
       short: '満員の会場で、SIM1枚では持ちません。',
       pre: '',
       brand: 'StreamerKit',
-      post: 'は4G、5G、Wi-Fiをひとつの配信に束ねて、配信を止めません。',
+      post: 'は5GとWi-Fiをひとつの配信に束ねて、配信を止めません。',
     },
     ledeOn: {
-      main: '4G、5G、Wi-Fiをひとつの配信に束ねます。ひとつの回線が落ちても、ほかの回線が支えます。',
-      extraPre: 'すべて落ちても、BRBシーンが',
+      main: '5GとWi-Fiをひとつの配信に束ねます。片方の回線が落ちても、もう片方が支えます。',
+      extraPre: '両方落ちても、BRBシーンが',
       extraStrong: '配信を維持',
       extraPost: 'し、あなたが戻るまで待ちます。',
     },
@@ -64,8 +64,8 @@ export const ja: Dict = {
     switch: {
       on: 'StreamerKit オン',
       off: 'StreamerKit オフ',
-      onSub: '4G + 5G + Wi-Fi を束ねて送信',
-      offSub: '4GのSIM1枚だけ',
+      onSub: '5G + Wi-Fi を束ねて送信',
+      offSub: 'SIM1枚だけ',
       hint: 'オンにしてみて',
     },
     telemetry: { viewers: '視聴者', bitrate: 'ビットレート', signal: '電波' },
@@ -76,7 +76,7 @@ export const ja: Dict = {
       offline: ['配信終わった…', '他の枠行くわ', '戻ったら教えて'],
       on: [
         'ぬるぬる',
-        'これ4Gってマジ？',
+        'スマホ配信に見えない',
         '神ライブ',
         '5G落ちたのに全然止まらん',
         'こんばんは',
@@ -99,8 +99,9 @@ export const ja: Dict = {
   proof: {
     title: 'StreamerKitで配信しているストリーマー',
     stats: [
-      { value: '100', label: '人のストリーマーが利用中' },
-      { value: '2万', label: '時間のライブを配信' },
+      { value: '1', label: '年前に創業' },
+      { value: '100+', label: '人のストリーマーが利用中' },
+      { value: '2万+', label: '時間のライブを配信' },
     ],
   },
 
@@ -136,7 +137,7 @@ export const ja: Dict = {
   bonding: {
     kicker: 'StreamerKitが落ちない仕組み',
     title: ['回線が落ちても、', '配信は続く。'],
-    lede: 'SRTLA bondingは、スマホの4G、5G、Wi-Fiを合わせてひとつの配信にします。試してみてください。回線をタップしてオフにすると、配信先に何が届くかがわかります。',
+    lede: 'SRTLA bondingは、スマホの5GとWi-Fiを合わせてひとつの配信にします。試してみてください。回線をタップしてオフにすると、配信先に何が届くかがわかります。',
     dropAll: '全部落とす',
     reconnect: '再接続',
     viewerSees: '視聴者に見える画面',
@@ -144,11 +145,11 @@ export const ja: Dict = {
     brbTitle: 'すぐ戻ります',
     brbSub: 'BRBシーン・配信は継続中',
     total: '合計ビットレート',
-    countOf: '{n} / 3',
+    countOf: '{n} / 2',
     connections: '回線',
     sceneLabel: 'SRTLA bonding',
     sceneLabelBrb: '信号なし・BRBで維持中',
-    hint: '4G、5G、Wi-Fiをタップ',
+    hint: '5GかWi-Fiをタップ',
     fallback: 'スマホ → Ingest → OBS → Twitch、Kick、YouTube',
     ariaUp: '{l}：接続中、タップで切断',
     ariaDown: '{l}：切断中、タップで再接続',
@@ -162,17 +163,13 @@ export const ja: Dict = {
         title: '自動BRBがオンエア中',
         text: 'すべての回線が切断されました。OBSがBRBシーンに切り替わり、配信は続いています。電波が戻ると、自動で配信シーンに戻ります。',
       },
-      three: {
-        title: '3回線を束ねて送信中',
-        text: '映像は4G、5G、Wi-Fiに分かれて送られます。どの回線も、ひとりで配信を背負っていません。',
-      },
-      two: {
-        title: '1回線が落ちても、2回線で維持',
-        text: 'SRTLAが瞬時に配信を振り分け直しました。視聴者は切り替わりに気づきません。',
+      both: {
+        title: '2回線を束ねて送信中',
+        text: '映像は5GとWi-Fiに分かれて送られます。どちらの回線も、ひとりで配信を背負っていません。',
       },
       one: {
-        title: '1回線で維持中',
-        text: '残った電波に合わせてビットレートは下がりますが、配信は続き、SRTが失われたパケットを再送します。',
+        title: '1回線が落ちても、もう1回線で維持',
+        text: 'SRTLAが配信をすべて残った回線に切り替えました。視聴者は切り替わりに気づきません。',
       },
     },
     // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
@@ -419,7 +416,7 @@ export const ja: Dict = {
     onlyAdvanced: '（アドバンスのみ）',
     bothTitle: '両プランに含まれるもの',
     included: [
-      'SRTLA bonding（4G + 5G + Wi-Fi）',
+      'SRTLA bonding（5G + Wi-Fi）',
       '自動BRBシーン',
       '最大4つの配信先への同時配信',
       'ウィジェット付きCanvas',

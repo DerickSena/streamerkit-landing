@@ -1,10 +1,10 @@
-// Cena 3D do bonding: 3 conexões saem do celular, se juntam no ingest,
+// Cena 3D do bonding: 2 conexões (5G e Wi-Fi) saem do celular, se juntam no ingest,
 // seguem para o OBS e de lá vão para as plataformas. Os "pacotes" são pontos
 // de luz correndo pelos caminhos. Carregada só quando a seção entra na tela.
 import * as THREE from 'three'
 
-export type LinkId = '4g' | '5g' | 'wifi'
-export type AnchorId = 'phone' | '4g' | '5g' | 'wifi' | 'ingest' | 'obs' | 'twitch' | 'kick' | 'youtube'
+export type LinkId = '5g' | 'wifi'
+export type AnchorId = 'phone' | '5g' | 'wifi' | 'ingest' | 'obs' | 'twitch' | 'kick' | 'youtube'
 export type SceneState = { links: Record<LinkId, boolean>; brb: boolean }
 
 type PathDef = {
@@ -23,7 +23,7 @@ const C = {
   ink: 0x140404,
   paper: 0xf7eeec,
   live: 0xff2a1c,
-  g4: 0x30d158,
+  ok: 0x30d158,
   g5: 0xf2b04e,
   wifi: 0x3b9bff,
   brb: 0xf2b04e,
@@ -34,6 +34,9 @@ const C = {
 }
 
 const V = (x: number, y: number, z = 0) => new THREE.Vector3(x, y, z)
+const LINK_IDS: LinkId[] = ['5g', 'wifi']
+/** Índice do caminho ingest → OBS: antes dele ficam as conexões; depois, as saídas para as plataformas. */
+const TRUNK = LINK_IDS.length
 
 export function createBondingScene(
   canvas: HTMLCanvasElement,
@@ -87,7 +90,7 @@ export function createBondingScene(
     const body = solid(g, 0x0b0202, 0.95)
     const frame = edges(g, C.paper, 0.6)
     body.position.y = frame.position.y = y
-    const led = solid(new THREE.CircleGeometry(0.035, 12), C.g4, 1)
+    const led = solid(new THREE.CircleGeometry(0.035, 12), C.ok, 1)
     led.position.set(-0.38, y, 0.41)
     rackLights.push(led)
     ingest.add(body, frame, led)
@@ -146,10 +149,10 @@ export function createBondingScene(
   }
   const a = P.phone.clone().add(V(0.36, 0, 0))
   const b = P.ingest.clone().add(V(-0.62, 0, 0))
+  // As duas conexões abrem em arcos espelhados: 5G por cima, Wi-Fi por baixo (no celular em pé, à direita e à esquerda).
   const paths: PathDef[] = [
-    mk('4g', C.g4, [a, V(-4.2, 1.15, 0.5), V(-2.9, 1.7, 0.8), V(-1.7, 1.05, 0.4), b], 46, 0.3),
-    mk('5g', C.g5, [a, V(-4.1, 0.08, -0.7), V(-2.9, -0.05, -1.1), V(-1.8, 0.05, -0.6), b], 54, 0.36),
-    mk('wifi', C.wifi, [a, V(-4.2, -1.15, 0.5), V(-2.9, -1.7, 0.8), V(-1.7, -1.05, 0.4), b], 34, 0.26),
+    mk('5g', C.g5, [a, V(-4.2, 1.05, 0.45), V(-2.9, 1.55, 0.7), V(-1.7, 0.95, 0.35), b], 56, 0.34),
+    mk('wifi', C.wifi, [a, V(-4.2, -1.05, 0.45), V(-2.9, -1.55, 0.7), V(-1.7, -0.95, 0.35), b], 42, 0.28),
     mk('trunk', C.paper, [P.ingest.clone().add(V(0.6, 0, 0)), V(0.9, 0.12, 0.2), P.obs.clone().add(V(-0.6, 0, 0))], 40, 0.5),
     mk('o-twitch', C.twitch, [P.obs.clone().add(V(0.6, 0, 0)), V(3.6, 0.5, 0.3), V(4.5, 1.35, 0.1), P.twitch.clone().add(V(-0.36, 0, 0))], 26, 0.42),
     mk('o-kick', C.kick, [P.obs.clone().add(V(0.6, 0, 0)), V(3.7, 0.02, -0.25), P.kick.clone().add(V(-0.36, 0, 0))], 26, 0.46),
@@ -205,18 +208,17 @@ export function createBondingScene(
   root.add(points)
 
   // ---------- estado ----------
-  let state: SceneState = { links: { '4g': true, '5g': true, wifi: true }, brb: false }
+  let state: SceneState = { links: { '5g': true, wifi: true }, brb: false }
   const brbColor = new THREE.Color(C.brb)
   const tmp = new THREE.Color()
   const setState = (s: SceneState) => {
     state = s
-    const up = (['4g', '5g', 'wifi'] as LinkId[]).filter((k) => s.links[k]).length
-    paths[0].target = s.links['4g'] ? 1 : 0
-    paths[1].target = s.links['5g'] ? 1 : 0
-    paths[2].target = s.links.wifi ? 1 : 0
-    paths[3].target = up > 0 ? 0.45 + up * 0.18 : 0
+    const up = LINK_IDS.filter((k) => s.links[k]).length
+    paths[0].target = s.links['5g'] ? 1 : 0
+    paths[1].target = s.links.wifi ? 1 : 0
+    paths[TRUNK].target = up > 0 ? 0.45 + up * 0.27 : 0
     // Com tudo caído, o OBS continua mandando a cena de BRB para as plataformas.
-    for (let i = 4; i < 7; i++) paths[i].target = up > 0 ? 0.5 + up * 0.17 : 0.55
+    for (let i = TRUNK + 1; i < paths.length; i++) paths[i].target = up > 0 ? 0.5 + up * 0.25 : 0.55
   }
 
   // ---------- tamanho e câmera ----------
@@ -254,9 +256,8 @@ export function createBondingScene(
 
   const anchorsWorld: Record<AnchorId, THREE.Vector3> = {
     phone: P.phone.clone().add(V(0, -0.95, 0)),
-    '4g': paths[0].curve.getPointAt(0.48),
-    '5g': paths[1].curve.getPointAt(0.34),
-    wifi: paths[2].curve.getPointAt(0.48),
+    '5g': paths[0].curve.getPointAt(0.48),
+    wifi: paths[1].curve.getPointAt(0.48),
     ingest: P.ingest.clone().add(V(0, -0.95, 0)),
     obs: P.obs.clone().add(V(0, -1.12, 0)),
     twitch: P.twitch.clone().add(V(0.95, 0, 0)),
@@ -276,12 +277,12 @@ export function createBondingScene(
     camera.position.set(pointer.sx * 1.5 + sway, 1.25 - pointer.sy * 0.9 + (vertical ? 0.4 : 0), d)
     camera.lookAt(0, vertical ? 0 : -0.1, 0)
 
-    const up = (['4g', '5g', 'wifi'] as LinkId[]).filter((k) => state.links[k]).length
+    const up = LINK_IDS.filter((k) => state.links[k]).length
     paths.forEach((p, i) => {
       p.level += (p.target - p.level) * Math.min(1, dt * 6)
       const m = p.tube.material as THREE.MeshBasicMaterial
-      const dead = i < 3 && p.target === 0
-      const isOut = i >= 4
+      const dead = i < TRUNK && p.target === 0
+      const isOut = i > TRUNK
       tmp.copy(dead ? tmp.set(C.dead) : isOut && state.brb ? brbColor : p.color)
       m.color.lerp(tmp, Math.min(1, dt * 6))
       m.opacity = dead ? 0.22 : 0.16 + p.level * 0.3
@@ -303,7 +304,7 @@ export function createBondingScene(
       pos[k + 2] = A.z + (B.z - A.z) * fr
       const edge = Math.min(1, m.u * 9, (1 - m.u) * 9)
       alpha[i] = edge * p.level
-      if (m.path >= 4) {
+      if (m.path > TRUNK) {
         tmp.copy(state.brb ? brbColor : p.color)
         col[k] += (tmp.r - col[k]) * 0.1
         col[k + 1] += (tmp.g - col[k + 1]) * 0.1
@@ -324,9 +325,10 @@ export function createBondingScene(
     }
     ;(coreFill.material as THREE.MeshBasicMaterial).color.lerp(tmp.set(state.brb ? C.brb : C.live), 0.1)
     ;(screen.material as THREE.MeshBasicMaterial).opacity = up > 0 ? 0.22 + Math.sin(t * 3) * 0.04 : 0.06
+    // LEDs do rack, de baixo para cima: Wi-Fi, entrada (acesa se alguma conexão chega) e 5G.
     rackLights.forEach((l, i) => {
-      const on = [state.links['4g'], state.links['5g'], state.links.wifi][i]
-      ;(l.material as THREE.MeshBasicMaterial).color.set(on ? [C.g4, C.g5, C.wifi][i] : C.live)
+      const on = [state.links.wifi, up > 0, state.links['5g']][i]
+      ;(l.material as THREE.MeshBasicMaterial).color.set(on ? [C.wifi, C.ok, C.g5][i] : C.live)
       l.visible = on || Math.sin(t * 9) > 0
     })
     plats.forEach((pl, i) => {

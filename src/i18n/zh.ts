@@ -7,10 +7,10 @@ export const zh: Dict = {
     ogLocale: 'zh_CN',
     title: '让你的直播一直在线的 IRL 直播服务器 | StreamerKit',
     description:
-      'IRL 直播又掉线了？StreamerKit 把 4G、5G 和 Wi-Fi 聚合成一路推流（SRTLA），自动切 BRB 保住直播，云端运行 OBS，同时推流到 Twitch、Kick 和 YouTube。',
+      'IRL 直播又掉线了？StreamerKit 把 5G 和 Wi-Fi 聚合成一路推流（SRTLA），自动切 BRB 保住直播，云端运行 OBS，同时推流到 Twitch、Kick 和 YouTube。',
     ogTitle: '你的直播掉线了。又一次。| StreamerKit',
     ogDescription:
-      '把 4G、5G 和 Wi-Fi 聚合成一路推流，让你的 IRL 直播一直在线。云端 OBS、多平台同步推流，团队还能远程控制你的手机。',
+      '把 5G 和 Wi-Fi 聚合成一路推流，让你的 IRL 直播一直在线。云端 OBS、多平台同步推流，团队还能远程控制你的手机。',
   },
 
   num: { decimal: '.', thousands: ',' },
@@ -44,11 +44,11 @@ export const zh: Dict = {
       short: '一张卡扛不住爆满的现场。',
       pre: '',
       brand: 'StreamerKit',
-      post: ' 把 4G、5G 和 Wi-Fi 聚合成一路推流，让你的直播一直在线。',
+      post: ' 把 5G 和 Wi-Fi 聚合成一路推流，让你的直播一直在线。',
     },
     ledeOn: {
-      main: '4G、5G 和 Wi-Fi 聚合成一路推流。一条网络断了，其他的照样顶住。',
-      extraPre: '就算全部断开，BRB 场景也会让',
+      main: '5G 和 Wi-Fi 聚合成一路推流。一条网络断了，另一条照样顶住。',
+      extraPre: '就算两条都断开，BRB 场景也会让',
       extraStrong: '你的直播保持在线',
       extraPost: '，直到你回来。',
     },
@@ -64,8 +64,8 @@ export const zh: Dict = {
     switch: {
       on: 'StreamerKit 已开启',
       off: 'StreamerKit 已关闭',
-      onSub: '4G + 5G + Wi-Fi 聚合',
-      offSub: '只有一张 4G 卡',
+      onSub: '5G + Wi-Fi 聚合',
+      offSub: '只有一张卡',
       hint: '打开试试',
     },
     telemetry: { viewers: '观众', bitrate: '码率', signal: '信号' },
@@ -76,7 +76,7 @@ export const zh: Dict = {
       offline: ['下播了：(', '去别的直播间了', '回来了喊一声'],
       on: [
         '画面好丝滑',
-        '这是 4G？不信',
+        '完全不像手机直播',
         '这现场太炸了！！',
         '5G 断了都没卡一下',
         '主播打个招呼',
@@ -99,8 +99,9 @@ export const zh: Dict = {
   proof: {
     title: '已经在用 StreamerKit 直播的主播',
     stats: [
-      { value: '100', label: '位主播正在使用' },
-      { value: '2万', label: '小时直播已经播出' },
+      { value: '1', label: '年前成立' },
+      { value: '100+', label: '位主播正在使用' },
+      { value: '2万+', label: '小时直播已经播出' },
     ],
   },
 
@@ -136,7 +137,7 @@ export const zh: Dict = {
   bonding: {
     kicker: 'StreamerKit 如何保住直播',
     title: ['断掉一条网络，', '直播照常继续。'],
-    lede: 'SRTLA bonding 把手机的 4G、5G 和 Wi-Fi 叠加成一路推流。试一下：点一条网络把它关掉，看看平台那边收到的是什么。',
+    lede: 'SRTLA bonding 把手机的 5G 和 Wi-Fi 叠加成一路推流。试一下：点一条网络把它关掉，看看平台那边收到的是什么。',
     dropAll: '全部断开',
     reconnect: '重新连接',
     viewerSees: '观众看到的画面',
@@ -144,11 +145,11 @@ export const zh: Dict = {
     brbTitle: '马上回来',
     brbSub: 'BRB 场景 · 直播仍在进行',
     total: '总码率',
-    countOf: '{n} / 3',
+    countOf: '{n} / 2',
     connections: '条网络',
     sceneLabel: 'SRTLA bonding',
     sceneLabelBrb: '无信号 · BRB 顶住',
-    hint: '点 4G、5G 或 Wi-Fi',
+    hint: '点 5G 或 Wi-Fi',
     fallback: '手机 → Ingest → OBS → Twitch、Kick 和 YouTube',
     ariaUp: '{l}：已连接，点击断开',
     ariaDown: '{l}：已断开，点击重新连接',
@@ -162,17 +163,13 @@ export const zh: Dict = {
         title: '自动 BRB 已上线',
         text: '所有网络都断了。OBS 切到了你的 BRB 场景，直播不会中断。信号一恢复，会自动切回直播场景。',
       },
-      three: {
-        title: '三条网络已聚合',
-        text: '视频分散在 4G、5G 和 Wi-Fi 上传输，没有哪一条单独扛着整个直播。',
-      },
-      two: {
-        title: '断了一条，两条顶住',
-        text: 'SRTLA 瞬间重新分配推流，观众完全察觉不到切换。',
+      both: {
+        title: '两条网络已聚合',
+        text: '视频分散在 5G 和 Wi-Fi 上传输，没有哪一条单独扛着整个直播。',
       },
       one: {
-        title: '靠一条网络撑着',
-        text: '码率会降到剩下信号能承受的水平，但直播依然在线，SRT 会重传丢失的数据包。',
+        title: '断了一条，另一条顶住',
+        text: 'SRTLA 把整路推流都转到了剩下的那条网络上，观众完全察觉不到切换。',
       },
     },
     // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
@@ -419,7 +416,7 @@ export const zh: Dict = {
     onlyAdvanced: '（仅限高级版）',
     bothTitle: '两个套餐都包含',
     included: [
-      'SRTLA bonding（4G + 5G + Wi-Fi）',
+      'SRTLA bonding（5G + Wi-Fi）',
       '自动 BRB 场景',
       '多平台同步推流，最多 4 个平台',
       '带 widgets 的 Canvas',

@@ -7,10 +7,10 @@ export const de: Dict = {
     ogLocale: 'de_DE',
     title: 'IRL-Streaming-Server, der deinen Stream live hält | StreamerKit',
     description:
-      'Ist dein IRL-Stream schon wieder weg? StreamerKit bündelt 4G, 5G und Wi-Fi zu einem Stream (SRTLA), hält dich mit automatischem BRB live, lässt OBS in der Cloud laufen und streamt gleichzeitig auf Twitch, Kick und YouTube.',
+      'Ist dein IRL-Stream schon wieder weg? StreamerKit bündelt 5G und Wi-Fi zu einem Stream (SRTLA), hält dich mit automatischem BRB live, lässt OBS in der Cloud laufen und streamt gleichzeitig auf Twitch, Kick und YouTube.',
     ogTitle: 'Dein Stream ist weg. Wieder mal. | StreamerKit',
     ogDescription:
-      'Bündel 4G, 5G und Wi-Fi zu einem Stream und bleib mit deinem IRL-Stream live. OBS in der Cloud, Multistreaming und Fernsteuerung des Handys für dein Team.',
+      'Bündel 5G und Wi-Fi zu einem Stream und bleib mit deinem IRL-Stream live. OBS in der Cloud, Multistreaming und Fernsteuerung des Handys für dein Team.',
   },
 
   num: { decimal: ',', thousands: '.' },
@@ -44,11 +44,11 @@ export const de: Dict = {
       short: 'Eine SIM packt kein volles Konzert. ',
       pre: '',
       brand: 'StreamerKit',
-      post: ' bündelt 4G, 5G und Wi-Fi zu einem Stream und hält dich live.',
+      post: ' bündelt 5G und Wi-Fi zu einem Stream und hält dich live.',
     },
     ledeOn: {
-      main: '4G, 5G und Wi-Fi gebündelt zu einem Stream. Fällt eine Verbindung weg, halten die anderen.',
-      extraPre: ' Fallen alle weg, hält deine BRB-Szene ',
+      main: '5G und Wi-Fi gebündelt zu einem Stream. Fällt eine Verbindung weg, hält die andere.',
+      extraPre: ' Fallen beide weg, hält deine BRB-Szene ',
       extraStrong: 'deinen Stream live',
       extraPost: ', bis du zurück bist.',
     },
@@ -64,8 +64,8 @@ export const de: Dict = {
     switch: {
       on: 'StreamerKit an',
       off: 'StreamerKit aus',
-      onSub: '4G + 5G + Wi-Fi gebündelt',
-      offSub: 'Eine 4G-SIM, ganz allein',
+      onSub: '5G + Wi-Fi gebündelt',
+      offSub: 'Eine einzige SIM, ganz allein',
       hint: 'Schalt es ein',
     },
     telemetry: { viewers: 'Zuschauer', bitrate: 'Bitrate', signal: 'Signal' },
@@ -76,7 +76,7 @@ export const de: Dict = {
       offline: ['Stream ist vorbei :(', 'bin dann mal woanders', 'sag Bescheid, wenn du wieder da bist'],
       on: [
         'läuft so smooth',
-        'niemals ist das 4G',
+        'sieht gar nicht nach Handy aus',
         'was für ne Show!!',
         '5G ist weg und kein einziger Ruckler',
         'grüß mal',
@@ -99,8 +99,9 @@ export const de: Dict = {
   proof: {
     title: 'Diese Streamer senden schon mit StreamerKit',
     stats: [
-      { value: '100', label: 'Streamer, die heute damit senden' },
-      { value: '20.000', label: 'Stunden live gesendet' },
+      { value: '1', label: 'Jahr seit der Gründung' },
+      { value: '100+', label: 'Streamer, die heute damit senden' },
+      { value: '20.000+', label: 'Stunden live gesendet' },
     ],
   },
 
@@ -136,7 +137,7 @@ export const de: Dict = {
   bonding: {
     kicker: 'So hält StreamerKit',
     title: ['Eine Verbindung fällt weg.', 'Der Stream läuft weiter.'],
-    lede: 'SRTLA bonding addiert 4G, 5G und Wi-Fi deines Handys zu einem Stream. Probier es aus: Tipp auf eine Verbindung, um sie abzuschalten, und schau, was bei den Plattformen ankommt.',
+    lede: 'SRTLA bonding addiert 5G und Wi-Fi deines Handys zu einem Stream. Probier es aus: Tipp auf eine Verbindung, um sie abzuschalten, und schau, was bei den Plattformen ankommt.',
     dropAll: 'Alle trennen',
     reconnect: 'Neu verbinden',
     viewerSees: 'Was die Zuschauer sehen',
@@ -144,11 +145,11 @@ export const de: Dict = {
     brbTitle: 'Gleich zurück',
     brbSub: 'BRB-Szene · Stream noch live',
     total: 'Gesamte Bitrate',
-    countOf: '{n} von 3',
+    countOf: '{n} von 2',
     connections: 'Verbindungen',
     sceneLabel: 'SRTLA bonding',
     sceneLabelBrb: 'Kein Signal · BRB hält',
-    hint: 'Tipp auf 4G, 5G oder Wi-Fi',
+    hint: 'Tipp auf 5G oder Wi-Fi',
     fallback: 'Handy → Ingest → OBS → Twitch, Kick und YouTube',
     ariaUp: '{l}: an, tippen zum Trennen',
     ariaDown: '{l}: weg, tippen zum Neuverbinden',
@@ -162,17 +163,13 @@ export const de: Dict = {
         title: 'Automatisches BRB auf Sendung',
         text: 'Alle Verbindungen sind weg. OBS hat auf deine BRB-Szene gewechselt und der Stream bleibt offen. Kommt das Signal zurück, wechselt es von selbst wieder auf deine Live-Szene.',
       },
-      three: {
-        title: 'Drei Verbindungen gebündelt',
-        text: 'Das Video wird auf 4G, 5G und Wi-Fi aufgeteilt. Keine Verbindung trägt den Stream allein.',
-      },
-      two: {
-        title: 'Eine weg, zwei halten',
-        text: 'SRTLA hat den Stream sofort neu verteilt. Deine Zuschauer merken den Wechsel nicht.',
+      both: {
+        title: 'Zwei Verbindungen gebündelt',
+        text: 'Das Video wird auf 5G und Wi-Fi aufgeteilt. Keine der beiden trägt den Stream allein.',
       },
       one: {
-        title: 'Hält mit einer Verbindung',
-        text: 'Die Bitrate passt sich an das verbleibende Signal an, aber der Stream bleibt live und SRT schickt verlorene Pakete neu.',
+        title: 'Eine fällt weg, die andere hält',
+        text: 'SRTLA hat den ganzen Stream auf die verbliebene Verbindung gelegt. Deine Zuschauer merken den Wechsel nicht.',
       },
     },
     // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
@@ -419,7 +416,7 @@ export const de: Dict = {
     onlyAdvanced: '(nur Advanced)',
     bothTitle: 'Beide Pläne enthalten',
     included: [
-      'SRTLA bonding (4G + 5G + Wi-Fi)',
+      'SRTLA bonding (5G + Wi-Fi)',
       'Automatische BRB-Szene',
       'Multistreaming auf bis zu 4 Ziele',
       'Canvas mit Widgets',

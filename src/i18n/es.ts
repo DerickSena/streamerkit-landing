@@ -46,7 +46,7 @@ export const es: Dict = {
       long: 'Concierto lleno, todo el mundo colgado de la misma antena, y tu única SIM no aguanta. ',
       short: 'Una sola SIM no aguanta un concierto lleno. ',
     },
-    switch: { ...base.hero.switch, offSub: 'Una SIM 4G, sola' },
+    switch: { ...base.hero.switch, offSub: 'Una sola SIM, por su cuenta' },
     chat: { ...base.hero.chat, drop: ['va a tirones', 'lag por aquí', 'se ve todo pixelado', 'el bitrate está cayendo'] },
   },
   pains: {
@@ -76,8 +76,9 @@ export const es: Dict = {
   proof: {
     title: 'Ya emiten con StreamerKit',
     stats: [
-      { value: '100', label: 'streamers emitiendo hoy' },
-      { value: '20 mil', label: 'horas de directo emitidas' },
+      { value: '1', label: 'año desde la fundación' },
+      { value: '100+', label: 'streamers emitiendo hoy' },
+      { value: '20 mil+', label: 'horas de directo emitidas' },
     ],
   },
   testimonials: {

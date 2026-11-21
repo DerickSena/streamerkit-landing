@@ -9,10 +9,10 @@ export const es419: Dict = {
     ogLocale: 'es_419',
     title: 'Servidor de transmisiones IRL que no deja caer tu stream | StreamerKit',
     description:
-      '¿Se te cayó otra vez la transmisión IRL? StreamerKit une 4G, 5G y Wi-Fi en una sola transmisión (SRTLA), sostiene tu stream con BRB automático, corre OBS en la nube y transmite en Twitch, Kick y YouTube al mismo tiempo.',
+      '¿Se te cayó otra vez la transmisión IRL? StreamerKit une 5G y Wi-Fi en una sola transmisión (SRTLA), sostiene tu stream con BRB automático, corre OBS en la nube y transmite en Twitch, Kick y YouTube al mismo tiempo.',
     ogTitle: 'Tu stream se cayó. Otra vez. | StreamerKit',
     ogDescription:
-      'Une 4G, 5G y Wi-Fi en una sola transmisión y mantén tu stream IRL al aire. OBS en la nube, multistreaming y control remoto del celular para tu equipo.',
+      'Une 5G y Wi-Fi en una sola transmisión y mantén tu stream IRL al aire. OBS en la nube, multistreaming y control remoto del celular para tu equipo.',
   },
 
   num: { decimal: '.', thousands: ',' },
@@ -46,11 +46,11 @@ export const es419: Dict = {
       short: 'Un solo chip no aguanta un concierto lleno. ',
       pre: '',
       brand: 'StreamerKit',
-      post: ' une 4G, 5G y Wi-Fi en una sola transmisión y mantiene tu stream al aire.',
+      post: ' une 5G y Wi-Fi en una sola transmisión y mantiene tu stream al aire.',
     },
     ledeOn: {
-      main: '4G, 5G y Wi-Fi sumados en una sola transmisión. Si una conexión se cae, las demás aguantan.',
-      extraPre: ' Si se caen todas, la escena de BRB mantiene ',
+      main: '5G y Wi-Fi sumados en una sola transmisión. Si una conexión se cae, la otra aguanta.',
+      extraPre: ' Si se caen las dos, la escena de BRB mantiene ',
       extraStrong: 'tu stream al aire',
       extraPost: ' hasta que vuelvas.',
     },
@@ -66,8 +66,8 @@ export const es419: Dict = {
     switch: {
       on: 'StreamerKit encendido',
       off: 'StreamerKit apagado',
-      onSub: '4G + 5G + Wi-Fi sumados',
-      offSub: 'Un chip 4G, solo',
+      onSub: '5G + Wi-Fi sumados',
+      offSub: 'Un solo chip, por su cuenta',
       hint: 'Enciéndelo y mira',
     },
     telemetry: { viewers: 'Viewers', bitrate: 'Bitrate', signal: 'Señal' },
@@ -78,7 +78,7 @@ export const es419: Dict = {
       offline: ['se terminó :(', 'me voy a otro stream', 'avisa cuando vuelvas'],
       on: [
         'se ve fluidísimo',
-        'ni parece 4G',
+        'ni parece hecho con el celular',
         '¡qué show!!',
         'se cayó el 5G y ni se notó',
         'manda saludos',
@@ -101,8 +101,9 @@ export const es419: Dict = {
   proof: {
     title: 'Ya transmiten con StreamerKit',
     stats: [
-      { value: '100', label: 'streamers transmitiendo hoy' },
-      { value: '20 mil', label: 'horas de transmisión en vivo' },
+      { value: '1', label: 'año desde la fundación' },
+      { value: '100+', label: 'streamers transmitiendo hoy' },
+      { value: '20 mil+', label: 'horas de transmisión en vivo' },
     ],
   },
 
@@ -138,7 +139,7 @@ export const es419: Dict = {
   bonding: {
     kicker: 'Cómo aguanta StreamerKit',
     title: ['Tumba una conexión.', 'El stream sigue.'],
-    lede: 'El SRTLA bonding suma el 4G, el 5G y el Wi-Fi de tu celular en una sola transmisión. Pruébalo: toca una conexión para apagarla y mira lo que llega a las plataformas.',
+    lede: 'El SRTLA bonding suma el 5G y el Wi-Fi de tu celular en una sola transmisión. Pruébalo: toca una conexión para apagarla y mira lo que llega a las plataformas.',
     dropAll: 'Tumbar todas',
     reconnect: 'Reconectar',
     viewerSees: 'Lo que ve el viewer',
@@ -146,11 +147,11 @@ export const es419: Dict = {
     brbTitle: 'Ya vuelvo',
     brbSub: 'Escena de BRB · stream al aire',
     total: 'Bitrate sumado',
-    countOf: '{n} de 3',
+    countOf: '{n} de 2',
     connections: 'conexiones',
     sceneLabel: 'SRTLA bonding',
     sceneLabelBrb: 'Sin señal · BRB aguantando',
-    hint: 'Toca 4G, 5G o Wi-Fi',
+    hint: 'Toca 5G o Wi-Fi',
     fallback: 'Celular → Ingest → OBS → Twitch, Kick y YouTube',
     ariaUp: '{l}: encendida, toca para tumbarla',
     ariaDown: '{l}: caída, toca para reconectar',
@@ -164,17 +165,13 @@ export const es419: Dict = {
         title: 'BRB automático al aire',
         text: 'Se cayeron todas las conexiones. OBS cambió a tu escena de BRB y el stream sigue abierto. Cuando vuelva la señal, regresa solo a la escena en vivo.',
       },
-      three: {
-        title: 'Tres conexiones sumadas',
-        text: 'El video viaja repartido entre 4G, 5G y Wi-Fi. Ninguna carga el stream sola.',
-      },
-      two: {
-        title: 'Se cayó una, dos aguantan',
-        text: 'SRTLA redistribuyó la transmisión al instante. Quien te ve no nota el cambio.',
+      both: {
+        title: 'Dos conexiones sumadas',
+        text: 'El video viaja repartido entre 5G y Wi-Fi. Ninguna de las dos carga el stream sola.',
       },
       one: {
-        title: 'Aguantando con una conexión',
-        text: 'El bitrate baja para caber en la señal que queda, pero el stream sigue al aire y SRT reenvía los paquetes perdidos.',
+        title: 'Se cayó una, la otra aguanta',
+        text: 'SRTLA pasó toda la transmisión a la conexión que quedó. Quien te ve no nota el cambio.',
       },
     },
     // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
@@ -421,7 +418,7 @@ export const es419: Dict = {
     onlyAdvanced: '(solo en el Avanzado)',
     bothTitle: 'Los dos planes incluyen',
     included: [
-      'SRTLA bonding (4G + 5G + Wi-Fi)',
+      'SRTLA bonding (5G + Wi-Fi)',
       'Escena de BRB automática',
       'Multistreaming a hasta 4 destinos',
       'Canvas con widgets',

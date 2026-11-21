@@ -31,7 +31,6 @@ type Sim = {
 }
 
 const NAMES = ['leo_zx', 'bia.mp4', 'tutu77', 'gabs', 'rafa_irl', 'nandaa', 'kiko_mod', 'ju.live', 'pedrox', 'mari_s2']
-const GREEN = '#30d158'
 const AMBER = '#f2b04e'
 const BLUE = '#3b9bff'
 const START_VIEWERS = 1284
@@ -46,11 +45,10 @@ const initial = (on: boolean): Sim => ({
   history: Array.from({ length: 26 }, () => (on ? 6 : 4)),
   links: on
     ? [
-        { id: '4g', label: '4G', pct: 38, color: GREEN, up: true },
-        { id: '5g', label: '5G', pct: 41, color: AMBER, up: true },
-        { id: 'wifi', label: 'Wi-Fi', pct: 21, color: BLUE, up: true },
+        { id: '5g', label: '5G', pct: 60, color: AMBER, up: true },
+        { id: 'wifi', label: 'Wi-Fi', pct: 40, color: BLUE, up: true },
       ]
-    : [{ id: '4g', label: '4G', pct: 100, color: GREEN, up: true }],
+    : [{ id: '5g', label: '5G', pct: 100, color: AMBER, up: true }],
   chat: [],
   cycles: 0,
   bars: 3,
@@ -97,10 +95,9 @@ function useHeroSim(on: boolean, active: boolean, chatPool: Dict['hero']['chat']
         phase = 'on'
         const period = 7
         const k = m.t % period
-        const downIdx = k > 3.2 && k < 5.4 ? Math.floor(m.t / period) % 3 : -1
-        const base = [38 + wob * 20, 41 - wob * 16, 21 + Math.sin(m.n * 0.21) * 4]
+        const downIdx = k > 3.2 && k < 5.4 ? Math.floor(m.t / period) % 2 : -1
+        const base = [60 + wob * 20, 40 - wob * 14 + Math.sin(m.n * 0.21) * 4]
         const meta = [
-          { id: '4g', label: '4G', color: GREEN },
           { id: '5g', label: '5G', color: AMBER },
           { id: 'wifi', label: 'Wi-Fi', color: BLUE },
         ]
@@ -138,7 +135,7 @@ function useHeroSim(on: boolean, active: boolean, chatPool: Dict['hero']['chat']
           bars = 0
           m.viewers = Math.max(0, m.viewers * 0.8 - 3)
         }
-        links = [{ id: '4g', label: '4G', pct: 100, color: GREEN, up: bars > 0 }]
+        links = [{ id: '5g', label: '5G', pct: 100, color: AMBER, up: bars > 0 }]
       }
 
       m.hist = [...m.hist.slice(1), bitrate]

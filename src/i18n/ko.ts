@@ -7,10 +7,10 @@ export const ko: Dict = {
     ogLocale: 'ko_KR',
     title: '방송이 끊기지 않는 IRL 방송 서버 | StreamerKit',
     description:
-      'IRL 방송 또 끊겼나요? StreamerKit은 4G, 5G, Wi-Fi를 하나의 스트림으로 묶고(SRTLA), 자동 BRB로 방송을 살려 두고, 클라우드에서 OBS를 돌리고, Twitch, Kick, YouTube에 동시에 송출해요.',
+      'IRL 방송 또 끊겼나요? StreamerKit은 5G와 Wi-Fi를 하나의 스트림으로 묶고(SRTLA), 자동 BRB로 방송을 살려 두고, 클라우드에서 OBS를 돌리고, Twitch, Kick, YouTube에 동시에 송출해요.',
     ogTitle: '방송이 끊겼다. 또. | StreamerKit',
     ogDescription:
-      '4G, 5G, Wi-Fi를 하나로 묶어 IRL 방송을 지켜요. 클라우드 OBS, 동시 송출, 매니저가 원격으로 폰을 조작하는 기능까지.',
+      '5G와 Wi-Fi를 하나로 묶어 IRL 방송을 지켜요. 클라우드 OBS, 동시 송출, 매니저가 원격으로 폰을 조작하는 기능까지.',
   },
 
   num: { decimal: '.', thousands: ',' },
@@ -44,11 +44,11 @@ export const ko: Dict = {
       short: '꽉 찬 공연장, 유심 하나로는 못 버텨요. ',
       pre: '',
       brand: 'StreamerKit',
-      post: '은 4G, 5G, Wi-Fi를 하나의 스트림으로 묶어서 방송을 지켜 줘요.',
+      post: '은 5G와 Wi-Fi를 하나의 스트림으로 묶어서 방송을 지켜 줘요.',
     },
     ledeOn: {
-      main: '4G, 5G, Wi-Fi를 하나의 스트림으로 묶었어요. 연결 하나가 끊겨도 나머지가 버텨요.',
-      extraPre: ' 전부 끊겨도 돌아올 때까지 BRB 화면이 ',
+      main: '5G와 Wi-Fi를 하나의 스트림으로 묶었어요. 연결 하나가 끊겨도 다른 하나가 버텨요.',
+      extraPre: ' 둘 다 끊겨도 돌아올 때까지 BRB 화면이 ',
       extraStrong: '방송을 켜 둬요',
       extraPost: '.',
     },
@@ -64,8 +64,8 @@ export const ko: Dict = {
     switch: {
       on: 'StreamerKit 켜짐',
       off: 'StreamerKit 꺼짐',
-      onSub: '4G + 5G + Wi-Fi 본딩',
-      offSub: '4G 유심 하나뿐',
+      onSub: '5G + Wi-Fi 본딩',
+      offSub: '유심 하나뿐',
       hint: '켜 보세요',
     },
     telemetry: { viewers: '시청자', bitrate: '비트레이트', signal: '신호' },
@@ -76,7 +76,7 @@ export const ko: Dict = {
       offline: ['방송 종료 ㅠ', '딴 방송 보러 감', '다시 켜면 알려줘요'],
       on: [
         '완전 부드럽네',
-        '이게 4G라고?',
+        '폰 방송 같지가 않아',
         '무대 미쳤다ㅋㅋ',
         '5G 끊겼는데 하나도 안 끊김 ㄷㄷ',
         '하이하이',
@@ -99,8 +99,9 @@ export const ko: Dict = {
   proof: {
     title: 'StreamerKit으로 방송하는 스트리머',
     stats: [
-      { value: '100', label: '명의 스트리머가 사용 중' },
-      { value: '2만', label: '시간 라이브 송출' },
+      { value: '1', label: '년 전 설립' },
+      { value: '100+', label: '명의 스트리머가 사용 중' },
+      { value: '2만+', label: '시간 라이브 송출' },
     ],
   },
 
@@ -136,7 +137,7 @@ export const ko: Dict = {
   bonding: {
     kicker: 'StreamerKit이 버티는 원리',
     title: ['연결 하나가 끊겨도', '방송은 계속돼요.'],
-    lede: 'SRTLA 본딩은 폰의 4G, 5G, Wi-Fi를 하나의 스트림으로 합쳐요. 직접 해 보세요: 연결을 눌러 끄고 플랫폼에 뭐가 나가는지 보세요.',
+    lede: 'SRTLA 본딩은 폰의 5G와 Wi-Fi를 하나의 스트림으로 합쳐요. 직접 해 보세요: 연결을 눌러 끄고 플랫폼에 뭐가 나가는지 보세요.',
     dropAll: '전부 끊기',
     reconnect: '다시 연결',
     viewerSees: '시청자 화면',
@@ -144,11 +145,11 @@ export const ko: Dict = {
     brbTitle: '잠시만요',
     brbSub: 'BRB 화면 · 방송은 계속 라이브',
     total: '합산 비트레이트',
-    countOf: '{n}/3',
+    countOf: '{n}/2',
     connections: '연결',
     sceneLabel: 'SRTLA 본딩',
     sceneLabelBrb: '신호 없음 · BRB로 버티는 중',
-    hint: '4G, 5G, Wi-Fi를 눌러 보세요',
+    hint: '5G나 Wi-Fi를 눌러 보세요',
     fallback: '폰 → Ingest → OBS → Twitch, Kick, YouTube',
     ariaUp: '{l}: 연결됨, 눌러서 끊기',
     ariaDown: '{l}: 끊김, 눌러서 다시 연결',
@@ -162,17 +163,13 @@ export const ko: Dict = {
         title: '자동 BRB 송출 중',
         text: '연결이 전부 끊겼어요. OBS가 BRB 화면으로 바꿔서 방송은 켜져 있어요. 신호가 돌아오면 알아서 라이브 화면으로 돌아가요.',
       },
-      three: {
-        title: '연결 3개 본딩 중',
-        text: '영상이 4G, 5G, Wi-Fi로 나뉘어서 전송돼요. 어느 하나 혼자 방송을 책임지지 않아요.',
-      },
-      two: {
-        title: '하나 끊겨도 둘이 버텨요',
-        text: 'SRTLA가 즉시 스트림을 다시 나눴어요. 시청자는 바뀐 걸 눈치채지 못해요.',
+      both: {
+        title: '연결 2개 본딩 중',
+        text: '영상이 5G와 Wi-Fi로 나뉘어서 전송돼요. 어느 하나 혼자 방송을 책임지지 않아요.',
       },
       one: {
-        title: '연결 하나로 버티는 중',
-        text: '남은 신호에 맞춰 비트레이트는 내려가지만 방송은 계속 라이브고, 잃어버린 패킷은 SRT가 다시 보내요.',
+        title: '하나 끊겨도 다른 하나가 버텨요',
+        text: 'SRTLA가 남은 연결로 스트림을 전부 옮겼어요. 시청자는 바뀐 걸 눈치채지 못해요.',
       },
     },
     // tabela de conexões interativa, cópia da tela do painel (rótulos curtos de interface)
@@ -419,7 +416,7 @@ export const ko: Dict = {
     onlyAdvanced: '(어드밴스드 전용)',
     bothTitle: '두 요금제 공통 포함',
     included: [
-      'SRTLA 본딩 (4G + 5G + Wi-Fi)',
+      'SRTLA 본딩 (5G + Wi-Fi)',
       '자동 BRB 장면',
       '최대 4곳 동시 송출',
       '위젯이 있는 Canvas',
